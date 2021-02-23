@@ -3,8 +3,8 @@
 A new Flutter project.
 
 ## Authors
-Mauricio Duran @mauduran
-Edgar Medina @ipanchomx
+- Mauricio Duran @mauduran
+- Edgar Medina @ipanchomx
 ## Getting Started
 
 This project is a starting point for a Flutter application.
