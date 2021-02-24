@@ -43,6 +43,28 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   var destination = "San Luis Potosi";
   var conversationName = "El Rolas";
 
+  final ScrollController _scrollController = ScrollController();
+  final _messageInput = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void addMessage() {
+    if (_messageInput.text.trim().length > 0) {
+      setState(() {
+        messages.add(
+          ChatMessage(
+            messageContent: _messageInput.text.trim(),
+            messageSender: 'mau4duran',
+            date: DateTime.now(),
+          ),
+        );
+        _messageInput.text = "";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,22 +117,28 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
           Expanded(
             // height: MediaQuery.of(context).size.height * .8,
             child: ListView.builder(
+              controller: _scrollController,
               itemCount: messages.length,
               shrinkWrap: true,
+              reverse: true,
               padding: EdgeInsets.only(top: 10, bottom: 10),
               itemBuilder: (context, index) {
-                return Message(message: messages[index]);
+                return Message(message: messages.reversed.toList()[index]);
               },
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
-            height: 60,
+            padding: EdgeInsets.only(left: 10, bottom: 10, top: 10, right: 10),
+            constraints: BoxConstraints(minHeight: 60, maxHeight: 300),
             width: double.infinity,
             child: Row(
               children: <Widget>[
                 Expanded(
                   child: TextField(
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    controller: _messageInput,
+                    onSubmitted: (e) => addMessage(),
                     decoration: InputDecoration(
                         hintText: "Write message...",
                         hintStyle: TextStyle(color: Colors.black54),
@@ -121,7 +149,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   width: 5,
                 ),
                 FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    addMessage();
+                  },
                   child: Icon(
                     Icons.send,
                   ),
