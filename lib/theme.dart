@@ -144,8 +144,8 @@ final ThemeData myTheme = ThemeData(
       fontStyle: FontStyle.normal,
     ),
     subtitle2: TextStyle(
-      color: Color(0xff000000),
-      fontSize: 14.0,
+      color: Colors.white,
+      fontSize: 12.0,
       fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
     ),
@@ -497,3 +497,7 @@ final ThemeData myTheme = ThemeData(
     borderRadius: BorderRadius.all(Radius.circular(0.0)),
   )),
 );
+
+OutlineInputBorder RoundedInputBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(20),
+    borderSide: BorderSide(color: Colors.grey.shade100));
