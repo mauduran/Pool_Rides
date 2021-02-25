@@ -9,6 +9,10 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   DateTime _date = DateTime.now();
+  var _emailController = TextEditingController();
+  var _firstNameController = TextEditingController();
+  var _lastNameController = TextEditingController();
+  var _phoneController = TextEditingController();
 
   void _selectDate() async {
     final DateTime newDate = await showDatePicker(
@@ -25,8 +29,6 @@ class _SignUpState extends State<SignUp> {
       });
     }
   }
-
-  var _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +68,7 @@ class _SignUpState extends State<SignUp> {
                     padding:
                         const EdgeInsets.only(left: 30.0, right: 30, top: 20),
                     child: TextField(
+                      controller: _emailController,
                       // cursorColor: Colors.red,
                       decoration: InputDecoration(
                         labelText: 'Email',
@@ -109,6 +112,7 @@ class _SignUpState extends State<SignUp> {
                     padding:
                         const EdgeInsets.only(left: 30.0, right: 30, top: 20),
                     child: TextField(
+                      controller: _firstNameController,
                       // cursorColor: Colors.red,
                       decoration: InputDecoration(
                         labelText: 'Nombre(s)',
@@ -130,6 +134,7 @@ class _SignUpState extends State<SignUp> {
                     padding:
                         const EdgeInsets.only(left: 30.0, right: 30, top: 25),
                     child: TextField(
+                      controller: _lastNameController,
                       // cursorColor: Colors.red,
                       decoration: InputDecoration(
                         labelText: 'Apellido(s)',
@@ -211,6 +216,7 @@ class _SignUpState extends State<SignUp> {
                     padding:
                         const EdgeInsets.only(left: 30.0, right: 30, top: 20),
                     child: TextField(
+                      controller: _phoneController,
                       // cursorColor: Colors.red,
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
@@ -245,6 +251,9 @@ class _SignUpState extends State<SignUp> {
                     foregroundColor: Colors.white,
                     onPressed: () {
                       // Respond to button press
+                      Navigator.of(context).pushNamed(
+                        '/SignUp2',
+                      );
                     },
                     child: Icon(
                       Icons.arrow_forward,
