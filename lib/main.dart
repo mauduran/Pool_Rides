@@ -2,6 +2,7 @@ import 'package:Pool_Rides/homepage/HomePage.dart';
 import 'package:Pool_Rides/principal/principal.dart';
 import 'package:Pool_Rides/session/sign_up.dart';
 import 'package:Pool_Rides/session/sign_up_2.dart';
+import 'package:Pool_Rides/reviews/ReviewsPage.dart';
 import 'package:Pool_Rides/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/HomePage': (context) => HomePage(title: 'Pool Rides'),
         '/SignUp': (context) => SignUp(),
         '/SignUp2': (context) => SignUp2(),
+        '/reviews': (context) => ReviewsPage(),
       },
     );
   }

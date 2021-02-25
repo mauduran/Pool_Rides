@@ -103,8 +103,8 @@ final ThemeData myTheme = ThemeData(
     ),
     headline5: TextStyle(
       color: Color(0xdd000000),
-      fontSize: 24.0,
-      fontWeight: FontWeight.w400,
+      fontSize: 26.0,
+      fontWeight: FontWeight.w600,
       fontStyle: FontStyle.normal,
     ),
     headline6: TextStyle(
@@ -183,8 +183,8 @@ final ThemeData myTheme = ThemeData(
     ),
     headline5: TextStyle(
       color: Color(0xffffffff),
-      fontSize: 24.0,
-      fontWeight: FontWeight.w400,
+      fontSize: 26.0,
+      fontWeight: FontWeight.w600,
       fontStyle: FontStyle.normal,
     ),
     headline6: TextStyle(
@@ -263,8 +263,8 @@ final ThemeData myTheme = ThemeData(
     ),
     headline5: TextStyle(
       color: Color(0xffffffff),
-      fontSize: 24.0,
-      fontWeight: FontWeight.w400,
+      fontSize: 26.0,
+      fontWeight: FontWeight.w600,
       fontStyle: FontStyle.normal,
     ),
     headline6: TextStyle(
@@ -498,6 +498,6 @@ final ThemeData myTheme = ThemeData(
   )),
 );
 
-OutlineInputBorder RoundedInputBorder = OutlineInputBorder(
+OutlineInputBorder roundedInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(20),
     borderSide: BorderSide(color: Colors.grey.shade100));
