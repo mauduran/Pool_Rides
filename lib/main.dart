@@ -1,5 +1,6 @@
 import 'package:Pool_Rides/homepage/HomePage.dart';
 import 'package:Pool_Rides/principal/principal.dart';
+import 'package:Pool_Rides/session/sign_up.dart';
 import 'package:Pool_Rides/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/test': (context) => HomePage(title: 'Pool Rides'),
         '/': (context) => Principal(),
+        '/SignUp': (context) => SignUp(),
       },
     );
   }
