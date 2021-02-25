@@ -21,7 +21,13 @@ class _HomePageState extends State<HomePage> {
         title: Text(widget.title),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ChatDetailPage(),
+                ),
+              );
+            },
             icon: Icon(Icons.chat),
           )
         ],
@@ -40,18 +46,14 @@ class _HomePageState extends State<HomePage> {
               filled: true,
               fillColor: Colors.grey.shade300,
               contentPadding: EdgeInsets.all(8),
-              focusedBorder: RoundedInputBorder,
-              border: RoundedInputBorder,
-              enabledBorder: RoundedInputBorder),
+              focusedBorder: roundedInputBorder,
+              border: roundedInputBorder,
+              enabledBorder: roundedInputBorder),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => ChatDetailPage(),
-            ),
-          );
+          Navigator.pushNamed(context, '/reviews');
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
