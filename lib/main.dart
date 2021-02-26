@@ -1,3 +1,4 @@
+import 'package:Pool_Rides/create-review/CreateReviewPage.dart';
 import 'package:Pool_Rides/homepage/HomePage.dart';
 import 'package:Pool_Rides/principal/principal.dart';
 import 'package:Pool_Rides/principal/principal_signin.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Pool Rides',
       theme: myTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/make-review',
       routes: {
         '/': (context) => Principal(),
         '/HomePage': (context) => HomePage(title: 'Pool Rides'),
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/SignUp2': (context) => SignUp2(),
         '/SignIn': (context) => SignIn(),
         '/reviews': (context) => ReviewsPage(),
+        '/make-review': (context) => CreateReviewPage()
       },
     );
   }

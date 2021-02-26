@@ -42,17 +42,14 @@ class _PrincipalSignInState extends State<PrincipalSignIn> {
                   ),
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Text(
-                          "Pool Rides",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26,
-                          ),
-                          textAlign: TextAlign.justify,
+                      Text(
+                        "Pool Rides",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26,
                         ),
+                        textAlign: TextAlign.justify,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 30),

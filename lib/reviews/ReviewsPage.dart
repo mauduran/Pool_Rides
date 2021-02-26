@@ -101,12 +101,6 @@ class _ReviewsPageState extends State<ReviewsPage> {
             ),
             ReviewSummary(),
             ..._getReviewDetails()
-            // Expanded(
-            //   child: ListView.builder(
-            //     itemCount: 3,
-            //     itemBuilder: (BuildContext context, int idx) => ReviewDetail(),
-            //   ),
-            // ),
           ],
         ),
       ),

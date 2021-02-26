@@ -96,7 +96,7 @@ final ThemeData myTheme = ThemeData(
       fontStyle: FontStyle.normal,
     ),
     headline4: TextStyle(
-      color: Color(0x8a000000),
+      color: Colors.black,
       fontSize: 34.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
