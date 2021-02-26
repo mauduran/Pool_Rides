@@ -19,10 +19,15 @@ class _PrincipalSignInState extends State<PrincipalSignIn> {
           child: Column(
             children: [
               Container(
+                  child: ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                    Color(0xFF4C5256).withOpacity(0.3), BlendMode.srcOver),
                 child: Image(
-                  image: AssetImage("assets/images/Car_Pool-min.jpeg"),
+                  image: AssetImage(
+                    "assets/images/Car_Pool-min.jpeg",
+                  ),
                 ),
-              ),
+              )),
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
