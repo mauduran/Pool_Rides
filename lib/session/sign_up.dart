@@ -8,7 +8,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  DateTime _date = DateTime.now();
+  DateTime _date = DateTime.now().subtract(Duration(days: 365 * 18 + 5));
   var _emailController = TextEditingController();
   var _firstNameController = TextEditingController();
   var _lastNameController = TextEditingController();
@@ -18,8 +18,8 @@ class _SignUpState extends State<SignUp> {
     final DateTime newDate = await showDatePicker(
       context: context,
       initialDate: _date,
-      firstDate: DateTime(1900, 1),
-      lastDate: DateTime(2050, 7),
+      firstDate: DateTime(1921, 1),
+      lastDate: _date,
       helpText: 'Select a date',
     );
 
