@@ -20,10 +20,10 @@ class MyApp extends StatelessWidget {
       title: 'Pool Rides',
       theme: myTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: '/make-review',
+      initialRoute: '/home',
       routes: {
         '/': (context) => Principal(),
-        '/HomePage': (context) => HomePage(title: 'Pool Rides'),
+        '/home': (context) => HomePage(title: 'Pool Rides'),
         '/PrincipalSignIn': (context) => PrincipalSignIn(),
         '/SignUp': (context) => SignUp(),
         '/SignUp2': (context) => SignUp2(),

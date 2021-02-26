@@ -75,7 +75,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Edgardo Rolas",
+                        "Edgar Rolas",
                         style: Theme.of(context).textTheme.headline5,
                       ),
                       Row(

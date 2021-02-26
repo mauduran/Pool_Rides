@@ -48,7 +48,7 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
                   width: 20,
                 ),
                 Text(
-                  "Edgardo Rolas",
+                  "Edgar Rolas",
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ],
