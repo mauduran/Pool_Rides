@@ -19,7 +19,7 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Registro",
+          "Iniciar Sesión",
         ),
       ),
       body: SingleChildScrollView(
@@ -82,7 +82,7 @@ class _SignInState extends State<SignIn> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Necesitas una contraseña",
+                        "Contraseña",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 22.5,
@@ -118,27 +118,27 @@ class _SignInState extends State<SignIn> {
                   SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: InkWell(
-                          child: new Text(
-                            'Contraseña olvidada',
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.of(context).pushNamed("/");
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   children: [
+                  //     Padding(
+                  //       padding: const EdgeInsets.only(left: 30.0),
+                  //       child: InkWell(
+                  //         child: new Text(
+                  //           'Contraseña olvidada',
+                  //           style: TextStyle(
+                  //             color: Theme.of(context).primaryColor,
+                  //             fontWeight: FontWeight.bold,
+                  //             fontSize: 18,
+                  //           ),
+                  //         ),
+                  //         onTap: () {
+                  //           Navigator.of(context).pushNamed("/");
+                  //         },
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
               SizedBox(
