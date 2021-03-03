@@ -214,7 +214,7 @@ class _SignUp2State extends State<SignUp2> {
                     onPressed: () {
                       // Respond to button press
                       // Navigator.pushAndRemoveUntil()  ----> Podría ser útil esto.
-                      Navigator.of(context).pushNamed("/HomePage");
+                      Navigator.of(context).pushNamed("/home");
                     },
                     child: Icon(
                       Icons.arrow_forward,

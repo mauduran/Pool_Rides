@@ -106,7 +106,7 @@ class _PrincipalSignInState extends State<PrincipalSignIn> {
                                     ],
                                   ),
                                   onPressed: () {
-                                    Navigator.of(context).pushNamed("/SignIn");
+                                    Navigator.of(context).pushNamed("/signin");
                                   },
                                 ),
                               ),
@@ -240,7 +240,7 @@ class _PrincipalSignInState extends State<PrincipalSignIn> {
                                 ),
                               ),
                               onTap: () {
-                                Navigator.of(context).pushNamed("/SignUp");
+                                Navigator.of(context).pushNamed("/signup");
                               },
                             ),
                           ),

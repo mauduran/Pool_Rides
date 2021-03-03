@@ -56,7 +56,7 @@ class _PrincipalState extends State<Principal> {
                         ],
                       ),
                       onPressed: () {
-                        Navigator.of(context).pushNamed("/PrincipalSignIn");
+                        Navigator.of(context).pushNamed("/principal-signin");
                       },
                     ),
                   ),

@@ -157,7 +157,7 @@ class _SignInState extends State<SignIn> {
                     onPressed: () {
                       // Respond to button press
                       Navigator.of(context).pushNamed(
-                        '/HomePage',
+                        '/home',
                       );
                     },
                     child: Icon(

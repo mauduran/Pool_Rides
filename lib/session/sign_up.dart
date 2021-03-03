@@ -252,7 +252,7 @@ class _SignUpState extends State<SignUp> {
                     onPressed: () {
                       // Respond to button press
                       Navigator.of(context).pushNamed(
-                        '/SignUp2',
+                        '/signup2',
                       );
                     },
                     child: Icon(
