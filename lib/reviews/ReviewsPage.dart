@@ -75,7 +75,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Edgardo Rolas",
+                        "Edgar Rolas",
                         style: Theme.of(context).textTheme.headline5,
                       ),
                       Row(
@@ -101,12 +101,6 @@ class _ReviewsPageState extends State<ReviewsPage> {
             ),
             ReviewSummary(),
             ..._getReviewDetails()
-            // Expanded(
-            //   child: ListView.builder(
-            //     itemCount: 3,
-            //     itemBuilder: (BuildContext context, int idx) => ReviewDetail(),
-            //   ),
-            // ),
           ],
         ),
       ),

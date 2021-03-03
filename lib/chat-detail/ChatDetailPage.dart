@@ -41,7 +41,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 
   var origin = "Guadalajara";
   var destination = "San Luis Potosi";
-  var conversationName = "El Rolas";
+  var conversationName = "Edgar Rolas";
 
   final ScrollController _scrollController = ScrollController();
   final _messageInput = TextEditingController();
