@@ -1,4 +1,6 @@
 import 'package:Pool_Rides/chat-detail/ChatDetailPage.dart';
+import 'package:Pool_Rides/travels/TravelCard.dart';
+import 'package:Pool_Rides/utils/lists.dart';
 import 'package:flutter/material.dart';
 
 import '../theme.dart';
@@ -32,23 +34,34 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.only(top: 16, left: 16, right: 16),
-        child: TextField(
-          decoration: InputDecoration(
-              hintText: "Search...",
-              hintStyle: TextStyle(color: Colors.grey.shade600),
-              prefixIcon: Icon(
-                Icons.search,
-                color: Colors.grey.shade600,
-                size: 20,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                    hintText: "Search...",
+                    hintStyle: TextStyle(color: Colors.grey.shade600),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.grey.shade600,
+                      size: 20,
+                    ),
+                    filled: true,
+                    fillColor: Colors.grey.shade300,
+                    contentPadding: EdgeInsets.all(8),
+                    focusedBorder: roundedInputBorder,
+                    border: roundedInputBorder,
+                    enabledBorder: roundedInputBorder),
               ),
-              filled: true,
-              fillColor: Colors.grey.shade300,
-              contentPadding: EdgeInsets.all(8),
-              focusedBorder: roundedInputBorder,
-              border: roundedInputBorder,
-              enabledBorder: roundedInputBorder),
+              SizedBox(height: 20),
+              for (int i = 0; i < travels.length; i++)
+                TravelCard(
+                  travel: travels[i],
+                )
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
