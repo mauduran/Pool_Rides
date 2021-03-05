@@ -59,6 +59,7 @@ class _HomePageState extends State<HomePage> {
               for (int i = 0; i < travels.length; i++)
                 TravelCard(
                   travel: travels[i],
+                  cercania: (i % 3),
                 )
             ],
           ),
