@@ -42,6 +42,16 @@ List<Travel> travels = [
     imageDriver: "https://randomuser.me/portraits/men/3.jpg",
   ),
   Travel(
+    driverName: "Omar Soto",
+    startTime: "14:00",
+    arrivalTime: "15:30",
+    priceTravel: 15.0,
+    stars: 5,
+    sourceName: "Guadalajara",
+    destinyName: "Mazamitla",
+    imageDriver: "https://randomuser.me/portraits/men/3.jpg",
+  ),
+  Travel(
     driverName: "Fernando Franco",
     startTime: "22:00",
     arrivalTime: "3:30",
@@ -50,5 +60,15 @@ List<Travel> travels = [
     sourceName: "Guadalajara",
     destinyName: "Toluca",
     imageDriver: "https://randomuser.me/portraits/men/4.jpg",
+  ),
+  Travel(
+    driverName: "Gustavo Rueda",
+    startTime: "13:30",
+    arrivalTime: "3:30",
+    priceTravel: 15.0,
+    stars: 5,
+    sourceName: "Guadalajara",
+    destinyName: "Tapalpa",
+    imageDriver: "https://randomuser.me/portraits/men/5.jpg",
   ),
 ];
