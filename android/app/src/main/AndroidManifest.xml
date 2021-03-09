@@ -12,7 +12,7 @@
         android:label="Pool Rides"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyDR9XsiUrqjkKXSnkqpeTeKLpKJNmcQ9uA"/>
+        android:value="YOUR_API_KEY_HERE"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -1,10 +1,11 @@
-import 'package:Pool_Rides/Location/AddressSearch.dart';
 import 'package:Pool_Rides/models/place.dart';
 import 'package:Pool_Rides/models/suggestion.dart';
 import 'package:Pool_Rides/services/place-service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
+
+import 'AddressSearch.dart';
 
 class LocationPicker extends StatefulWidget {
   LocationPicker({Key key}) : super(key: key);
