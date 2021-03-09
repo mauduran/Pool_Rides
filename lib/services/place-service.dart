@@ -37,7 +37,7 @@ class PlaceApiProvider {
     }
   }
 
-  Future<Place> getPlaceDetailFromId(String placeId) async {
+  Future<Place> getPlaceDetailFromId(String placeId, String description) async {
     final request = Uri.parse(
         'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$GOOGLE_API_KEY&sessiontoken=$sessionToken');
 
@@ -62,7 +62,12 @@ class PlaceApiProvider {
         );
 
         final coordinates = LatLng(coords["lat"], coords["lng"]);
-        final place = Place(bounds: boundsInfo, coordinates: coordinates);
+        final place = Place(
+          bounds: boundsInfo,
+          coordinates: coordinates,
+          placeId: placeId,
+          description: description,
+        );
 
         components.forEach((c) {
           final List type = c['types'];

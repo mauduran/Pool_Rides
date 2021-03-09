@@ -34,7 +34,7 @@ class _LocationPickerState extends State<LocationPicker> {
     );
     if (result != null) {
       final placeDetails = await PlaceApiProvider(sessionToken)
-          .getPlaceDetailFromId(result.placeId);
+          .getPlaceDetailFromId(result.placeId, result.description);
 
       FocusScope.of(context).unfocus();
 

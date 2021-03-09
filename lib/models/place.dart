@@ -6,6 +6,7 @@ class Place {
   String street;
   String city;
   String zipCode;
+  String description;
   LatLng coordinates;
   LatLngBounds bounds;
   String placeId;
@@ -17,7 +18,8 @@ class Place {
     this.zipCode,
     @required this.coordinates,
     @required this.bounds,
-    this.placeId,
+    @required this.placeId,
+    @required this.description,
   });
 
   @override
