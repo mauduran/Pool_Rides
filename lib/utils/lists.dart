@@ -8,7 +8,7 @@ List<Travel> travels = [
     priceTravel: 100.00,
     stars: 5,
     sourceName: "Guadalajara",
-    destinyName: "Colima",
+    destinationName: "Colima",
     imageDriver: "",
   ),
   Travel(
@@ -18,7 +18,7 @@ List<Travel> travels = [
     priceTravel: 200.00,
     stars: 5,
     sourceName: "Guadalajara",
-    destinyName: "San Luis Potosí",
+    destinationName: "San Luis Potosí",
     imageDriver: "https://randomuser.me/portraits/men/2.jpg",
   ),
   Travel(
@@ -28,7 +28,7 @@ List<Travel> travels = [
     priceTravel: 15.0,
     stars: 5,
     sourceName: "Guadalajara",
-    destinyName: "Autlán",
+    destinationName: "Autlán",
     imageDriver: "https://randomuser.me/portraits/women/2.jpg",
   ),
   Travel(
@@ -38,7 +38,7 @@ List<Travel> travels = [
     priceTravel: 15.0,
     stars: 5,
     sourceName: "Guadalajara",
-    destinyName: "Puerto Vallarta",
+    destinationName: "Puerto Vallarta",
     imageDriver: "https://randomuser.me/portraits/men/3.jpg",
   ),
   Travel(
@@ -48,7 +48,7 @@ List<Travel> travels = [
     priceTravel: 15.0,
     stars: 5,
     sourceName: "Guadalajara",
-    destinyName: "Mazamitla",
+    destinationName: "Mazamitla",
     imageDriver: "https://randomuser.me/portraits/men/3.jpg",
   ),
   Travel(
@@ -58,7 +58,7 @@ List<Travel> travels = [
     priceTravel: 15.0,
     stars: 5,
     sourceName: "Guadalajara",
-    destinyName: "Toluca",
+    destinationName: "Toluca",
     imageDriver: "https://randomuser.me/portraits/men/4.jpg",
   ),
   Travel(
@@ -68,7 +68,7 @@ List<Travel> travels = [
     priceTravel: 15.0,
     stars: 5,
     sourceName: "Guadalajara",
-    destinyName: "Tapalpa",
+    destinationName: "Tapalpa",
     imageDriver: "https://randomuser.me/portraits/men/5.jpg",
   ),
 ];

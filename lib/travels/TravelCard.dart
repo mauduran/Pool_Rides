@@ -40,7 +40,7 @@ class TravelCard extends StatelessWidget {
                         places(
                           context: context,
                           upText: travel.sourceName,
-                          downText: travel.destinyName,
+                          downText: travel.destinationName,
                           colorDefault: false,
                           cercaniaOrigen: cercania,
                           cercaniaDestino: (cercania + 1) % 3,

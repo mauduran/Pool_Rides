@@ -65,7 +65,7 @@ class TravelCard extends StatelessWidget {
                         ),
                         SizedBox(width: 12),
                         Text(
-                          travel.destinyName,
+                          travel.destinationName,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

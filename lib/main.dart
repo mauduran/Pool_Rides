@@ -1,3 +1,4 @@
+import 'package:Pool_Rides/Location/LocationPicker.dart';
 import 'package:Pool_Rides/create-review/CreateReviewPage.dart';
 import 'package:Pool_Rides/homepage/HomePage.dart';
 import 'package:Pool_Rides/principal/principal.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Pool Rides',
       theme: myTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/location-picker',
       routes: {
         '/': (context) => Principal(),
         '/home': (context) => HomePage(title: 'Pool Rides'),
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
         '/signup2': (context) => SignUp2(),
         '/signin': (context) => SignIn(),
         '/reviews': (context) => ReviewsPage(),
-        '/make-review': (context) => CreateReviewPage()
+        '/make-review': (context) => CreateReviewPage(),
+        '/location-picker': (context) => LocationPicker(),
       },
     );
   }

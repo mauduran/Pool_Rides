@@ -7,7 +7,7 @@ class Travel {
   final double priceTravel;
   final double stars;
   final String sourceName;
-  final String destinyName;
+  final String destinationName;
   final String imageDriver;
   Travel({
     @required this.driverName,
@@ -16,7 +16,7 @@ class Travel {
     @required this.priceTravel,
     @required this.stars,
     @required this.sourceName,
-    @required this.destinyName,
+    @required this.destinationName,
     @required this.imageDriver,
   });
 }
