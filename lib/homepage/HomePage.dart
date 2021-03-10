@@ -1,5 +1,6 @@
 import 'package:Pool_Rides/chat-detail/ChatDetailPage.dart';
 import 'package:Pool_Rides/travels/TravelCard.dart';
+import 'package:Pool_Rides/travels/travel-detail/travelDetail.dart';
 import 'package:Pool_Rides/utils/lists.dart';
 import 'package:flutter/material.dart';
 
@@ -57,9 +58,21 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 20),
               for (int i = 0; i < travels.length; i++)
-                TravelCard(
-                  travel: travels[i],
-                  cercania: (i % 3),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => TravelDetailPage(
+                          cercania: (i % 3),
+                          travelDetail: travels[i],
+                        ),
+                      ),
+                    );
+                  },
+                  child: TravelCard(
+                    travel: travels[i],
+                    cercania: (i % 3),
+                  ),
                 )
             ],
           ),
