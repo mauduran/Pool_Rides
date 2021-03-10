@@ -2,9 +2,9 @@ import 'package:Pool_Rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class Passenger extends StatelessWidget {
-  final User passenger;
-  const Passenger({Key key, @required this.passenger}) : super(key: key);
+class UserDetail extends StatelessWidget {
+  final User user;
+  const UserDetail({Key key, @required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,8 @@ class Passenger extends StatelessWidget {
               ),
               CircleAvatar(
                 backgroundImage: NetworkImage(
-                  passenger.image != ""
-                      ? passenger.image
+                  user.image != ""
+                      ? user.image
                       : "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
                 ),
                 maxRadius: 60.0,
@@ -29,14 +29,14 @@ class Passenger extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 30.0),
                 child: Text(
-                  "${passenger.name}",
+                  "${user.name}",
                   style: Theme.of(context).textTheme.headline5,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Text(
-                  "${passenger.age} años",
+                  "${user.age} años",
                   style: TextStyle(
                     fontSize: 20,
                     color: Theme.of(context).primaryColor,
@@ -51,7 +51,7 @@ class Passenger extends StatelessWidget {
                   horizontal: 30,
                 ),
                 child: Text(
-                  "${passenger.biography}",
+                  "${user.biography}",
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
@@ -64,7 +64,7 @@ class Passenger extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   //TO DO: Ir hacia las reseñas de este usuario
-                  print(passenger.name);
+                  print(user.name);
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -82,7 +82,7 @@ class Passenger extends StatelessWidget {
                             width: 5,
                           ),
                           Text(
-                            "${passenger.stars.toString().substring(0, 4)}/5 - ${passenger.reviewsNumber} reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                            "${user.stars.toString().substring(0, 4)}/5 - ${user.reviewsNumber} reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                               fontSize: 17.5,
@@ -114,7 +114,7 @@ class Passenger extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "Usuario desde ${DateFormat.yMMMM().format(passenger.joined)}",
+                      "Usuario desde ${DateFormat.yMMMM().format(user.joined)}",
                       style: TextStyle(
                         fontSize: 17.5,
                         fontWeight: FontWeight.bold,
