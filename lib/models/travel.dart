@@ -1,3 +1,4 @@
+import 'package:Pool_Rides/models/cars.dart';
 import 'package:Pool_Rides/models/user.dart';
 import 'package:flutter/foundation.dart';
 
@@ -15,6 +16,9 @@ class Travel {
 
   final User driver;
   final List<User> passengers;
+
+  final bool isCarSpecified;
+  final Cars car;
   Travel({
     @required this.driver,
     @required this.passengers,
@@ -26,5 +30,7 @@ class Travel {
     @required this.priceTravel,
     @required this.sourceName,
     @required this.destinyName,
+    @required this.isCarSpecified,
+    this.car,
   });
 }
