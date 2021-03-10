@@ -1,6 +1,61 @@
 import 'dart:math';
+import 'package:Pool_Rides/models/cars.dart';
 import 'package:Pool_Rides/models/travel.dart';
 import 'package:Pool_Rides/models/user.dart';
+
+// ---------------------------------------------------
+// --------------------- CARS ------------------------
+// ---------------------------------------------------
+
+List<Cars> cars = [
+  Cars(
+    model: "Chevrolet Aveo",
+    color: "blanco",
+    image:
+        "https://www.chevrolet.com.mx/content/dam/chevrolet/na/mx/es/index/cars/2020-aveo/colorizer/01-images/azul-pacifico.jpg?imwidth=960",
+  ),
+  Cars(
+    model: "Mazda 2",
+    color: "gris",
+    image:
+        "https://www.mazda.mx/siteassets/mazda-mx/mycos-2021/mazda2-hatchback/vlp/360/gris-titanio/mazda2-hb-gris-titanio-ext-360-02-24-s.jpg",
+  ),
+  Cars(
+    model: "Volkswagen PASSAT",
+    color: "Azul",
+    image: "https://fotos02.autofacil.es/2019/06/25/690x278/iris.jpg",
+  ),
+  Cars(
+    model: "Toyota Corolla",
+    color: "blanco",
+    image:
+        "https://www.excelenciasdelmotor.com/sites/default/files/2019-11/portada_corolla.jpg",
+  ),
+  Cars(
+    model: "Volkswagen Jetta",
+    color: "negro",
+    image:
+        "https://img.automexico.com/2020/05/19/i8InHrze/jetta-precios-5-4c7d.jpg",
+  ),
+  Cars(
+    model: "Nissan Sentra",
+    color: "plata",
+    image:
+        "https://www.revistaturbo.com/sites/default/files/nissansentra_0.jpg",
+  ),
+  Cars(
+    model: "Nissan Altima",
+    color: "rojo",
+    image:
+        "https://www.nissan.com.mx/content/dam/Nissan/mexico/vehicles/Altima/MY19/VAP/altima-grade-19-terantbwa-uslhd-pace.jpg.ximg.l_6_m.smart.png",
+  ),
+  Cars(
+    model: "Chevrolet Malibu",
+    color: "plata",
+    image:
+        "https://www.chevrolet.com/content/dam/chevrolet/na/us/english/index/vehicles/2021/cars/malibu/colorizer/01-images/2021-malibu-1zs69-gaz-colorizer.jpg?imwidth=960",
+  ),
+];
 
 // ---------------------------------------------------
 // --------------------- USERS -----------------------
@@ -18,6 +73,7 @@ List<User> users = [
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
     reviews: null,
+    cars: [cars[Random(1).nextInt(7)]],
   ),
   User(
     name: "Mauricio Durán Padilla",
@@ -30,6 +86,7 @@ List<User> users = [
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
     reviews: null,
+    cars: [cars[Random(2).nextInt(7)]],
   ),
   User(
     name: "Anahí Santana",
@@ -42,6 +99,7 @@ List<User> users = [
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
     reviews: null,
+    cars: [cars[Random(3).nextInt(7)]],
   ),
   User(
     name: "Martín Casillas",
@@ -54,6 +112,7 @@ List<User> users = [
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
     reviews: null,
+    cars: [cars[Random(4).nextInt(7)]],
   ),
   User(
     name: "Omar Soto",
@@ -66,6 +125,7 @@ List<User> users = [
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
     reviews: null,
+    cars: [cars[Random(5).nextInt(7)]],
   ),
   User(
     name: "Fernando Franco",
@@ -78,6 +138,7 @@ List<User> users = [
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
     reviews: null,
+    cars: [cars[Random(6).nextInt(7)]],
   ),
   User(
     name: "Gustavo Rueda",
@@ -90,6 +151,7 @@ List<User> users = [
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
     reviews: null,
+    cars: [cars[Random(7).nextInt(7)]],
   ),
   User(
     name: "Salvador Gonzalez",
@@ -102,6 +164,7 @@ List<User> users = [
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
     reviews: null,
+    cars: [cars[Random(8).nextInt(7)]],
   ),
 ];
 
@@ -121,6 +184,8 @@ List<Travel> travels = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[0],
     passengers: users.getRange(3, 7).toList(),
+    isCarSpecified: true,
+    car: users[0].cars[0],
   ),
   Travel(
     startTime: "4:00",
@@ -133,6 +198,7 @@ List<Travel> travels = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[1],
     passengers: users.getRange(4, 6).toList(),
+    isCarSpecified: false,
   ),
   Travel(
     startTime: "5:00",
@@ -145,6 +211,8 @@ List<Travel> travels = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[2],
     passengers: users.getRange(0, 2).toList(),
+    isCarSpecified: true,
+    car: users[2].cars[0],
   ),
   Travel(
     startTime: "6:00",
@@ -157,6 +225,7 @@ List<Travel> travels = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[3],
     passengers: users.getRange(0, 1).toList(),
+    isCarSpecified: false,
   ),
   Travel(
     startTime: "7:00",
@@ -169,6 +238,8 @@ List<Travel> travels = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[4],
     passengers: users.getRange(2, 4).toList(),
+    isCarSpecified: true,
+    car: users[4].cars[0],
   ),
   Travel(
     startTime: "8:00",
@@ -181,6 +252,7 @@ List<Travel> travels = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[5],
     passengers: users.getRange(1, 2).toList(),
+    isCarSpecified: false,
   ),
   Travel(
     startTime: "9:00",
@@ -193,6 +265,8 @@ List<Travel> travels = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[6],
     passengers: users.getRange(0, 2).toList(),
+    isCarSpecified: true,
+    car: users[6].cars[0],
   ),
   Travel(
     startTime: "10:00",
@@ -205,5 +279,6 @@ List<Travel> travels = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[7],
     passengers: users.getRange(0, 1).toList(),
+    isCarSpecified: false,
   ),
 ];
