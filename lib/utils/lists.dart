@@ -9,7 +9,8 @@ import 'package:Pool_Rides/models/user.dart';
 List<User> users = [
   User(
     name: "Edgar Medina Rifas",
-    biography: "biography",
+    biography:
+        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.",
     image: "",
     age: 22,
     travelsNumber: Random().nextInt(1000),
@@ -20,7 +21,8 @@ List<User> users = [
   ),
   User(
     name: "Mauricio Durán Padilla",
-    biography: "biography",
+    biography:
+        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas 'Letraset', las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",
     image: "https://randomuser.me/portraits/men/2.jpg",
     age: 22,
     travelsNumber: Random().nextInt(1000),
@@ -31,7 +33,8 @@ List<User> users = [
   ),
   User(
     name: "Anahí Santana",
-    biography: "biography",
+    biography:
+        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas 'Letraset', las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",
     image: "https://randomuser.me/portraits/women/2.jpg",
     age: 23,
     travelsNumber: Random().nextInt(1000),
@@ -42,7 +45,8 @@ List<User> users = [
   ),
   User(
     name: "Martín Casillas",
-    biography: "biography",
+    biography:
+        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas 'Letraset', las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",
     image: "https://randomuser.me/portraits/men/2.jpg",
     age: 23,
     travelsNumber: Random().nextInt(1000),
@@ -53,7 +57,8 @@ List<User> users = [
   ),
   User(
     name: "Omar Soto",
-    biography: "biography",
+    biography:
+        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.",
     image: "https://randomuser.me/portraits/men/3.jpg",
     age: 21,
     travelsNumber: Random().nextInt(1000),
@@ -64,7 +69,8 @@ List<User> users = [
   ),
   User(
     name: "Fernando Franco",
-    biography: "biography",
+    biography:
+        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas 'Letraset', las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",
     image: "https://randomuser.me/portraits/men/6.jpg",
     age: 21,
     travelsNumber: Random().nextInt(1000),
@@ -75,7 +81,8 @@ List<User> users = [
   ),
   User(
     name: "Gustavo Rueda",
-    biography: "biography",
+    biography:
+        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.",
     image: "https://randomuser.me/portraits/men/4.jpg",
     age: 22,
     travelsNumber: Random().nextInt(1000),
@@ -86,7 +93,8 @@ List<User> users = [
   ),
   User(
     name: "Salvador Gonzalez",
-    biography: "biography",
+    biography:
+        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas 'Letraset', las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",
     image: "https://randomuser.me/portraits/men/5.jpg",
     age: 22,
     travelsNumber: Random().nextInt(1000),
