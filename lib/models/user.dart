@@ -1,3 +1,4 @@
+import 'package:Pool_Rides/models/cars.dart';
 import 'package:Pool_Rides/models/review.dart';
 import 'package:flutter/foundation.dart';
 
@@ -12,6 +13,7 @@ class User {
 
   final DateTime joined;
   final List<Review> reviews;
+  final List<Cars> cars;
   User({
     @required this.name,
     @required this.biography,
@@ -22,5 +24,6 @@ class User {
     @required this.stars,
     @required this.joined,
     @required this.reviews,
+    @required this.cars,
   });
 }
