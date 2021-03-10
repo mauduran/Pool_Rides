@@ -1,4 +1,6 @@
 import 'package:Pool_Rides/models/travel.dart';
+import 'package:Pool_Rides/utils/places.dart';
+import 'package:Pool_Rides/utils/principalText.dart';
 import 'package:flutter/material.dart';
 
 class TravelCard extends StatelessWidget {
@@ -56,8 +58,8 @@ class TravelCard extends StatelessWidget {
                       children: <Widget>[
                         CircleAvatar(
                           backgroundImage: NetworkImage(
-                            travel.imageDriver != ""
-                                ? travel.imageDriver
+                            travel.driver.image != ""
+                                ? travel.driver.image
                                 : "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
                           ),
                           maxRadius: 22.5,
@@ -73,7 +75,7 @@ class TravelCard extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(left: 3.0),
                               child: Text(
-                                travel.driverName,
+                                travel.driver.name,
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
@@ -87,7 +89,10 @@ class TravelCard extends StatelessWidget {
                               children: [
                                 Icon(Icons.star),
                                 SizedBox(width: 6),
-                                Text(travel.stars.toString(),
+                                Text(
+                                    travel.driver.stars
+                                        .toString()
+                                        .substring(0, 4),
                                     style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.w600,
@@ -104,7 +109,7 @@ class TravelCard extends StatelessWidget {
               Align(
                 alignment: Alignment.topRight,
                 child: Text(
-                  "\$${travel.priceTravel.toString()}",
+                  "\$${travel.priceTravel.toString().substring(0, 6)}",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -115,184 +120,6 @@ class TravelCard extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget principalText({
-    @required upText,
-    @required downText,
-    @required context,
-    @required colorDefault,
-  }) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 2.5),
-          child: Text(
-            upText,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 5.0,
-            top: 5,
-            bottom: 5,
-          ),
-          child: Icon(
-            Icons.south,
-            size: 30,
-            color: colorDefault
-                ? Theme.of(context).primaryColor
-                : Color(0xFFEFF2F6),
-          ),
-        ),
-        Text(
-          downText,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(
-          height: 40,
-        ),
-      ],
-    );
-  }
-
-  Widget places({
-    @required upText,
-    @required downText,
-    @required context,
-    @required colorDefault,
-    @required cercaniaOrigen,
-    @required cercaniaDestino,
-  }) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          upText,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: cercaniaOrigen == 0
-                        ? Colors.green[300]
-                        : Color(0xFFEFF2F6),
-                  ),
-                  height: 30,
-                  width: 30,
-                  child: Icon(
-                    Icons.directions_walk,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: cercaniaOrigen == 1
-                        ? Colors.yellow[300]
-                        : Color(0xFFEFF2F6),
-                  ),
-                  height: 30,
-                  width: 30,
-                  child: Icon(Icons.directions_walk),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: cercaniaOrigen == 2
-                        ? Color(0xFFff6257)
-                        : Color(0xFFEFF2F6),
-                  ),
-                  height: 30,
-                  width: 30,
-                  child: Icon(Icons.directions_walk),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Text(
-          downText,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: cercaniaDestino == 0
-                        ? Colors.green[300]
-                        : Color(0xFFEFF2F6),
-                  ),
-                  child: Icon(Icons.directions_walk),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: cercaniaDestino == 1
-                        ? Colors.yellow[300]
-                        : Color(0xFFEFF2F6),
-                  ),
-                  height: 30,
-                  width: 30,
-                  child: Icon(Icons.directions_walk),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: cercaniaDestino == 2
-                        ? Color(0xFFff6257)
-                        : Color(0xFFEFF2F6),
-                  ),
-                  height: 30,
-                  width: 30,
-                  child: Icon(Icons.directions_walk),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }
