@@ -1,6 +1,7 @@
+import 'package:Pool_Rides/models/cars.dart';
 import 'package:Pool_Rides/models/travel.dart';
 import 'package:Pool_Rides/models/user.dart';
-import 'package:Pool_Rides/user/passenger.dart';
+import 'package:Pool_Rides/user/user.dart';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -119,10 +120,7 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
               ),
             ),
             driverInformation(
-              stars: widget.travelDetail.driver.stars,
-              driverName: widget.travelDetail.driver.name,
-              imageDriver: widget.travelDetail.driver.image,
-              reviewsNumber: widget.travelDetail.driver.reviewsNumber,
+              user: widget.travelDetail.driver,
             ),
             SizedBox(
               height: 20,
@@ -146,6 +144,10 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
                 },
               ),
             ),
+            if (widget.travelDetail.isCarSpecified)
+              carInformation(
+                car: widget.travelDetail.car,
+              ),
             SizedBox(
               height: 10,
             ),
@@ -166,7 +168,7 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
             ),
             for (int i = 0; i < widget.travelDetail.passengers.length; i++)
               passengerBuilder(
-                passenger: widget.travelDetail.passengers[i],
+                user: widget.travelDetail.passengers[i],
               ),
             SizedBox(
               height: 10,
@@ -223,20 +225,26 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
     );
   }
 
+// ---------------------------------------------------
+// ---------------------------------------------------
+// --------------------- WIDGETS ---------------------
+// ---------------------------------------------------
+// ---------------------------------------------------
+
   Widget passengerBuilder({
-    @required User passenger,
+    @required User user,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: GestureDetector(
         onTap: () {
           // To Do: Ir hacia perfil de usuario
-          print(passenger.name);
+          print(user.name);
 
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => Passenger(
-                passenger: passenger,
+              builder: (context) => UserDetail(
+                user: user,
               ),
             ),
           );
@@ -254,7 +262,7 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    passenger.name,
+                    user.name,
                     style: TextStyle(
                       fontSize: 17.5,
                     ),
@@ -273,7 +281,7 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
                         width: 5,
                       ),
                       Text(
-                        "${passenger.stars.toString().substring(0, 4)}/5 - ${passenger.reviewsNumber} reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                        "${user.stars.toString().substring(0, 4)}/5 - ${user.reviewsNumber} reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                         ),
@@ -286,8 +294,8 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
                 children: [
                   CircleAvatar(
                     backgroundImage: NetworkImage(
-                      passenger.image != ""
-                          ? passenger.image
+                      user.image != ""
+                          ? user.image
                           : "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
                     ),
                     maxRadius: 22.5,
@@ -306,16 +314,83 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
     );
   }
 
+  Widget carInformation({
+    @required Cars car,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 30.0,
+        right: 20,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                car.model,
+                style: TextStyle(
+                  fontSize: 17.5,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "${car.color}", // To Do: agregar el atributo "No. de reseñas en conductor"
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(
+                  car.image != ""
+                      ? car.image
+                      : "https://i.pinimg.com/originals/c0/0b/69/c00b692e9820c3970e907eae9bf2be25.png",
+                ),
+                maxRadius: 22.5,
+                backgroundColor: Colors.grey[300],
+              ),
+              Icon(
+                Icons.keyboard_arrow_right,
+                size: 27.5,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget driverInformation({
-    @required driverName,
-    @required stars,
-    @required imageDriver,
-    @required reviewsNumber,
+    @required User user,
   }) {
     return GestureDetector(
       onTap: () {
         // To Do: Ir hacia perfil de usuario
-        print(driverName);
+        print(user.name);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => UserDetail(
+              user: user,
+            ),
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.only(
@@ -330,7 +405,7 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  driverName,
+                  user.name,
                   style: TextStyle(
                     fontSize: 17.5,
                   ),
@@ -349,7 +424,7 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
                       width: 5,
                     ),
                     Text(
-                      "${stars.toString().substring(0, 4)}/5 - $reviewsNumber reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                      "${user.stars.toString().substring(0, 4)}/5 - ${user.reviewsNumber} reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                       ),
@@ -362,8 +437,8 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
               children: [
                 CircleAvatar(
                   backgroundImage: NetworkImage(
-                    imageDriver != ""
-                        ? imageDriver
+                    user.image != ""
+                        ? user.image
                         : "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
                   ),
                   maxRadius: 22.5,
