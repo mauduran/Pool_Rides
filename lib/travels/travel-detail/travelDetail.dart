@@ -1,5 +1,6 @@
 import 'package:Pool_Rides/models/travel.dart';
 import 'package:Pool_Rides/models/user.dart';
+import 'package:Pool_Rides/user/passenger.dart';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -231,6 +232,14 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
         onTap: () {
           // To Do: Ir hacia perfil de usuario
           print(passenger.name);
+
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => Passenger(
+                passenger: passenger,
+              ),
+            ),
+          );
         },
         child: Padding(
           padding: const EdgeInsets.only(
