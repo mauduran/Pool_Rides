@@ -8,8 +8,11 @@ import 'package:Pool_Rides/session/sign_up_2.dart';
 import 'package:Pool_Rides/reviews/ReviewsPage.dart';
 import 'package:Pool_Rides/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
+  Intl.defaultLocale = 'es_MX';
+
   runApp(MyApp());
 }
 
