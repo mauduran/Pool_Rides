@@ -6,8 +6,10 @@ class User {
   final String name;
   final String biography;
   final String image;
+  final String email;
+  final String phoneNumber;
   final int age;
-  final int travelsNumber;
+  final int tripsNumber;
   final int reviewsNumber;
   final double stars;
 
@@ -18,8 +20,10 @@ class User {
     @required this.name,
     @required this.biography,
     @required this.image,
+    @required this.email,
+    @required this.phoneNumber,
     @required this.age,
-    @required this.travelsNumber,
+    @required this.tripsNumber,
     @required this.reviewsNumber,
     @required this.stars,
     @required this.joined,
