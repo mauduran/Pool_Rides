@@ -1,12 +1,12 @@
-import 'package:Pool_Rides/models/travel.dart';
+import 'package:Pool_Rides/models/trips.dart';
 import 'package:Pool_Rides/utils/places.dart';
 import 'package:Pool_Rides/utils/principalText.dart';
 import 'package:flutter/material.dart';
 
-class TravelCard extends StatelessWidget {
-  final Travel travel;
+class TripCard extends StatelessWidget {
+  final Trips trip;
   final int cercania;
-  TravelCard({Key key, @required this.travel, this.cercania}) : super(key: key);
+  TripCard({Key key, @required this.trip, this.cercania}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +34,15 @@ class TravelCard extends StatelessWidget {
                       children: [
                         principalText(
                           context: context,
-                          upText: travel.startTime,
-                          downText: travel.arrivalTime,
+                          upText: trip.startTime,
+                          downText: trip.arrivalTime,
                           colorDefault: true,
                         ),
                         SizedBox(width: 15),
                         places(
                           context: context,
-                          upText: travel.sourceName,
-                          downText: travel.destinyName,
+                          upText: trip.sourceName,
+                          downText: trip.destinyName,
                           colorDefault: false,
                           cercaniaOrigen: cercania,
                           cercaniaDestino: (cercania + 1) % 3,
@@ -58,8 +58,8 @@ class TravelCard extends StatelessWidget {
                       children: <Widget>[
                         CircleAvatar(
                           backgroundImage: NetworkImage(
-                            travel.driver.image != ""
-                                ? travel.driver.image
+                            trip.driver.image != ""
+                                ? trip.driver.image
                                 : "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
                           ),
                           maxRadius: 22.5,
@@ -75,7 +75,7 @@ class TravelCard extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(left: 3.0),
                               child: Text(
-                                travel.driver.name,
+                                trip.driver.name,
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
@@ -90,7 +90,7 @@ class TravelCard extends StatelessWidget {
                                 Icon(Icons.star),
                                 SizedBox(width: 6),
                                 Text(
-                                    travel.driver.stars
+                                    trip.driver.stars
                                         .toString()
                                         .substring(0, 4),
                                     style: TextStyle(
@@ -109,7 +109,7 @@ class TravelCard extends StatelessWidget {
               Align(
                 alignment: Alignment.topRight,
                 child: Text(
-                  "\$${travel.priceTravel.toString().substring(0, 6)}",
+                  "\$${trip.priceTrips.toString().substring(0, 6)}",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
