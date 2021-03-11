@@ -1,7 +1,9 @@
+import 'package:pool_rides/MyTrips/Trips.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:pool_rides/models/trip-query.dart';
 
 class SearchTrip extends StatefulWidget {
   SearchTrip({Key key}) : super(key: key);
@@ -23,6 +25,15 @@ class _SearchTripState extends State<SearchTrip> {
     initializeDateFormatting();
     dateFormat = new DateFormat.yMMMd('es');
     super.initState();
+  }
+
+  void _searchTrips() {
+    if (originPlace != null && destinationPlace != null) {
+      final query = TripQuery(
+          origin: originPlace, destination: destinationPlace, date: tripDate);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => Trips(query: query)));
+    }
   }
 
   void _selectDate() async {
@@ -197,7 +208,7 @@ class _SearchTripState extends State<SearchTrip> {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: _searchTrips,
                 child: Text(
                   "Buscar Viaje",
                   style: TextStyle(fontSize: 18),

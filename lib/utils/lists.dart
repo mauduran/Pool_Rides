@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:pool_rides/models/cars.dart';
-import 'package:pool_rides/models/trips.dart';
+import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
 
 // ---------------------------------------------------
@@ -68,7 +68,7 @@ List<User> users = [
         "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.",
     image: "",
     age: 22,
-    tripsNumber: Random().nextInt(1000),
+    tripNumber: Random().nextInt(1000),
     reviewsNumber: Random().nextInt(1000),
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
@@ -83,7 +83,7 @@ List<User> users = [
         "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas 'Letraset', las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",
     image: "https://randomuser.me/portraits/men/2.jpg",
     age: 22,
-    tripsNumber: Random().nextInt(1000),
+    tripNumber: Random().nextInt(1000),
     reviewsNumber: Random().nextInt(1000),
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
@@ -98,7 +98,7 @@ List<User> users = [
         "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas 'Letraset', las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",
     image: "https://randomuser.me/portraits/women/2.jpg",
     age: 23,
-    tripsNumber: Random().nextInt(1000),
+    tripNumber: Random().nextInt(1000),
     reviewsNumber: Random().nextInt(1000),
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
@@ -113,7 +113,7 @@ List<User> users = [
         "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas 'Letraset', las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",
     image: "https://randomuser.me/portraits/men/2.jpg",
     age: 23,
-    tripsNumber: Random().nextInt(1000),
+    tripNumber: Random().nextInt(1000),
     reviewsNumber: Random().nextInt(1000),
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
@@ -128,7 +128,7 @@ List<User> users = [
         "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.",
     image: "https://randomuser.me/portraits/men/3.jpg",
     age: 21,
-    tripsNumber: Random().nextInt(1000),
+    tripNumber: Random().nextInt(1000),
     reviewsNumber: Random().nextInt(1000),
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
@@ -143,7 +143,7 @@ List<User> users = [
         "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas 'Letraset', las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",
     image: "https://randomuser.me/portraits/men/6.jpg",
     age: 21,
-    tripsNumber: Random().nextInt(1000),
+    tripNumber: Random().nextInt(1000),
     reviewsNumber: Random().nextInt(1000),
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
@@ -158,7 +158,7 @@ List<User> users = [
         "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.",
     image: "https://randomuser.me/portraits/men/4.jpg",
     age: 22,
-    tripsNumber: Random().nextInt(1000),
+    tripNumber: Random().nextInt(1000),
     reviewsNumber: Random().nextInt(1000),
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
@@ -173,7 +173,7 @@ List<User> users = [
         "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas 'Letraset', las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",
     image: "https://randomuser.me/portraits/men/5.jpg",
     age: 22,
-    tripsNumber: Random().nextInt(1000),
+    tripNumber: Random().nextInt(1000),
     reviewsNumber: Random().nextInt(1000),
     stars: (Random().nextDouble() * 4 + 1),
     joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
@@ -185,14 +185,14 @@ List<User> users = [
 ];
 
 // ---------------------------------------------------
-// --------------------- TRIPS -----------------------
+// --------------------- Trip -----------------------
 // ---------------------------------------------------
 
-List<Trips> trips = [
-  Trips(
+List<Trip> trips = [
+  Trip(
     startTime: "3:00",
     arrivalTime: "5:00",
-    priceTrips: (Random().nextDouble() * 100 + 150),
+    tripPrice: (Random().nextDouble() * 100 + 150),
     originName: "Guadalajara",
     destinationName: "Colima",
     originLocation: "Chedraui, Guadalajara Colón, San Pedro Tlaquepaque",
@@ -203,10 +203,10 @@ List<Trips> trips = [
     isCarSpecified: true,
     car: users[0].cars[0],
   ),
-  Trips(
+  Trip(
     startTime: "4:00",
     arrivalTime: "6:00",
-    priceTrips: (Random().nextDouble() * 100 + 150),
+    tripPrice: (Random().nextDouble() * 100 + 150),
     originName: "Guadalajara",
     destinationName: "Colima",
     originLocation: "Hotel Riu Plaza, Guadalajara Colón, San Pedro Tlaquepaque",
@@ -216,10 +216,10 @@ List<Trips> trips = [
     passengers: users.getRange(4, 6).toList(),
     isCarSpecified: false,
   ),
-  Trips(
+  Trip(
     startTime: "5:00",
     arrivalTime: "7:00",
-    priceTrips: (Random().nextDouble() * 100 + 150),
+    tripPrice: (Random().nextDouble() * 100 + 150),
     originName: "Guadalajara",
     destinationName: "Colima",
     originLocation: "Hotel Riu Plaza, Guadalajara Colón, San Pedro Tlaquepaque",
@@ -230,10 +230,10 @@ List<Trips> trips = [
     isCarSpecified: true,
     car: users[2].cars[0],
   ),
-  Trips(
+  Trip(
     startTime: "6:00",
     arrivalTime: "8:00",
-    priceTrips: (Random().nextDouble() * 100 + 150),
+    tripPrice: (Random().nextDouble() * 100 + 150),
     originName: "Guadalajara",
     destinationName: "Colima",
     originLocation: "Hotel Riu Plaza, Guadalajara Colón, San Pedro Tlaquepaque",
@@ -243,10 +243,10 @@ List<Trips> trips = [
     passengers: users.getRange(0, 1).toList(),
     isCarSpecified: false,
   ),
-  Trips(
+  Trip(
     startTime: "7:00",
     arrivalTime: "9:00",
-    priceTrips: (Random().nextDouble() * 100 + 150),
+    tripPrice: (Random().nextDouble() * 100 + 150),
     originName: "Guadalajara",
     destinationName: "Colima",
     originLocation: "Hotel Riu Plaza, Guadalajara Colón, San Pedro Tlaquepaque",
@@ -257,10 +257,10 @@ List<Trips> trips = [
     isCarSpecified: true,
     car: users[4].cars[0],
   ),
-  Trips(
+  Trip(
     startTime: "8:00",
     arrivalTime: "10:00",
-    priceTrips: (Random().nextDouble() * 100 + 150),
+    tripPrice: (Random().nextDouble() * 100 + 150),
     originName: "Guadalajara",
     destinationName: "Colima",
     originLocation: "Hotel Riu Plaza, Guadalajara Colón, San Pedro Tlaquepaque",
@@ -270,10 +270,10 @@ List<Trips> trips = [
     passengers: users.getRange(1, 2).toList(),
     isCarSpecified: false,
   ),
-  Trips(
+  Trip(
     startTime: "9:00",
     arrivalTime: "11:00",
-    priceTrips: (Random().nextDouble() * 100 + 150),
+    tripPrice: (Random().nextDouble() * 100 + 150),
     originName: "Guadalajara",
     destinationName: "Colima",
     originLocation: "Hotel Riu Plaza, Guadalajara Colón, San Pedro Tlaquepaque",
@@ -284,10 +284,10 @@ List<Trips> trips = [
     isCarSpecified: true,
     car: users[6].cars[0],
   ),
-  Trips(
+  Trip(
     startTime: "10:00",
     arrivalTime: "12:00",
-    priceTrips: (Random().nextDouble() * 100 + 150),
+    tripPrice: (Random().nextDouble() * 100 + 150),
     originName: "Guadalajara",
     destinationName: "Colima",
     originLocation: "Hotel Riu Plaza, Guadalajara Colón, San Pedro Tlaquepaque",

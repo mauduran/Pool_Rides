@@ -3,7 +3,7 @@ import 'package:pool_rides/models/user.dart';
 
 import 'cars.dart';
 
-class Trips {
+class Trip {
   final String startTime;
   final String originName;
   final String originLocation;
@@ -12,7 +12,7 @@ class Trips {
   final String destinationName;
   final String destinationLocation;
 
-  final double priceTrips;
+  final double tripPrice;
   final DateTime departureDate;
 
   final User driver;
@@ -20,7 +20,7 @@ class Trips {
 
   final bool isCarSpecified;
   final Cars car;
-  Trips({
+  Trip({
     @required this.driver,
     @required this.passengers,
     @required this.originLocation,
@@ -28,7 +28,7 @@ class Trips {
     @required this.departureDate,
     @required this.startTime,
     @required this.arrivalTime,
-    @required this.priceTrips,
+    @required this.tripPrice,
     @required this.originName,
     @required this.destinationName,
     @required this.isCarSpecified,

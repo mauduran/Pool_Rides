@@ -1,5 +1,5 @@
 import 'package:pool_rides/models/cars.dart';
-import 'package:pool_rides/models/trips.dart';
+import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:pool_rides/user/user.dart';
 
@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class TripDetailPage extends StatefulWidget {
-  final Trips tripDetail;
+  final Trip tripDetail;
   final int cercania;
 
   TripDetailPage({
@@ -93,7 +93,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                 children: [
                   Text("Importe total para 1 pasajero: "),
                   Text(
-                    "\$${widget.tripDetail.priceTrips.toString().substring(0, 6)}",
+                    "\$${widget.tripDetail.tripPrice.toString().substring(0, 6)}",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,

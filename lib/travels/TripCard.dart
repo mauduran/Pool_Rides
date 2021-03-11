@@ -1,10 +1,10 @@
-import 'package:pool_rides/models/trips.dart';
+import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/utils/places.dart';
 import 'package:pool_rides/utils/principalText.dart';
 import 'package:flutter/material.dart';
 
 class TripCard extends StatelessWidget {
-  final Trips trip;
+  final Trip trip;
   final int cercania;
   TripCard({Key key, @required this.trip, this.cercania}) : super(key: key);
 
@@ -109,7 +109,7 @@ class TripCard extends StatelessWidget {
               Align(
                 alignment: Alignment.topRight,
                 child: Text(
-                  "\$${trip.priceTrips.toString().substring(0, 6)}",
+                  "\$${trip.tripPrice.toString().substring(0, 6)}",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

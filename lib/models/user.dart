@@ -9,7 +9,7 @@ class User {
   final String email;
   final String phoneNumber;
   final int age;
-  final int tripsNumber;
+  final int tripNumber;
   final int reviewsNumber;
   final double stars;
 
@@ -23,7 +23,7 @@ class User {
     @required this.email,
     @required this.phoneNumber,
     @required this.age,
-    @required this.tripsNumber,
+    @required this.tripNumber,
     @required this.reviewsNumber,
     @required this.stars,
     @required this.joined,
