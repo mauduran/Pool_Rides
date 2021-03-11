@@ -1,3 +1,4 @@
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:pool_rides/models/message.dart';
 import 'package:flutter/material.dart';
 
@@ -47,6 +48,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   final _messageInput = TextEditingController();
   @override
   void initState() {
+    initializeDateFormatting();
     super.initState();
   }
 
