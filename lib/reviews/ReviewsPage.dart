@@ -2,6 +2,7 @@ import 'package:Pool_Rides/models/review.dart';
 import 'package:Pool_Rides/reviews/ReviewSummary.dart';
 import 'package:flutter/material.dart';
 import 'package:Pool_Rides/reviews/ReviewDetail.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class ReviewsPage extends StatefulWidget {
   ReviewsPage({Key key}) : super(key: key);
@@ -48,6 +49,12 @@ List<Widget> _getReviewDetails() {
 }
 
 class _ReviewsPageState extends State<ReviewsPage> {
+  @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
