@@ -9,6 +9,9 @@
 .history
 .svn/
 
+
+*credentials.dart
+
 # IntelliJ related
 *.iml
 *.ipr
