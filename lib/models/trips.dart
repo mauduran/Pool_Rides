@@ -2,7 +2,7 @@ import 'package:Pool_Rides/models/cars.dart';
 import 'package:Pool_Rides/models/user.dart';
 import 'package:flutter/foundation.dart';
 
-class Travel {
+class Trips {
   final String startTime;
   final String sourceName;
   final String sourceLocation;
@@ -11,7 +11,7 @@ class Travel {
   final String destinyName;
   final String destinyLocation;
 
-  final double priceTravel;
+  final double priceTrips;
   final DateTime departureDate;
 
   final User driver;
@@ -19,7 +19,7 @@ class Travel {
 
   final bool isCarSpecified;
   final Cars car;
-  Travel({
+  Trips({
     @required this.driver,
     @required this.passengers,
     @required this.sourceLocation,
@@ -27,7 +27,7 @@ class Travel {
     @required this.departureDate,
     @required this.startTime,
     @required this.arrivalTime,
-    @required this.priceTravel,
+    @required this.priceTrips,
     @required this.sourceName,
     @required this.destinyName,
     @required this.isCarSpecified,
