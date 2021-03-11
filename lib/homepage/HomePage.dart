@@ -1,6 +1,6 @@
 import 'package:Pool_Rides/chat-detail/ChatDetailPage.dart';
-import 'package:Pool_Rides/travels/TravelCard.dart';
-import 'package:Pool_Rides/travels/travel-detail/travelDetail.dart';
+import 'package:Pool_Rides/travels/TripCard.dart';
+import 'package:Pool_Rides/travels/trip-detail/tripDetail.dart';
 import 'package:Pool_Rides/utils/lists.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +16,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _indexBottomBar = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +34,20 @@ class _HomePageState extends State<HomePage> {
               );
             },
             icon: Icon(Icons.chat),
-          )
+          ),
         ],
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ChatDetailPage(),
+              ),
+            );
+          },
+          icon: Icon(
+            Icons.account_circle,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -57,20 +71,20 @@ class _HomePageState extends State<HomePage> {
                     enabledBorder: roundedInputBorder),
               ),
               SizedBox(height: 20),
-              for (int i = 0; i < travels.length; i++)
+              for (int i = 0; i < trips.length; i++)
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => TravelDetailPage(
+                        builder: (context) => TripDetailPage(
+                          tripDetail: trips[i],
                           cercania: (i % 3),
-                          travelDetail: travels[i],
                         ),
                       ),
                     );
                   },
-                  child: TravelCard(
-                    travel: travels[i],
+                  child: TripCard(
+                    trip: trips[i],
                     cercania: (i % 3),
                   ),
                 )
@@ -84,6 +98,29 @@ class _HomePageState extends State<HomePage> {
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex:
+            _indexBottomBar, // this will be set when a new tab is tapped
+        onTap: (newCurrentIndex) {
+          setState(() {
+            _indexBottomBar = newCurrentIndex;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Mis viajes',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Buscar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Perfil',
+          )
+        ],
       ),
     );
   }
