@@ -1,5 +1,7 @@
 import 'package:Pool_Rides/models/place.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class SearchTrip extends StatefulWidget {
   SearchTrip({Key key}) : super(key: key);
@@ -11,8 +13,33 @@ class SearchTrip extends StatefulWidget {
 class _SearchTripState extends State<SearchTrip> {
   TextEditingController _originController = TextEditingController();
   TextEditingController _destinationController = TextEditingController();
+  DateFormat dateFormat;
+  DateTime tripDate = DateTime.now();
   Place originPlace;
   Place destinationPlace;
+
+  @override
+  void initState() {
+    initializeDateFormatting();
+    dateFormat = new DateFormat.yMMMd('es');
+    super.initState();
+  }
+
+  void _selectDate() async {
+    final DateTime newDate = await showDatePicker(
+      context: context,
+      initialDate: tripDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 90)),
+      helpText: 'Select a date',
+    );
+
+    if (newDate != null) {
+      setState(() {
+        tripDate = newDate;
+      });
+    }
+  }
 
   _getLocation({bool origin}) async {
     Place place =
@@ -45,17 +72,13 @@ class _SearchTripState extends State<SearchTrip> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 20,
-            ),
+            Spacer(),
             Text(
               "¿A dónde quieres ir?",
               style: Theme.of(context).textTheme.headline4,
               textAlign: TextAlign.center,
             ),
-            SizedBox(
-              height: 20,
-            ),
+            Spacer(),
             Row(
               children: [
                 Expanded(
@@ -65,8 +88,10 @@ class _SearchTripState extends State<SearchTrip> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
+                          padding: const EdgeInsets.only(bottom: 40),
                           child: TextField(
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
                             controller: _originController,
                             onTap: () {
                               _getLocation(origin: true);
@@ -82,15 +107,17 @@ class _SearchTripState extends State<SearchTrip> {
                                 Icons.location_on,
                                 color: Theme.of(context).primaryColor,
                               ),
-                              contentPadding:
-                                  EdgeInsets.only(left: 8.0, top: 16.0),
+                              contentPadding: EdgeInsets.only(
+                                  left: 8.0, top: 16.0, bottom: 12),
                             ),
                           ),
                         ),
                         TextField(
                           controller: _destinationController,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
                           onTap: () {
-                            _getLocation(origin: true);
+                            _getLocation(origin: false);
                           },
                           focusNode: FocusNode(
                             canRequestFocus: false,
@@ -104,8 +131,11 @@ class _SearchTripState extends State<SearchTrip> {
                               Icons.location_on,
                               color: Theme.of(context).primaryColor,
                             ),
-                            contentPadding:
-                                EdgeInsets.only(left: 8.0, top: 16.0),
+                            contentPadding: EdgeInsets.only(
+                              left: 8.0,
+                              top: 16.0,
+                              bottom: 12,
+                            ),
                           ),
                         ),
                       ],
@@ -135,6 +165,49 @@ class _SearchTripState extends State<SearchTrip> {
                   ),
                 ),
               ],
+            ),
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: ElevatedButton(
+                onPressed: _selectDate,
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.blue[600],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "${(dateFormat == null || (DateTime.now().difference(tripDate).inDays.abs()) < 1) ? 'Hoy' : dateFormat.format(tripDate)}",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Icon(
+                      Icons.date_range_outlined,
+                      size: 24,
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Spacer(
+              flex: 2,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 90,
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Buscar Viaje",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

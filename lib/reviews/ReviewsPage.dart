@@ -10,7 +10,15 @@ class ReviewsPage extends StatefulWidget {
   _ReviewsPageState createState() => _ReviewsPageState();
 }
 
-List<Widget> _getReviewDetails() {
+Map<String, int> _calificaciones = {
+  "Excelente": 5,
+  "Muy bien": 4,
+  "Bien": 3,
+  "Mal": 2,
+  "Muy Mal": 1
+};
+
+List<Review> _getReviewDetails() {
   var array = [
     Review(
       reviewerName: "Manuel",
@@ -32,19 +40,22 @@ List<Widget> _getReviewDetails() {
       reviewerName: "Gabriela",
       description:
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-      rating: "Excelente",
+      rating: "Muy bien",
       reviewerImage: 'https://randomuser.me/api/portraits/men/5.jpg',
       date: DateTime.now(),
     ),
   ];
 
-  return array
-      .map(
-        (review) => ReviewDetail(
-          review: review,
-        ),
-      )
-      .toList();
+  return array;
+}
+
+String _getAverage() {
+  var details = _getReviewDetails();
+  var average = details
+          .map((e) => _calificaciones[e.rating])
+          .reduce((value, element) => value + element) /
+      details.length;
+  return average.toStringAsFixed(1);
 }
 
 class _ReviewsPageState extends State<ReviewsPage> {
@@ -86,7 +97,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
                             color: Theme.of(context).primaryColor,
                           ),
                           Text(
-                            "${4.5.toStringAsFixed(1)}/5 - ${60} reviews",
+                            "${_getAverage()}/5 - ${60} reviews",
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.bold,
@@ -101,6 +112,12 @@ class _ReviewsPageState extends State<ReviewsPage> {
             ),
             ReviewSummary(),
             ..._getReviewDetails()
+                .map(
+                  (review) => ReviewDetail(
+                    review: review,
+                  ),
+                )
+                .toList()
           ],
         ),
       ),

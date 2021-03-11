@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:Pool_Rides/credentials.dart';
 import 'package:Pool_Rides/models/place.dart';
 import 'package:Pool_Rides/models/suggestion.dart';
-import 'package:flutter/foundation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 
