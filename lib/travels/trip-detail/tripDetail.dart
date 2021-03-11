@@ -1,7 +1,7 @@
-import 'package:Pool_Rides/models/cars.dart';
-import 'package:Pool_Rides/models/trips.dart';
-import 'package:Pool_Rides/models/user.dart';
-import 'package:Pool_Rides/user/user.dart';
+import 'package:pool_rides/models/cars.dart';
+import 'package:pool_rides/models/trips.dart';
+import 'package:pool_rides/models/user.dart';
+import 'package:pool_rides/user/user.dart';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -64,8 +64,8 @@ class _TripDetailPageState extends State<TripDetailPage> {
             ),
             tripInformation(
               startTime: widget.tripDetail.startTime,
-              sourceLocation: widget.tripDetail.sourceLocation,
-              sourceName: widget.tripDetail.sourceName,
+              originLocation: widget.tripDetail.originLocation,
+              originName: widget.tripDetail.originName,
               cercania: widget.cercania,
               icon: Icons.hail,
             ),
@@ -74,8 +74,8 @@ class _TripDetailPageState extends State<TripDetailPage> {
             ),
             tripInformation(
               startTime: widget.tripDetail.arrivalTime,
-              sourceLocation: widget.tripDetail.destinyLocation,
-              sourceName: widget.tripDetail.destinyName,
+              originLocation: widget.tripDetail.destinationLocation,
+              originName: widget.tripDetail.destinationName,
               cercania: widget.cercania,
               icon: Icons.place,
             ),
@@ -458,8 +458,8 @@ class _TripDetailPageState extends State<TripDetailPage> {
 
   Widget tripInformation({
     @required startTime,
-    @required sourceLocation,
-    @required sourceName,
+    @required originLocation,
+    @required originName,
     @required cercania,
     @required IconData icon,
   }) {
@@ -498,7 +498,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  sourceLocation,
+                  originLocation,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 17.5,
@@ -508,7 +508,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                   height: 5,
                 ),
                 Text(
-                  sourceName,
+                  originName,
                 ),
                 SizedBox(
                   height: 10,

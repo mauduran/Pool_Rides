@@ -1,6 +1,6 @@
-import 'package:Pool_Rides/models/place.dart';
-import 'package:Pool_Rides/models/suggestion.dart';
-import 'package:Pool_Rides/services/place-service.dart';
+import 'package:pool_rides/models/place.dart';
+import 'package:pool_rides/models/suggestion.dart';
+import 'package:pool_rides/services/place-service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';

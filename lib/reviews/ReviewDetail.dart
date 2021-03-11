@@ -1,4 +1,4 @@
-import 'package:Pool_Rides/models/review.dart';
+import 'package:pool_rides/models/review.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

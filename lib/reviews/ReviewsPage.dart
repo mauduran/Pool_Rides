@@ -1,7 +1,7 @@
-import 'package:Pool_Rides/models/review.dart';
-import 'package:Pool_Rides/reviews/ReviewSummary.dart';
+import 'package:pool_rides/models/review.dart';
+import 'package:pool_rides/reviews/ReviewSummary.dart';
 import 'package:flutter/material.dart';
-import 'package:Pool_Rides/reviews/ReviewDetail.dart';
+import 'package:pool_rides/reviews/ReviewDetail.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class ReviewsPage extends StatefulWidget {

@@ -1,4 +1,4 @@
-package com.example.Pool_Rides
+package com.example.pool_rides
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,4 +1,4 @@
-import 'package:Pool_Rides/models/message.dart';
+import 'package:pool_rides/models/message.dart';
 import 'package:flutter/material.dart';
 
 import 'message/Message.dart';

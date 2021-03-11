@@ -1,6 +1,6 @@
-import 'package:Pool_Rides/models/cars.dart';
-import 'package:Pool_Rides/models/review.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pool_rides/models/review.dart';
+import 'cars.dart';
 
 class User {
   final String name;

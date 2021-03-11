@@ -1,4 +1,4 @@
-import 'package:Pool_Rides/reviews/ReviewSummaryRow.dart';
+import 'package:pool_rides/reviews/ReviewSummaryRow.dart';
 import 'package:flutter/material.dart';
 
 class ReviewSummary extends StatelessWidget {

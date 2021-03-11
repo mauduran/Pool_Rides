@@ -1,4 +1,4 @@
-# Pool_Rides
+# pool_rides
 
 A new Flutter project.
 

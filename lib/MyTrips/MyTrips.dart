@@ -1,7 +1,7 @@
-import 'package:Pool_Rides/travels/TripCard.dart';
-import 'package:Pool_Rides/travels/trip-detail/tripDetail.dart';
+import 'package:pool_rides/travels/TripCard.dart';
+import 'package:pool_rides/travels/trip-detail/tripDetail.dart';
 import 'package:flutter/material.dart';
-import 'package:Pool_Rides/utils/lists.dart';
+import 'package:pool_rides/utils/lists.dart';
 
 import '../theme.dart';
 

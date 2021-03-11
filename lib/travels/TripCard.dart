@@ -1,6 +1,6 @@
-import 'package:Pool_Rides/models/trips.dart';
-import 'package:Pool_Rides/utils/places.dart';
-import 'package:Pool_Rides/utils/principalText.dart';
+import 'package:pool_rides/models/trips.dart';
+import 'package:pool_rides/utils/places.dart';
+import 'package:pool_rides/utils/principalText.dart';
 import 'package:flutter/material.dart';
 
 class TripCard extends StatelessWidget {
@@ -41,8 +41,8 @@ class TripCard extends StatelessWidget {
                         SizedBox(width: 15),
                         places(
                           context: context,
-                          upText: trip.sourceName,
-                          downText: trip.destinyName,
+                          upText: trip.originName,
+                          downText: trip.destinationName,
                           colorDefault: false,
                           cercaniaOrigen: cercania,
                           cercaniaDestino: (cercania + 1) % 3,

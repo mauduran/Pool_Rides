@@ -1,13 +1,13 @@
-import 'package:Pool_Rides/create-review/CreateReviewPage.dart';
-import 'package:Pool_Rides/homepage/HomePage.dart';
-import 'package:Pool_Rides/principal/principal.dart';
-import 'package:Pool_Rides/principal/principal_signin.dart';
-import 'package:Pool_Rides/search-trip/SearchTrip.dart';
-import 'package:Pool_Rides/session/sign_in.dart';
-import 'package:Pool_Rides/session/sign_up.dart';
-import 'package:Pool_Rides/session/sign_up_2.dart';
-import 'package:Pool_Rides/reviews/ReviewsPage.dart';
-import 'package:Pool_Rides/theme.dart';
+import 'package:pool_rides/create-review/CreateReviewPage.dart';
+import 'package:pool_rides/homepage/HomePage.dart';
+import 'package:pool_rides/principal/principal.dart';
+import 'package:pool_rides/principal/principal_signin.dart';
+import 'package:pool_rides/search-trip/SearchTrip.dart';
+import 'package:pool_rides/session/sign_in.dart';
+import 'package:pool_rides/session/sign_up.dart';
+import 'package:pool_rides/session/sign_up_2.dart';
+import 'package:pool_rides/reviews/ReviewsPage.dart';
+import 'package:pool_rides/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       title: 'Pool Rides',
       theme: myTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: '/search-trip',
+      initialRoute: '/home',
       routes: {
         '/': (context) => Principal(),
         '/home': (context) => HomePage(title: 'Pool Rides'),

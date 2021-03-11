@@ -1,7 +1,8 @@
-import 'package:Pool_Rides/MyTrips/MyTrips.dart';
-import 'package:Pool_Rides/MyTrips/Test.dart';
-import 'package:Pool_Rides/chat-detail/ChatDetailPage.dart';
+import 'package:pool_rides/MyTrips/MyTrips.dart';
+import 'package:pool_rides/MyTrips/Test.dart';
+import 'package:pool_rides/chat-detail/ChatDetailPage.dart';
 import 'package:flutter/material.dart';
+import 'package:pool_rides/search-trip/SearchTrip.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, @required this.title}) : super(key: key);
@@ -48,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           children: [
             MyTrips(),
-            Test(),
+            SearchTrip(),
             Test(),
           ],
         ),
