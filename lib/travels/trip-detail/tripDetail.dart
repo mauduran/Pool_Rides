@@ -1,5 +1,5 @@
 import 'package:Pool_Rides/models/cars.dart';
-import 'package:Pool_Rides/models/travel.dart';
+import 'package:Pool_Rides/models/trips.dart';
 import 'package:Pool_Rides/models/user.dart';
 import 'package:Pool_Rides/user/user.dart';
 
@@ -7,21 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-class TravelDetailPage extends StatefulWidget {
-  final Travel travelDetail;
+class TripDetailPage extends StatefulWidget {
+  final Trips tripDetail;
   final int cercania;
 
-  TravelDetailPage({
+  TripDetailPage({
     Key key,
-    @required this.travelDetail,
+    @required this.tripDetail,
     @required this.cercania,
   }) : super(key: key);
 
   @override
-  _TravelDetailPageState createState() => _TravelDetailPageState();
+  _TripDetailPageState createState() => _TripDetailPageState();
 }
 
-class _TravelDetailPageState extends State<TravelDetailPage> {
+class _TripDetailPageState extends State<TripDetailPage> {
   @override
   void initState() {
     super.initState();
@@ -53,7 +53,7 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
                     top: 10,
                   ),
                   child: Text(
-                    dateToString(widget.travelDetail.departureDate),
+                    dateToString(widget.tripDetail.departureDate),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
@@ -62,20 +62,20 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
             SizedBox(
               height: 30,
             ),
-            travelInformation(
-              startTime: widget.travelDetail.startTime,
-              sourceLocation: widget.travelDetail.sourceLocation,
-              sourceName: widget.travelDetail.sourceName,
+            tripInformation(
+              startTime: widget.tripDetail.startTime,
+              sourceLocation: widget.tripDetail.sourceLocation,
+              sourceName: widget.tripDetail.sourceName,
               cercania: widget.cercania,
               icon: Icons.hail,
             ),
             SizedBox(
               height: 20,
             ),
-            travelInformation(
-              startTime: widget.travelDetail.arrivalTime,
-              sourceLocation: widget.travelDetail.destinyLocation,
-              sourceName: widget.travelDetail.destinyName,
+            tripInformation(
+              startTime: widget.tripDetail.arrivalTime,
+              sourceLocation: widget.tripDetail.destinyLocation,
+              sourceName: widget.tripDetail.destinyName,
               cercania: widget.cercania,
               icon: Icons.place,
             ),
@@ -93,7 +93,7 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
                 children: [
                   Text("Importe total para 1 pasajero: "),
                   Text(
-                    "\$${widget.travelDetail.priceTravel.toString().substring(0, 6)}",
+                    "\$${widget.tripDetail.priceTrips.toString().substring(0, 6)}",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -120,7 +120,7 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
               ),
             ),
             driverInformation(
-              user: widget.travelDetail.driver,
+              user: widget.tripDetail.driver,
             ),
             SizedBox(
               height: 20,
@@ -131,7 +131,7 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
               ),
               child: InkWell(
                 child: new Text(
-                  'Contactar a ${widget.travelDetail.driver.name}',
+                  'Contactar a ${widget.tripDetail.driver.name}',
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     // color: Color(0xffe0e6eb),
@@ -144,9 +144,9 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
                 },
               ),
             ),
-            if (widget.travelDetail.isCarSpecified)
+            if (widget.tripDetail.isCarSpecified)
               carInformation(
-                car: widget.travelDetail.car,
+                car: widget.tripDetail.car,
               ),
             SizedBox(
               height: 10,
@@ -166,9 +166,9 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
                 style: Theme.of(context).textTheme.headline6,
               ),
             ),
-            for (int i = 0; i < widget.travelDetail.passengers.length; i++)
+            for (int i = 0; i < widget.tripDetail.passengers.length; i++)
               passengerBuilder(
-                user: widget.travelDetail.passengers[i],
+                user: widget.tripDetail.passengers[i],
               ),
             SizedBox(
               height: 10,
@@ -456,7 +456,7 @@ class _TravelDetailPageState extends State<TravelDetailPage> {
     );
   }
 
-  Widget travelInformation({
+  Widget tripInformation({
     @required startTime,
     @required sourceLocation,
     @required sourceName,
