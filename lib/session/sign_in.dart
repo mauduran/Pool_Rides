@@ -156,9 +156,13 @@ class _SignInState extends State<SignIn> {
                     foregroundColor: Colors.white,
                     onPressed: () {
                       // Respond to button press
-                      Navigator.of(context).pushNamed(
-                        '/home',
-                      );
+                      // Navigator.of(context).popAndPushNamed(
+                      //   '/home',
+                      // );
+
+                      // Navigator.of(context).popUntil(ModalRoute.withName("/"));
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          "/home", ModalRoute.withName("/"));
                     },
                     child: Icon(
                       Icons.arrow_forward,

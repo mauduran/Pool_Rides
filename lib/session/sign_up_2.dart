@@ -214,7 +214,13 @@ class _SignUp2State extends State<SignUp2> {
                     onPressed: () {
                       // Respond to button press
                       // Navigator.pushAndRemoveUntil()  ----> Podría ser útil esto.
-                      Navigator.of(context).pushNamed("/home");
+                      // Navigator.of(context).pushNamed("/home");
+                      // Navigator.of(context).popAndPushNamed(
+                      //   '/home',
+                      // );
+
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          "/home", ModalRoute.withName("/"));
                     },
                     child: Icon(
                       Icons.arrow_forward,
