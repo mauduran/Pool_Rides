@@ -41,8 +41,8 @@ class TripCard extends StatelessWidget {
                         SizedBox(width: 15),
                         places(
                           context: context,
-                          upText: trip.originName,
-                          downText: trip.destinationName,
+                          upText: trip.origin.city,
+                          downText: trip.destination.city,
                           colorDefault: false,
                           cercaniaOrigen: cercania,
                           cercaniaDestino: (cercania + 1) % 3,

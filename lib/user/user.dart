@@ -1,10 +1,23 @@
 import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pool_rides/reviews/ReviewsPage.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-class UserDetail extends StatelessWidget {
+class UserDetail extends StatefulWidget {
   final User user;
   const UserDetail({Key key, @required this.user}) : super(key: key);
+
+  @override
+  _UserDetailState createState() => _UserDetailState();
+}
+
+class _UserDetailState extends State<UserDetail> {
+  @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +32,8 @@ class UserDetail extends StatelessWidget {
               ),
               CircleAvatar(
                 backgroundImage: NetworkImage(
-                  user.image != ""
-                      ? user.image
+                  widget.user.image != ""
+                      ? widget.user.image
                       : "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
                 ),
                 maxRadius: 60.0,
@@ -29,14 +42,14 @@ class UserDetail extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 30.0),
                 child: Text(
-                  "${user.name}",
+                  "${widget.user.name}",
                   style: Theme.of(context).textTheme.headline5,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Text(
-                  "${user.age} años",
+                  "${widget.user.age} años",
                   style: TextStyle(
                     fontSize: 20,
                     color: Theme.of(context).primaryColor,
@@ -51,7 +64,7 @@ class UserDetail extends StatelessWidget {
                   horizontal: 30,
                 ),
                 child: Text(
-                  "${user.biography}",
+                  "${widget.user.biography}",
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
@@ -64,7 +77,12 @@ class UserDetail extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   //TO DO: Ir hacia las reseñas de este usuario
-                  print(user.name);
+                  print(widget.user.name);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ReviewsPage(),
+                    ),
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -82,7 +100,7 @@ class UserDetail extends StatelessWidget {
                             width: 5,
                           ),
                           Text(
-                            "${user.stars.toString().substring(0, 4)}/5 - ${user.reviewsNumber} reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                            "${widget.user.stars.toString().substring(0, 4)}/5 - ${widget.user.reviewsNumber} reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                               fontSize: 17.5,
@@ -114,7 +132,7 @@ class UserDetail extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "Usuario desde ${DateFormat.yMMMM().format(user.joined)}",
+                      "Usuario desde ${DateFormat.yMMMM().format(widget.user.joined)}",
                       style: TextStyle(
                         fontSize: 17.5,
                         fontWeight: FontWeight.bold,
