@@ -30,8 +30,8 @@ class _TripDetailPageState extends State<TripDetailPage> {
 
   String dateToString(DateTime dt) {
     // String result = "${DateFormat.EEEE().format(dt).substring(0, 3)} ${dt.toString().split("-")[2].substring(0, 2)} ${DateFormat.MMMd().format(dt)}";
-    String result =
-        "${DateFormat.EEEE().format(dt).substring(0, 3)} ${DateFormat.MMMMd().format(dt)}";
+    String result = "${DateFormat.MMMMEEEEd().format(dt)}";
+    // "${DateFormat.EEEE().format(dt).substring(0, 3)} ${DateFormat.MMMMd().format(dt)}";
 
     print(dt.toString().split("-")[2].substring(0, 2));
     return result;
@@ -54,7 +54,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                   ),
                   child: Text(
                     dateToString(widget.tripDetail.departureDate),
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.headline4.copyWith(),
                   ),
                 ),
               ],
@@ -64,8 +64,8 @@ class _TripDetailPageState extends State<TripDetailPage> {
             ),
             tripInformation(
               startTime: widget.tripDetail.startTime,
-              originLocation: widget.tripDetail.originLocation,
-              originName: widget.tripDetail.originName,
+              originLocation: widget.tripDetail.origin.description,
+              originName: widget.tripDetail.origin.city,
               cercania: widget.cercania,
               icon: Icons.hail,
             ),
@@ -74,8 +74,8 @@ class _TripDetailPageState extends State<TripDetailPage> {
             ),
             tripInformation(
               startTime: widget.tripDetail.arrivalTime,
-              originLocation: widget.tripDetail.destinationLocation,
-              originName: widget.tripDetail.destinationName,
+              originLocation: widget.tripDetail.destination.description,
+              originName: widget.tripDetail.destination.city,
               cercania: widget.cercania,
               icon: Icons.place,
             ),

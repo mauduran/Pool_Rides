@@ -1,16 +1,15 @@
 import 'package:flutter/foundation.dart';
+import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/user.dart';
 
 import 'cars.dart';
 
 class Trip {
   final String startTime;
-  final String originName;
-  final String originLocation;
+  final Place origin;
+  final Place destination;
 
   final String arrivalTime;
-  final String destinationName;
-  final String destinationLocation;
 
   final double tripPrice;
   final DateTime departureDate;
@@ -23,15 +22,13 @@ class Trip {
   Trip({
     @required this.driver,
     @required this.passengers,
-    @required this.originLocation,
-    @required this.destinationLocation,
+    @required this.origin,
+    @required this.destination,
     @required this.departureDate,
     @required this.startTime,
     @required this.arrivalTime,
     @required this.tripPrice,
-    @required this.originName,
-    @required this.destinationName,
     @required this.isCarSpecified,
-    this.car,
+    this.car, // To Do: hacerlo required
   });
 }
