@@ -5,6 +5,8 @@ class Place {
   String streetNumber;
   String street;
   String city;
+  String state;
+  String country;
   String zipCode;
   String description;
   LatLng coordinates;
@@ -16,6 +18,8 @@ class Place {
     this.street,
     this.city,
     this.zipCode,
+    this.state,
+    this.country,
     @required this.coordinates,
     @required this.bounds,
     @required this.placeId,

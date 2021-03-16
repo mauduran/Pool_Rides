@@ -1,3 +1,4 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/suggestion.dart';
 import 'package:pool_rides/services/place-service.dart';
@@ -53,6 +54,34 @@ class _LocationPickerState extends State<LocationPicker> {
     }
   }
 
+  Future<void> _getCurrentPosition() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission != LocationPermission.always &&
+        permission != LocationPermission.whileInUse) {
+      permission = await Geolocator.requestPermission();
+
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) return;
+    }
+
+    final sessionToken = Uuid().v4();
+
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    LatLng coords = LatLng(position.latitude, position.longitude);
+
+    _mapController.animateCamera(CameraUpdate.newLatLng(coords));
+    final placeDetails =
+        await PlaceApiProvider(sessionToken).getPlaceFromCoords(coords);
+    _textController.text = placeDetails.description;
+    setState(() {
+      marker = Marker(markerId: MarkerId("location"), position: coords);
+      place = placeDetails;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,6 +115,7 @@ class _LocationPickerState extends State<LocationPicker> {
                   descendantsAreFocusable: false,
                   skipTraversal: false,
                 ),
+                enableInteractiveSelection: false,
                 decoration: InputDecoration(
                   fillColor: Colors.white,
                   prefixIcon: Icon(Icons.location_on),
@@ -95,15 +125,30 @@ class _LocationPickerState extends State<LocationPicker> {
             ),
             if (place != null)
               Positioned(
-                bottom: 20,
+                bottom: 30,
                 right: 20,
                 child: FloatingActionButton(
+                  heroTag: "confirmPlace",
                   onPressed: () {
                     Navigator.of(context).pop(place);
                   },
                   child: Icon(Icons.check),
                 ),
-              )
+              ),
+            Positioned(
+              bottom: 30,
+              left: 20,
+              child: FloatingActionButton(
+                heroTag: "getCurrentPos",
+                backgroundColor: Color(0xFF5A7A29),
+                onPressed: () {
+                  _getCurrentPosition();
+                },
+                child: Icon(
+                  Icons.gps_fixed,
+                ),
+              ),
+            )
           ],
         ),
       ),

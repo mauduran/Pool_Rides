@@ -35,6 +35,67 @@ class PlaceApiProvider {
     }
   }
 
+  Future<Place> getPlaceFromCoords(LatLng coords) async {
+    final request = Uri.parse(
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords.latitude},${coords.longitude}&key=$GOOGLE_API_KEY');
+
+    final response = await client.get(request);
+
+    if (response.statusCode == 200) {
+      final result = json.decode(response.body);
+      if (result['status'] == 'OK') {
+        final res = result['results'][0];
+        final components = res['address_components'] as List<dynamic>;
+
+        final geometry = res['geometry'];
+        final coords = geometry["location"];
+        final bounds = geometry["viewport"];
+        final ne = bounds['northeast'];
+        final sw = bounds['southwest'];
+
+        // build result
+        final boundsInfo = LatLngBounds(
+          southwest: LatLng(sw["lat"], sw["lng"]),
+          northeast: LatLng(ne["lat"], sw["lng"]),
+        );
+
+        final coordinates = LatLng(coords["lat"], coords["lng"]);
+        final place = Place(
+          bounds: boundsInfo,
+          coordinates: coordinates,
+          placeId: res["place_id"],
+          description: res["formatted_address"],
+        );
+
+        components.forEach((c) {
+          final List type = c['types'];
+          if (type.contains('street_number')) {
+            place.streetNumber = c['long_name'];
+          }
+          if (type.contains('route')) {
+            place.street = c['long_name'];
+          }
+          if (type.contains('locality')) {
+            place.city = c['long_name'];
+          }
+          if (type.contains('postal_code')) {
+            place.zipCode = c['long_name'];
+          }
+          if (type.contains('administrative_area_level_1')) {
+            place.state = c['short_name'];
+          }
+          if (type.contains('country')) {
+            place.country = c['short_name'];
+          }
+        });
+        return place;
+      }
+      throw Exception(result['error_message']);
+    } else {
+      throw Exception('Failed to fetch suggestion');
+    }
+  }
+
   Future<Place> getPlaceDetailFromId(String placeId, String description) async {
     final request = Uri.parse(
         'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$GOOGLE_API_KEY&sessiontoken=$sessionToken');
@@ -81,12 +142,18 @@ class PlaceApiProvider {
           if (type.contains('postal_code')) {
             place.zipCode = c['long_name'];
           }
+          if (type.contains('administrative_area_level_1')) {
+            place.state = c['short_name'];
+          }
+          if (type.contains('country')) {
+            place.country = c['short_name'];
+          }
         });
         return place;
       }
       throw Exception(result['error_message']);
     } else {
-      throw Exception('Failed to fetch suggestion');
+      throw Exception('Failed to fetch place details');
     }
   }
 }

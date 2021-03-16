@@ -108,6 +108,7 @@ class _SearchTripState extends State<SearchTrip> {
                             descendantsAreFocusable: false,
                             skipTraversal: false,
                           ),
+                          enableInteractiveSelection: false,
                           decoration: InputDecoration(
                             hintText: "Origen",
                             prefixIcon: Icon(
@@ -131,6 +132,7 @@ class _SearchTripState extends State<SearchTrip> {
                           descendantsAreFocusable: false,
                           skipTraversal: false,
                         ),
+                        enableInteractiveSelection: false,
                         decoration: InputDecoration(
                           hintText: "Destino",
                           floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -153,6 +155,7 @@ class _SearchTripState extends State<SearchTrip> {
                 padding: const EdgeInsets.only(right: 10.0),
                 child: FloatingActionButton(
                   mini: true,
+                  heroTag: "switch",
                   onPressed: () {
                     final tempText = _originController.text;
                     _originController.text = _destinationController.text;
