@@ -12,6 +12,7 @@ class Message extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.only(left: 14, right: 14, top: 5, bottom: 5),
       child: Align(
         widthFactor: 1,
@@ -43,7 +44,7 @@ class Message extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(4),
               child: Text(
-                DateFormat("dd/MM/yyyy  HH:mm").format(message.date),
+                DateFormat("HH:mm").format(message.date),
                 style: Theme.of(context).textTheme.caption,
               ),
             )

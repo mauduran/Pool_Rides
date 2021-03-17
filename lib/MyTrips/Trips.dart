@@ -1,5 +1,4 @@
 import 'package:pool_rides/models/trip-query.dart';
-import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/travels/TripCard.dart';
 import 'package:pool_rides/travels/trip-detail/tripDetail.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,5 @@
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:pool_rides/chat-detail/message/MessageWithSep.dart';
 import 'package:pool_rides/models/message.dart';
 import 'package:flutter/material.dart';
 
@@ -14,25 +15,32 @@ class ChatDetailPage extends StatefulWidget {
 class _ChatDetailPageState extends State<ChatDetailPage> {
   List<ChatMessage> messages = [
     ChatMessage(
-        messageContent: "Hello, Rolas",
-        messageSender: "mau4duran",
-        date: DateTime.now()),
-    ChatMessage(
-      messageContent: "How have you been?",
+      messageContent: "Hello, Rolas",
       messageSender: "mau4duran",
-      date: DateTime.now(),
+      date: DateTime.now().subtract(
+        Duration(days: 7, hours: 6, minutes: 20),
+      ),
     ),
+    ChatMessage(
+        messageContent: "How have you been?",
+        messageSender: "mau4duran",
+        date: DateTime.now().subtract(
+          Duration(days: 1),
+        )),
     ChatMessage(
       messageContent: "Hey Mau, I am doing fine dude. wbu?",
       messageSender: "rolas",
-      date: DateTime.now(),
+      date: DateTime.now().subtract(
+        Duration(days: 1),
+      ),
     ),
     ChatMessage(
-      messageContent:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis nibh non metus semper, eu congue tellus mollis. Vivamus euismod pretium leo quis feugiat. Morbi lobortis, eros id viverra aliquam, dolor neque gravida massa, et sollicitudin urna erat vel nunc. Sed posuere porttitor tincidunt. Vivamus suscipit sagittis elit vel ultrices. Sed tempus varius libero et vestibulum. Quisque ante enim, bibendum eu nunc ut, commodo tempor libero.",
-      messageSender: "rolas",
-      date: DateTime.now(),
-    ),
+        messageContent:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis nibh non metus semper, eu congue tellus mollis. Vivamus euismod pretium leo quis feugiat. Morbi lobortis, eros id viverra aliquam, dolor neque gravida massa, et sollicitudin urna erat vel nunc. Sed posuere porttitor tincidunt. Vivamus suscipit sagittis elit vel ultrices. Sed tempus varius libero et vestibulum. Quisque ante enim, bibendum eu nunc ut, commodo tempor libero.",
+        messageSender: "rolas",
+        date: DateTime.now().subtract(
+          Duration(days: 2),
+        )),
     ChatMessage(
       messageContent: "Is there any thing wrong?",
       messageSender: "mau4duran",
@@ -43,6 +51,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   var origin = "Guadalajara";
   var destination = "San Luis Potosi";
   var conversationName = "Edgar Rolas";
+  DateTime currentDate;
 
   final ScrollController _scrollController = ScrollController();
   final _messageInput = TextEditingController();
@@ -72,7 +81,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        // centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -125,7 +133,20 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
               reverse: true,
               padding: EdgeInsets.only(top: 10, bottom: 10),
               itemBuilder: (context, index) {
-                return Message(message: messages.reversed.toList()[index]);
+                var message = messages.reversed.toList()[index];
+
+                if (index == messages.length - 1 ||
+                    (messages.reversed
+                            .toList()[index + 1]
+                            .date
+                            .difference(message.date)
+                            .inDays
+                            .abs()) !=
+                        0) {
+                  currentDate = message.date;
+                  return MessageWithSep(message: message);
+                }
+                return Message(message: message);
               },
             ),
           ),
