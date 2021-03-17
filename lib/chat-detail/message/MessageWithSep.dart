@@ -22,7 +22,7 @@ class MessageWithSep extends StatelessWidget {
                 child: new Container(
                     margin: const EdgeInsets.only(left: 10.0, right: 20.0),
                     child: Divider(
-                      color: Colors.grey[600],
+                      color: Colors.blueGrey,
                       height: 36,
                       thickness: 2,
                     )),
@@ -36,7 +36,7 @@ class MessageWithSep extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   backgroundColor: Colors.white,
-                  color: Colors.grey[600],
+                  color: Colors.blueGrey,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -44,7 +44,7 @@ class MessageWithSep extends StatelessWidget {
                 child: new Container(
                     margin: const EdgeInsets.only(left: 20.0, right: 10.0),
                     child: Divider(
-                      color: Colors.grey[600],
+                      color: Colors.blueGrey,
                       height: 36,
                       thickness: 2,
                     )),

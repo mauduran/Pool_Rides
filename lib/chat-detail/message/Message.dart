@@ -45,7 +45,10 @@ class Message extends StatelessWidget {
               padding: const EdgeInsets.all(4),
               child: Text(
                 DateFormat("HH:mm").format(message.date),
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.caption.copyWith(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
             )
           ],
