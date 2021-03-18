@@ -1,10 +1,10 @@
 import 'package:pool_rides/MyTrips/MyTrips.dart';
 import 'package:pool_rides/MyTrips/Test.dart';
-import 'package:pool_rides/chat-detail/ChatDetailPage.dart';
 import 'package:flutter/material.dart';
 import 'package:pool_rides/search-trip/SearchTrip.dart';
 import 'package:pool_rides/user/user.dart';
 import 'package:pool_rides/utils/lists.dart';
+import 'package:pool_rides/conversations/Conversations.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, @required this.title}) : super(key: key);
@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => ChatDetailPage(),
+                    builder: (context) => Conversations(),
                   ),
                 );
               },
