@@ -20,6 +20,7 @@ class _CreateTripPageState extends State<CreateTripPage> {
   TextEditingController _destinationController = TextEditingController();
   TextEditingController _timeController = TextEditingController();
   DateFormat dateFormat;
+  DateFormat timeFormat;
   DateTime tripDate = DateTime.now();
   Place originPlace;
   Place destinationPlace;
@@ -28,9 +29,11 @@ class _CreateTripPageState extends State<CreateTripPage> {
 
   @override
   void initState() {
-    _timeController.text = DateFormat("hh:mm aaa").format(DateTime.now());
     initializeDateFormatting();
-    dateFormat = new DateFormat.yMMMd('es');
+    dateFormat = DateFormat.yMMMd('es');
+    timeFormat = DateFormat("hh:mm aaa");
+    _timeController.text = timeFormat.format(DateTime.now());
+    WidgetsFlutterBinding.ensureInitialized();
     super.initState();
   }
 
@@ -42,8 +45,8 @@ class _CreateTripPageState extends State<CreateTripPage> {
       DateTime arrivalDateTime =
           tripDate.copyWith().add(Duration(seconds: tripDuration));
       Trip newTrip = Trip(
-        startTime: DateFormat("hh:mm aaa").format(tripDate),
-        arrivalTime: DateFormat("hh:mm aaa").format(arrivalDateTime),
+        startTime: timeFormat.format(tripDate),
+        arrivalTime: timeFormat.format(arrivalDateTime),
         departureDate: tripDate,
         destination: destinationPlace,
         driver: users[0],
@@ -54,6 +57,33 @@ class _CreateTripPageState extends State<CreateTripPage> {
         tripPrice: price,
         passengers: [],
       );
+
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(
+          content: Text("Viaje creado."),
+          duration: Duration(seconds: 3),
+          behavior: SnackBarBehavior.floating,
+          action: SnackBarAction(
+            label: "Aceptar",
+            textColor: Colors.blue,
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+        ));
+
+      final newDate = DateTime.now();
+      setState(() {
+        tripDate = newDate;
+        originPlace = null;
+        destinationPlace = null;
+        capacity = 1;
+        price = 300;
+        _originController.text = "";
+        _destinationController.text = "";
+        _timeController.text = timeFormat.format(newDate);
+      });
     }
   }
 
@@ -100,7 +130,7 @@ class _CreateTripPageState extends State<CreateTripPage> {
     );
     if (picked != null)
       setState(() {
-        _timeController.text = DateFormat("hh:mm aaa").format(
+        _timeController.text = timeFormat.format(
             tripDate.copyWith(hour: picked.hour, minute: picked.minute));
         tripDate = tripDate.copyWith(hour: picked.hour, minute: picked.minute);
       });
