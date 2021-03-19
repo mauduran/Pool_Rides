@@ -1,6 +1,8 @@
+import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/trip-query.dart';
 
 import 'package:flutter/material.dart';
+import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/utils/lists.dart';
 import 'package:pool_rides/widgets/trips/TripCard.dart';
 import 'package:pool_rides/widgets/trips/trip-detail/tripDetail.dart';
@@ -45,21 +47,21 @@ class _TripsState extends State<Trips> {
                       enabledBorder: roundedInputBorder),
                 ),
                 SizedBox(height: 20),
-                for (int i = 0; i < trips.length; i++)
+                for (int i = 0; i < tripList.length; i++)
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => TripDetailPage(
-                            tripDetail: trips[i],
-                            cercania: (i % 3),
+                            tripDetail: tripList[i],
+                            cercania: (i % 3) * 1.0,
                           ),
                         ),
                       );
                     },
                     child: TripCard(
-                      trip: trips[i],
-                      cercania: (i % 3),
+                      trip: tripList[i],
+                      cercania: (i % 3) * 1.0,
                     ),
                   )
               ],
@@ -68,5 +70,20 @@ class _TripsState extends State<Trips> {
         ),
       ),
     );
+  }
+
+  double getCercania(Place origin, Place destination) {
+    double distanceInMeters =
+        Trip.distanceBetweenTwoPlaces(origin, destination);
+
+    double cercania = 0.0;
+    if (distanceInMeters >= 0 && distanceInMeters < 5)
+      cercania = 0;
+    else if (distanceInMeters >= 5 && distanceInMeters < 10)
+      cercania = 1;
+    else
+      cercania = 2;
+
+    return cercania;
   }
 }

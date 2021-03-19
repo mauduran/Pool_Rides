@@ -77,8 +77,8 @@ class _PrincipalSignInState extends State<PrincipalSignIn> {
                                 borderRadius: BorderRadius.circular(100),
                                 child: MaterialButton(
                                   shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(100.0)),
+                                    borderRadius: BorderRadius.circular(100.0),
+                                  ),
                                   height: 50,
                                   // color: Color(0xff0066ff),
                                   // color: Colors.blue[600],

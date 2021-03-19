@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pool_rides/models/cars.dart';
+import 'package:pool_rides/models/car.dart';
 import 'package:pool_rides/models/conversation-user.dart';
 import 'package:pool_rides/models/conversation.dart';
 import 'package:pool_rides/models/message.dart';
@@ -58,49 +58,49 @@ List<Place> places = [
 // --------------------- CARS ------------------------
 // ---------------------------------------------------
 
-List<Cars> cars = [
-  Cars(
+List<Car> cars = [
+  Car(
     model: "Chevrolet Aveo",
     color: "blanco",
     image:
-        "https://www.chevrolet.com.mx/content/dam/chevrolet/na/mx/es/index/cars/2020-aveo/colorizer/01-images/azul-pacifico.jpg?imwidth=960",
+        "https://www.chevrolet.com.mx/content/dam/chevrolet/na/mx/es/index/Car/2020-aveo/colorizer/01-images/azul-pacifico.jpg?imwidth=960",
   ),
-  Cars(
+  Car(
     model: "Mazda 2",
     color: "gris",
     image:
         "https://www.mazda.mx/siteassets/mazda-mx/mycos-2021/mazda2-hatchback/vlp/360/gris-titanio/mazda2-hb-gris-titanio-ext-360-02-24-s.jpg",
   ),
-  Cars(
+  Car(
     model: "Volkswagen PASSAT",
     color: "Azul",
     image: "https://fotos02.autofacil.es/2019/06/25/690x278/iris.jpg",
   ),
-  Cars(
+  Car(
     model: "Toyota Corolla",
     color: "blanco",
     image:
         "https://www.excelenciasdelmotor.com/sites/default/files/2019-11/portada_corolla.jpg",
   ),
-  Cars(
+  Car(
     model: "Volkswagen Jetta",
     color: "negro",
     image:
         "https://img.automexico.com/2020/05/19/i8InHrze/jetta-precios-5-4c7d.jpg",
   ),
-  Cars(
+  Car(
     model: "Nissan Sentra",
     color: "plata",
     image:
         "https://www.revistaturbo.com/sites/default/files/nissansentra_0.jpg",
   ),
-  Cars(
+  Car(
     model: "Nissan Altima",
     color: "rojo",
     image:
         "https://www.nissan.com.mx/content/dam/Nissan/mexico/vehicles/Altima/MY19/VAP/altima-grade-19-terantbwa-uslhd-pace.jpg.ximg.l_6_m.smart.png",
   ),
-  Cars(
+  Car(
     model: "Chevrolet Malibu",
     color: "plata",
     image:
@@ -239,7 +239,7 @@ List<User> users = [
 // --------------------- Trip -----------------------
 // ---------------------------------------------------
 
-List<Trip> trips = [
+List<Trip> tripList = [
   Trip(
     startTime: "3:00",
     arrivalTime: "5:00",

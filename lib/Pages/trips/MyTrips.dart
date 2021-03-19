@@ -38,21 +38,21 @@ class _MyTripsState extends State<MyTrips> {
                     enabledBorder: roundedInputBorder),
               ),
               SizedBox(height: 20),
-              for (int i = 0; i < trips.length; i++)
+              for (int i = 0; i < tripList.length; i++)
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => TripDetailPage(
-                          tripDetail: trips[i],
-                          cercania: (i % 3),
+                          tripDetail: tripList[i],
+                          cercania: (i % 3) * 1.0,
                         ),
                       ),
                     );
                   },
                   child: TripCard(
-                    trip: trips[i],
-                    cercania: (i % 3),
+                    trip: tripList[i],
+                    cercania: (i % 3) * 1.0,
                   ),
                 )
             ],

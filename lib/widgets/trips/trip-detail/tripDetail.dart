@@ -1,5 +1,7 @@
+import 'package:pool_rides/Pages/location-visualizer/location-visualizer.dart';
 import 'package:pool_rides/Pages/user/userProfile.dart';
-import 'package:pool_rides/models/cars.dart';
+import 'package:pool_rides/models/car.dart';
+import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 class TripDetailPage extends StatefulWidget {
   final Trip tripDetail;
-  final int cercania;
+  final double cercania;
 
   TripDetailPage({
     Key key,
@@ -60,8 +62,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
             ),
             tripInformation(
               startTime: widget.tripDetail.startTime,
-              originLocation: widget.tripDetail.origin.description,
-              originName: widget.tripDetail.origin.city,
+              location: widget.tripDetail.origin,
               cercania: widget.cercania,
               icon: Icons.hail,
             ),
@@ -70,8 +71,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
             ),
             tripInformation(
               startTime: widget.tripDetail.arrivalTime,
-              originLocation: widget.tripDetail.destination.description,
-              originName: widget.tripDetail.destination.city,
+              location: widget.tripDetail.destination,
               cercania: widget.cercania,
               icon: Icons.place,
             ),
@@ -308,7 +308,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
   }
 
   Widget carInformation({
-    @required Cars car,
+    @required Car car,
   }) {
     return Padding(
       padding: const EdgeInsets.only(
@@ -450,8 +450,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
 
   Widget tripInformation({
     @required startTime,
-    @required originLocation,
-    @required originName,
+    @required Place location,
     @required cercania,
     @required IconData icon,
   }) {
@@ -485,61 +484,72 @@ class _TripDetailPageState extends State<TripDetailPage> {
                 ),
               ],
             ),
-            title: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  originLocation,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17.5,
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  originName,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Container(
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: cercania == 0
-                            ? Colors.green[400]
-                            : widget.cercania == 1
-                                ? Colors.yellow[700]
-                                : Color(0xFFff6257),
-                      ),
-                      child: Icon(
-                        Icons.directions_walk,
-                      ),
+            title: GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => LocationVisualizerPage(
+                      location: location,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text(
-                        "A 6 km de tu punto de salida",
-                        style: TextStyle(
+                  ),
+                );
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    location.description,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17.5,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    location.city,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
                           color: cercania == 0
                               ? Colors.green[400]
                               : widget.cercania == 1
                                   ? Colors.yellow[700]
                                   : Color(0xFFff6257),
-                          fontSize: 13.5,
-                          fontWeight: FontWeight.bold,
+                        ),
+                        child: Icon(
+                          Icons.directions_walk,
                         ),
                       ),
-                    )
-                  ],
-                ),
-              ],
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
+                          "A 6 km de tu punto de salida",
+                          style: TextStyle(
+                            color: cercania == 0
+                                ? Colors.green[400]
+                                : widget.cercania == 1
+                                    ? Colors.yellow[700]
+                                    : Color(0xFFff6257),
+                            fontSize: 13.5,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
             trailing: GestureDetector(
               child: Icon(
@@ -547,7 +557,13 @@ class _TripDetailPageState extends State<TripDetailPage> {
                 size: 27.5,
               ),
               onTap: () {
-                // To Do: abrir el google maps
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => LocationVisualizerPage(
+                      location: location,
+                    ),
+                  ),
+                );
               },
             ),
           )
