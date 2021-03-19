@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class TripCard extends StatelessWidget {
   final Trip trip;
-  final int cercania;
+  final double cercania;
   TripCard({Key key, @required this.trip, this.cercania}) : super(key: key);
 
   @override

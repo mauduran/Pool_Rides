@@ -1,4 +1,4 @@
-import 'package:pool_rides/models/cars.dart';
+import 'package:pool_rides/models/car.dart';
 import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:pool_rides/user/user.dart';
@@ -9,7 +9,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 class TripDetailPage extends StatefulWidget {
   final Trip tripDetail;
-  final int cercania;
+  final double cercania;
 
   TripDetailPage({
     Key key,
@@ -315,7 +315,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
   }
 
   Widget carInformation({
-    @required Cars car,
+    @required Car car,
   }) {
     return Padding(
       padding: const EdgeInsets.only(

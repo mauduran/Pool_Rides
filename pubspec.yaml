@@ -33,7 +33,7 @@ dependencies:
   uuid: ^3.0.1
   flutter_bloc: ^6.1.2
   equatable: ^1.2.6
-  image_picker: ^0.7.2+1
+  image_picker: ^0.7.3
 
 
 

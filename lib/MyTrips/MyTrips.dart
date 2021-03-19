@@ -1,3 +1,4 @@
+import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/travels/TripCard.dart';
 import 'package:pool_rides/travels/trip-detail/tripDetail.dart';
 import 'package:flutter/material.dart';
@@ -39,20 +40,42 @@ class _MyTripsState extends State<MyTrips> {
               ),
               SizedBox(height: 20),
               for (int i = 0; i < trips.length; i++)
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.of(context).push(
+                //       MaterialPageRoute(
+                //         builder: (context) => TripDetailPage(
+                //           tripDetail: trips[i],
+                //           cercania: Trip.distanceBetweenTwoPlaces(
+                //             trips[i].origin,
+                //             trips[i].destination,
+                //           ),
+                //         ),
+                //       ),
+                //     );
+                //   },
+                //   child: TripCard(
+                //     trip: trips[i],
+                //     cercania: Trip.distanceBetweenTwoPlaces(
+                //       trips[i].origin,
+                //       trips[i].destination,
+                //     ),
+                //   ),
+                // )
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => TripDetailPage(
                           tripDetail: trips[i],
-                          cercania: (i % 3),
+                          cercania: (i % 3) * 1.0,
                         ),
                       ),
                     );
                   },
                   child: TripCard(
                     trip: trips[i],
-                    cercania: (i % 3),
+                    cercania: (i % 3) * 1.0,
                   ),
                 )
             ],

@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 
-class Cars {
+class Car {
   String model;
   String color;
   String image;
-  Cars({
+  Car({
     @required this.model,
     @required this.color,
     @required this.image,

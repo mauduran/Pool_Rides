@@ -1,21 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:pool_rides/models/review.dart';
-import 'cars.dart';
+import 'car.dart';
 
 class User {
-  final String name;
-  final String biography;
-  final String image;
-  final String email;
-  final String phoneNumber;
-  final int age;
-  final int tripNumber;
-  final int reviewsNumber;
-  final double stars;
+  String name;
+  String biography;
+  String image;
+  String email;
+  String password;
+  String phoneNumber;
+  int age;
+  int tripNumber;
+  int reviewsNumber;
+  double stars;
 
   final DateTime joined;
-  final List<Review> reviews;
-  final List<Cars> cars;
+  List<Review> reviews;
+  List<Car> cars;
   User({
     @required this.name,
     @required this.biography,
@@ -28,6 +29,17 @@ class User {
     @required this.stars,
     @required this.joined,
     @required this.reviews,
-    @required this.cars,
+    this.cars,
+    this.password,
   });
+
+  bool changePhoto(String url) {
+    var currentPhoto = this.image;
+
+    this.image = url;
+    if (currentPhoto != this.image) {
+      return true;
+    }
+    return false;
+  }
 }

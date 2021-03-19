@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/user.dart';
 
-import 'cars.dart';
+import 'car.dart';
 
 class Trip {
   final String startTime;
@@ -15,10 +16,12 @@ class Trip {
   final DateTime departureDate;
 
   final User driver;
-  final List<User> passengers;
+  List<User> passengers;
 
   final bool isCarSpecified;
-  final Cars car;
+  final Car car;
+
+  int availableSeatsNumber;
   Trip({
     @required this.driver,
     @required this.passengers,
@@ -30,5 +33,17 @@ class Trip {
     @required this.tripPrice,
     @required this.isCarSpecified,
     this.car, // To Do: hacerlo required
+    this.availableSeatsNumber,
   });
+
+  static double distanceBetweenTwoPlaces(Place origin, Place destination) {
+    double distanceInMeters = Geolocator.distanceBetween(
+      origin.coordinates.latitude,
+      origin.coordinates.longitude,
+      destination.coordinates.latitude,
+      destination.coordinates.longitude,
+    );
+
+    return distanceInMeters;
+  }
 }
