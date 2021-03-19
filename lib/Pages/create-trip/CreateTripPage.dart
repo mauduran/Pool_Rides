@@ -107,7 +107,7 @@ class _CreateTripPageState extends State<CreateTripPage> {
         mainAxisSize: MainAxisSize.max,
         children: [
           SizedBox(
-            height: 25,
+            height: 15,
           ),
           Text(
             "Crear Viaje",
