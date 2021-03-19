@@ -251,6 +251,7 @@ List<Trip> trips = [
     passengers: users.getRange(3, 7).toList(),
     isCarSpecified: true,
     car: users[0].cars[0],
+    passengerCapacity: 4,
   ),
   Trip(
     startTime: "4:00",
@@ -262,6 +263,7 @@ List<Trip> trips = [
     driver: users[1],
     passengers: users.getRange(4, 6).toList(),
     isCarSpecified: false,
+    passengerCapacity: 4,
   ),
   Trip(
     startTime: "5:00",
@@ -274,6 +276,7 @@ List<Trip> trips = [
     passengers: users.getRange(0, 2).toList(),
     isCarSpecified: true,
     car: users[2].cars[0],
+    passengerCapacity: 2,
   ),
   Trip(
     startTime: "6:00",
@@ -285,6 +288,7 @@ List<Trip> trips = [
     driver: users[3],
     passengers: users.getRange(0, 1).toList(),
     isCarSpecified: false,
+    passengerCapacity: 4,
   ),
   Trip(
     startTime: "7:00",
@@ -297,6 +301,7 @@ List<Trip> trips = [
     passengers: users.getRange(2, 4).toList(),
     isCarSpecified: true,
     car: users[4].cars[0],
+    passengerCapacity: 4,
   ),
   Trip(
     startTime: "8:00",
@@ -308,6 +313,7 @@ List<Trip> trips = [
     driver: users[5],
     passengers: users.getRange(1, 2).toList(),
     isCarSpecified: false,
+    passengerCapacity: 3,
   ),
   Trip(
     startTime: "9:00",
@@ -320,6 +326,7 @@ List<Trip> trips = [
     passengers: users.getRange(0, 2).toList(),
     isCarSpecified: true,
     car: users[6].cars[0],
+    passengerCapacity: 3,
   ),
   Trip(
     startTime: "10:00",
@@ -331,6 +338,7 @@ List<Trip> trips = [
     driver: users[7],
     passengers: users.getRange(0, 1).toList(),
     isCarSpecified: false,
+    passengerCapacity: 4,
   ),
 ];
 
