@@ -43,3 +43,5 @@ app.*.symbols
 app.*.map.json
 android/app/src/main/AndroidManifest.xml
 ios/Runner/AppDelegate.swift
+
+*secrets.xml
