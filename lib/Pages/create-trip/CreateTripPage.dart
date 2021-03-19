@@ -366,7 +366,7 @@ class _CreateTripPageState extends State<CreateTripPage> {
               child: ElevatedButton(
                 onPressed: _createTrip,
                 child: Text(
-                  "Buscar Viaje",
+                  "Crear Viaje",
                   style: TextStyle(fontSize: 18),
                 ),
               ),
