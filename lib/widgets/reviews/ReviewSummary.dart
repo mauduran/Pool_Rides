@@ -1,5 +1,5 @@
-import 'package:pool_rides/reviews/ReviewSummaryRow.dart';
 import 'package:flutter/material.dart';
+import 'package:pool_rides/widgets/reviews/ReviewSummaryRow.dart';
 
 class ReviewSummary extends StatelessWidget {
   const ReviewSummary({Key key}) : super(key: key);

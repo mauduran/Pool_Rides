@@ -1,10 +1,9 @@
-import 'package:pool_rides/models/trip.dart';
-import 'package:pool_rides/travels/TripCard.dart';
-import 'package:pool_rides/travels/trip-detail/tripDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:pool_rides/utils/lists.dart';
+import 'package:pool_rides/widgets/trips/TripCard.dart';
+import 'package:pool_rides/widgets/trips/trip-detail/tripDetail.dart';
 
-import '../theme.dart';
+import '../../theme.dart';
 
 class MyTrips extends StatefulWidget {
   MyTrips({Key key}) : super(key: key);
@@ -39,42 +38,20 @@ class _MyTripsState extends State<MyTrips> {
                     enabledBorder: roundedInputBorder),
               ),
               SizedBox(height: 20),
-              for (int i = 0; i < trips.length; i++)
-                // GestureDetector(
-                //   onTap: () {
-                //     Navigator.of(context).push(
-                //       MaterialPageRoute(
-                //         builder: (context) => TripDetailPage(
-                //           tripDetail: trips[i],
-                //           cercania: Trip.distanceBetweenTwoPlaces(
-                //             trips[i].origin,
-                //             trips[i].destination,
-                //           ),
-                //         ),
-                //       ),
-                //     );
-                //   },
-                //   child: TripCard(
-                //     trip: trips[i],
-                //     cercania: Trip.distanceBetweenTwoPlaces(
-                //       trips[i].origin,
-                //       trips[i].destination,
-                //     ),
-                //   ),
-                // )
+              for (int i = 0; i < tripList.length; i++)
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => TripDetailPage(
-                          tripDetail: trips[i],
+                          tripDetail: tripList[i],
                           cercania: (i % 3) * 1.0,
                         ),
                       ),
                     );
                   },
                   child: TripCard(
-                    trip: trips[i],
+                    trip: tripList[i],
                     cercania: (i % 3) * 1.0,
                   ),
                 )

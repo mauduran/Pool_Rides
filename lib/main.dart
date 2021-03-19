@@ -1,17 +1,16 @@
-import 'package:pool_rides/create-review/CreateReviewPage.dart';
-import 'package:pool_rides/homepage/HomePage.dart';
-import 'package:pool_rides/principal/principal.dart';
-import 'package:pool_rides/principal/principal_signin.dart';
-import 'package:pool_rides/search-trip/SearchTrip.dart';
-import 'package:pool_rides/session/sign_in.dart';
-import 'package:pool_rides/session/sign_up.dart';
-import 'package:pool_rides/session/sign_up_2.dart';
-import 'package:pool_rides/reviews/ReviewsPage.dart';
+import 'package:pool_rides/Pages/session-pages/sign_in.dart';
+import 'package:pool_rides/Pages/session-pages/sign_up.dart';
+import 'package:pool_rides/Pages/session-pages/sign_up_2.dart';
+import 'package:pool_rides/Pages/homepage/HomePage.dart';
+import 'package:pool_rides/Pages/reviews/ReviewsPage.dart';
 import 'package:pool_rides/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import 'location-picker/LocationPicker.dart';
+import 'Pages/create-review/CreateReviewPage.dart';
+import 'Pages/principal/principal.dart';
+import 'Pages/principal/principal_signin.dart';
+import 'Pages/search-trip-page/SearchTripPage.dart';
+import 'Pages/location-picker/LocationPickerPage.dart';
 
 void main() {
   Intl.defaultLocale = 'es_MX';
@@ -36,8 +35,8 @@ class MyApp extends StatelessWidget {
         '/signin': (context) => SignIn(),
         '/reviews': (context) => ReviewsPage(),
         '/make-review': (context) => CreateReviewPage(),
-        '/location-picker': (context) => LocationPicker(),
-        '/search-trip': (conext) => SearchTrip()
+        '/location-picker': (context) => LocationPickerPage(),
+        '/search-trip': (conext) => SearchTripPage()
       },
     );
   }

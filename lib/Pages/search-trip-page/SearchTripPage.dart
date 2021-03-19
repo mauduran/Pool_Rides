@@ -1,18 +1,18 @@
-import 'package:pool_rides/MyTrips/Trips.dart';
+import 'package:pool_rides/Pages/trips/Trips.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:pool_rides/models/trip-query.dart';
 
-class SearchTrip extends StatefulWidget {
-  SearchTrip({Key key}) : super(key: key);
+class SearchTripPage extends StatefulWidget {
+  SearchTripPage({Key key}) : super(key: key);
 
   @override
-  _SearchTripState createState() => _SearchTripState();
+  _SearchTripPageState createState() => _SearchTripPageState();
 }
 
-class _SearchTripState extends State<SearchTrip> {
+class _SearchTripPageState extends State<SearchTripPage> {
   TextEditingController _originController = TextEditingController();
   TextEditingController _destinationController = TextEditingController();
   DateFormat dateFormat;
@@ -96,52 +96,63 @@ class _SearchTripState extends State<SearchTrip> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(bottom: 40),
-                        child: TextField(
-                          keyboardType: TextInputType.multiline,
-                          maxLines: null,
-                          controller: _originController,
+                        child: GestureDetector(
                           onTap: () {
                             _getLocation(origin: true);
+                          },
+                          child: TextField(
+                            enabled: false,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            controller: _originController,
+                            focusNode: FocusNode(
+                              canRequestFocus: false,
+                              descendantsAreFocusable: false,
+                              skipTraversal: false,
+                            ),
+                            enableInteractiveSelection: false,
+                            decoration: InputDecoration(
+                              hintText: "Origen",
+                              prefixIcon: Icon(
+                                Icons.location_on,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              contentPadding: EdgeInsets.only(
+                                  left: 8.0, top: 16.0, bottom: 12),
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          _getLocation(origin: false);
+                        },
+                        child: TextField(
+                          enabled: false,
+                          controller: _destinationController,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          onTap: () {
+                            _getLocation(origin: false);
                           },
                           focusNode: FocusNode(
                             canRequestFocus: false,
                             descendantsAreFocusable: false,
                             skipTraversal: false,
                           ),
+                          enableInteractiveSelection: false,
                           decoration: InputDecoration(
-                            hintText: "Origen",
+                            hintText: "Destino",
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
                             prefixIcon: Icon(
                               Icons.location_on,
                               color: Theme.of(context).primaryColor,
                             ),
                             contentPadding: EdgeInsets.only(
-                                left: 8.0, top: 16.0, bottom: 12),
-                          ),
-                        ),
-                      ),
-                      TextField(
-                        controller: _destinationController,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        onTap: () {
-                          _getLocation(origin: false);
-                        },
-                        focusNode: FocusNode(
-                          canRequestFocus: false,
-                          descendantsAreFocusable: false,
-                          skipTraversal: false,
-                        ),
-                        decoration: InputDecoration(
-                          hintText: "Destino",
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          prefixIcon: Icon(
-                            Icons.location_on,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          contentPadding: EdgeInsets.only(
-                            left: 8.0,
-                            top: 16.0,
-                            bottom: 12,
+                              left: 8.0,
+                              top: 16.0,
+                              bottom: 12,
+                            ),
                           ),
                         ),
                       ),
@@ -153,6 +164,7 @@ class _SearchTripState extends State<SearchTrip> {
                 padding: const EdgeInsets.only(right: 10.0),
                 child: FloatingActionButton(
                   mini: true,
+                  heroTag: "switch",
                   onPressed: () {
                     final tempText = _originController.text;
                     _originController.text = _destinationController.text;

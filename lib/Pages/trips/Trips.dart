@@ -1,12 +1,13 @@
 import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/trip-query.dart';
-import 'package:pool_rides/models/trip.dart';
-import 'package:pool_rides/travels/TripCard.dart';
-import 'package:pool_rides/travels/trip-detail/tripDetail.dart';
-import 'package:flutter/material.dart';
-import 'package:pool_rides/utils/lists.dart';
 
-import '../theme.dart';
+import 'package:flutter/material.dart';
+import 'package:pool_rides/models/trip.dart';
+import 'package:pool_rides/utils/lists.dart';
+import 'package:pool_rides/widgets/trips/TripCard.dart';
+import 'package:pool_rides/widgets/trips/trip-detail/tripDetail.dart';
+
+import '../../theme.dart';
 
 class Trips extends StatefulWidget {
   final TripQuery query;
@@ -46,20 +47,20 @@ class _TripsState extends State<Trips> {
                       enabledBorder: roundedInputBorder),
                 ),
                 SizedBox(height: 20),
-                for (int i = 0; i < trips.length; i++)
+                for (int i = 0; i < tripList.length; i++)
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => TripDetailPage(
-                            tripDetail: trips[i],
+                            tripDetail: tripList[i],
                             cercania: (i % 3) * 1.0,
                           ),
                         ),
                       );
                     },
                     child: TripCard(
-                      trip: trips[i],
+                      trip: tripList[i],
                       cercania: (i % 3) * 1.0,
                     ),
                   )

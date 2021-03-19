@@ -1,67 +1,45 @@
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:pool_rides/models/message.dart';
+import 'package:pool_rides/widgets/message/MessageWithSep.dart';
+import 'package:pool_rides/models/conversation.dart';
 import 'package:flutter/material.dart';
-
-import 'message/Message.dart';
+import 'package:pool_rides/widgets/message/Message.dart';
 
 class ChatDetailPage extends StatefulWidget {
-  ChatDetailPage({Key key}) : super(key: key);
+  final Conversation conversation;
+  ChatDetailPage({Key key, @required this.conversation}) : super(key: key);
 
   @override
   _ChatDetailPageState createState() => _ChatDetailPageState();
 }
 
 class _ChatDetailPageState extends State<ChatDetailPage> {
-  List<ChatMessage> messages = [
-    ChatMessage(
-        messageContent: "Hello, Rolas",
-        messageSender: "mau4duran",
-        date: DateTime.now()),
-    ChatMessage(
-      messageContent: "How have you been?",
-      messageSender: "mau4duran",
-      date: DateTime.now(),
-    ),
-    ChatMessage(
-      messageContent: "Hey Mau, I am doing fine dude. wbu?",
-      messageSender: "rolas",
-      date: DateTime.now(),
-    ),
-    ChatMessage(
-      messageContent:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis nibh non metus semper, eu congue tellus mollis. Vivamus euismod pretium leo quis feugiat. Morbi lobortis, eros id viverra aliquam, dolor neque gravida massa, et sollicitudin urna erat vel nunc. Sed posuere porttitor tincidunt. Vivamus suscipit sagittis elit vel ultrices. Sed tempus varius libero et vestibulum. Quisque ante enim, bibendum eu nunc ut, commodo tempor libero.",
-      messageSender: "rolas",
-      date: DateTime.now(),
-    ),
-    ChatMessage(
-      messageContent: "Is there any thing wrong?",
-      messageSender: "mau4duran",
-      date: DateTime.now(),
-    ),
-  ];
+  var origin = "";
+  var destination = "";
+  var conversationName = "";
+  final currentUserId = 'mau4duran';
 
-  var origin = "Guadalajara";
-  var destination = "San Luis Potosi";
-  var conversationName = "Edgar Rolas";
+  DateTime currentDate;
 
   final ScrollController _scrollController = ScrollController();
   final _messageInput = TextEditingController();
   @override
   void initState() {
     initializeDateFormatting();
+    final conversation = widget.conversation;
+    origin = conversation.originCity;
+    destination = conversation.destinationCity;
+    conversationName = conversation.members
+        .firstWhere((element) => element.userId != currentUserId)
+        .name;
+
     super.initState();
   }
 
   void addMessage() {
     if (_messageInput.text.trim().length > 0) {
       setState(() {
-        messages.add(
-          ChatMessage(
-            messageContent: _messageInput.text.trim(),
-            messageSender: 'mau4duran',
-            date: DateTime.now(),
-          ),
-        );
+        widget.conversation
+            .addMessage(currentUserId, _messageInput.text.trim());
         _messageInput.text = "";
       });
     }
@@ -72,7 +50,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        // centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -117,15 +94,28 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
       body: Column(
         children: [
           Expanded(
-            // height: MediaQuery.of(context).size.height * .8,
             child: ListView.builder(
               controller: _scrollController,
-              itemCount: messages.length,
+              itemCount: widget.conversation.messages.length,
               shrinkWrap: true,
               reverse: true,
               padding: EdgeInsets.only(top: 10, bottom: 10),
               itemBuilder: (context, index) {
-                return Message(message: messages.reversed.toList()[index]);
+                var message =
+                    widget.conversation.messages.reversed.toList()[index];
+
+                if (index == widget.conversation.messages.length - 1 ||
+                    (widget.conversation.messages.reversed
+                            .toList()[index + 1]
+                            .date
+                            .difference(message.date)
+                            .inDays
+                            .abs()) !=
+                        0) {
+                  currentDate = message.date;
+                  return MessageWithSep(message: message);
+                }
+                return Message(message: message);
               },
             ),
           ),

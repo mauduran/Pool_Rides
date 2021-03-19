@@ -1,5 +1,5 @@
 import 'package:pool_rides/models/trip.dart';
-import 'package:pool_rides/utils/places.dart';
+import 'package:pool_rides/widgets/places/places.dart';
 import 'package:pool_rides/utils/principalText.dart';
 import 'package:flutter/material.dart';
 

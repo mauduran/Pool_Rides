@@ -1,7 +1,7 @@
+import 'package:pool_rides/Pages/reviews/ReviewsPage.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pool_rides/reviews/ReviewsPage.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class PassengerDetail extends StatefulWidget {

@@ -3,19 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pool_rides/reviews/ReviewsPage.dart';
+import 'package:pool_rides/Pages/reviews/ReviewsPage.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:pool_rides/user/bloc/user_bloc.dart';
 
-class UserDetail extends StatefulWidget {
+class UserProfile extends StatefulWidget {
   final User user;
-  const UserDetail({Key key, @required this.user}) : super(key: key);
+  const UserProfile({Key key, @required this.user}) : super(key: key);
 
   @override
-  _UserDetailState createState() => _UserDetailState();
+  _UserProfileState createState() => _UserProfileState();
 }
 
-class _UserDetailState extends State<UserDetail> {
+class _UserProfileState extends State<UserProfile> {
   UserBloc _userBloc;
   File selectedImage;
 
@@ -135,9 +135,24 @@ class UserWidget extends StatelessWidget {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: Text('Cambia tu imagen de perfil!'),
+                        title: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text('Cambia tu imagen de perfil'),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Divider(
+                              thickness: 1.5,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ],
+                        ),
+                        titlePadding: EdgeInsets.only(
+                          top: 20.0,
+                        ),
                         content: Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -150,7 +165,7 @@ class UserWidget extends StatelessWidget {
                                   height: 50,
                                   color: Color.fromARGB(255, 51, 174, 250),
                                   child: Row(
-                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Icon(
                                         Icons.camera_alt,
@@ -188,7 +203,7 @@ class UserWidget extends StatelessWidget {
                                   height: 50,
                                   color: Theme.of(context).primaryColor,
                                   child: Row(
-                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Icon(
                                         Icons.camera,
@@ -222,7 +237,13 @@ class UserWidget extends StatelessWidget {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: Text("Aceptar"),
+                            child: Text(
+                              "Aceptar",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           )
                         ],
                       );

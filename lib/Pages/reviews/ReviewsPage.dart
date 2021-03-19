@@ -1,8 +1,8 @@
 import 'package:pool_rides/models/review.dart';
-import 'package:pool_rides/reviews/ReviewSummary.dart';
 import 'package:flutter/material.dart';
-import 'package:pool_rides/reviews/ReviewDetail.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:pool_rides/widgets/reviews/ReviewDetail.dart';
+import 'package:pool_rides/widgets/reviews/ReviewSummary.dart';
 
 class ReviewsPage extends StatefulWidget {
   ReviewsPage({Key key}) : super(key: key);

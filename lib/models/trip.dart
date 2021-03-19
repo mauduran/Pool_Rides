@@ -9,13 +9,11 @@ class Trip {
   final String startTime;
   final Place origin;
   final Place destination;
-
   final String arrivalTime;
-
   final double tripPrice;
   final DateTime departureDate;
-
   final User driver;
+  final int passengerCapacity;
   List<User> passengers;
 
   final bool isCarSpecified;
@@ -23,8 +21,9 @@ class Trip {
 
   int availableSeatsNumber;
   Trip({
+    @required this.passengerCapacity,
     @required this.driver,
-    @required this.passengers,
+    this.passengers = const [],
     @required this.origin,
     @required this.destination,
     @required this.departureDate,

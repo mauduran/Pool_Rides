@@ -1,8 +1,7 @@
+import 'package:pool_rides/Pages/user/userProfile.dart';
 import 'package:pool_rides/models/car.dart';
 import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
-import 'package:pool_rides/user/user.dart';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -29,11 +28,8 @@ class _TripDetailPageState extends State<TripDetailPage> {
   }
 
   String dateToString(DateTime dt) {
-    // String result = "${DateFormat.EEEE().format(dt).substring(0, 3)} ${dt.toString().split("-")[2].substring(0, 2)} ${DateFormat.MMMd().format(dt)}";
     String result = "${DateFormat.MMMMEEEEd().format(dt)}";
-    // "${DateFormat.EEEE().format(dt).substring(0, 3)} ${DateFormat.MMMMd().format(dt)}";
 
-    print(dt.toString().split("-")[2].substring(0, 2));
     return result;
   }
 
@@ -139,9 +135,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                     fontSize: 20,
                   ),
                 ),
-                onTap: () {
-                  print("Hola");
-                },
+                onTap: () {},
               ),
             ),
             if (widget.tripDetail.isCarSpecified)
@@ -239,11 +233,10 @@ class _TripDetailPageState extends State<TripDetailPage> {
       child: GestureDetector(
         onTap: () {
           // To Do: Ir hacia perfil de usuario
-          print(user.name);
 
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => UserDetail(
+              builder: (context) => UserProfile(
                 user: user,
               ),
             ),
@@ -383,10 +376,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
     return GestureDetector(
       onTap: () {
         // To Do: Ir hacia perfil de usuario
-        print(user.name);
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => UserDetail(
+            builder: (context) => UserProfile(
               user: user,
             ),
           ),

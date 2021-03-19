@@ -1,6 +1,9 @@
 import 'dart:math';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pool_rides/models/car.dart';
+import 'package:pool_rides/models/conversation-user.dart';
+import 'package:pool_rides/models/conversation.dart';
+import 'package:pool_rides/models/message.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
@@ -236,7 +239,7 @@ List<User> users = [
 // --------------------- Trip -----------------------
 // ---------------------------------------------------
 
-List<Trip> trips = [
+List<Trip> tripList = [
   Trip(
     startTime: "3:00",
     arrivalTime: "5:00",
@@ -248,6 +251,7 @@ List<Trip> trips = [
     passengers: users.getRange(3, 7).toList(),
     isCarSpecified: true,
     car: users[0].cars[0],
+    passengerCapacity: 4,
   ),
   Trip(
     startTime: "4:00",
@@ -259,6 +263,7 @@ List<Trip> trips = [
     driver: users[1],
     passengers: users.getRange(4, 6).toList(),
     isCarSpecified: false,
+    passengerCapacity: 4,
   ),
   Trip(
     startTime: "5:00",
@@ -271,6 +276,7 @@ List<Trip> trips = [
     passengers: users.getRange(0, 2).toList(),
     isCarSpecified: true,
     car: users[2].cars[0],
+    passengerCapacity: 2,
   ),
   Trip(
     startTime: "6:00",
@@ -282,6 +288,7 @@ List<Trip> trips = [
     driver: users[3],
     passengers: users.getRange(0, 1).toList(),
     isCarSpecified: false,
+    passengerCapacity: 4,
   ),
   Trip(
     startTime: "7:00",
@@ -294,6 +301,7 @@ List<Trip> trips = [
     passengers: users.getRange(2, 4).toList(),
     isCarSpecified: true,
     car: users[4].cars[0],
+    passengerCapacity: 4,
   ),
   Trip(
     startTime: "8:00",
@@ -305,6 +313,7 @@ List<Trip> trips = [
     driver: users[5],
     passengers: users.getRange(1, 2).toList(),
     isCarSpecified: false,
+    passengerCapacity: 3,
   ),
   Trip(
     startTime: "9:00",
@@ -317,6 +326,7 @@ List<Trip> trips = [
     passengers: users.getRange(0, 2).toList(),
     isCarSpecified: true,
     car: users[6].cars[0],
+    passengerCapacity: 3,
   ),
   Trip(
     startTime: "10:00",
@@ -328,5 +338,130 @@ List<Trip> trips = [
     driver: users[7],
     passengers: users.getRange(0, 1).toList(),
     isCarSpecified: false,
+    passengerCapacity: 4,
+  ),
+];
+
+// ---------------------------------------------------
+// ------------------- Messages ----------------------
+// ---------------------------------------------------
+
+List<ChatMessage> messages = [
+  ChatMessage(
+    messageContent: "Hello, Rolas",
+    messageSender: "mau4duran",
+    date: DateTime.now().subtract(
+      Duration(days: 7, hours: 6, minutes: 20),
+    ),
+  ),
+  ChatMessage(
+      messageContent: "How have you been?",
+      messageSender: "mau4duran",
+      date: DateTime.now().subtract(
+        Duration(days: 1),
+      )),
+  ChatMessage(
+    messageContent: "Hey Mau, I am doing fine dude. wbu?",
+    messageSender: "rolas",
+    date: DateTime.now().subtract(
+      Duration(days: 1),
+    ),
+  ),
+  ChatMessage(
+      messageContent:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis nibh non metus semper, eu congue tellus mollis. Vivamus euismod pretium leo quis feugiat. Morbi lobortis, eros id viverra aliquam, dolor neque gravida massa, et sollicitudin urna erat vel nunc. Sed posuere porttitor tincidunt. Vivamus suscipit sagittis elit vel ultrices. Sed tempus varius libero et vestibulum. Quisque ante enim, bibendum eu nunc ut, commodo tempor libero.",
+      messageSender: "rolas",
+      date: DateTime.now().subtract(
+        Duration(days: 2),
+      )),
+  ChatMessage(
+    messageContent: "Is there any thing wrong?",
+    messageSender: "mau4duran",
+    date: DateTime.now(),
+  ),
+];
+
+// ------------------------------------------------------------
+// ------------------- ConversationUsers ----------------------
+// ------------------------------------------------------------
+
+ConversationUser mau4duran = ConversationUser(
+    userId: 'mau4duran',
+    name: 'Mauricio Duran',
+    image: 'https://randomuser.me/api/portraits/men/4.jpg',
+    email: 'mau4-duran@hotmail.com',
+    phoneNumber: '4441606214');
+
+ConversationUser ipanchomx = ConversationUser(
+    userId: 'ipanchomx',
+    name: 'Edgar Rolas',
+    image: 'https://randomuser.me/api/portraits/men/5.jpg',
+    email: 'ipanchomx@hotmail.com',
+    phoneNumber: '3341606214');
+
+ConversationUser jprr44 = ConversationUser(
+    userId: 'jprr44',
+    name: 'Abdul Ramos',
+    image: 'https://randomuser.me/api/portraits/men/6.jpg',
+    email: 'jprr44@hotmail.com',
+    phoneNumber: '3341606123');
+
+ConversationUser cdaG = ConversationUser(
+    userId: 'cda_g',
+    name: 'Ana Gabriela Cabral',
+    image: 'https://randomuser.me/api/portraits/women/5.jpg',
+    email: 'cda_g@hotmail.com',
+    phoneNumber: '4441606123');
+
+// --------------------------------------------------------
+// ------------------- Conversations ----------------------
+// --------------------------------------------------------
+
+List<Conversation> conversations = [
+  Conversation(
+    conversationId: "1",
+    members: [mau4duran, ipanchomx],
+    originCity: 'Guadalajara',
+    destinationCity: 'San Luis Potosí',
+    dateOfCreation: DateTime.now(),
+  ),
+  Conversation(
+    conversationId: "2",
+    members: [mau4duran, jprr44],
+    originCity: 'Guadalajara',
+    destinationCity: 'San Luis Potosí',
+    dateOfCreation: DateTime.now().subtract(Duration(days: 10)),
+  ),
+  Conversation(
+    conversationId: "2",
+    members: [mau4duran, cdaG],
+    originCity: 'Guadalajara',
+    destinationCity: 'San Luis Potosí',
+    lastMessage: messages[messages.length - 1],
+    messages: messages,
+    dateOfCreation: DateTime.now().subtract(Duration(days: 7)),
+  ),
+  Conversation(
+    conversationId: "1",
+    members: [mau4duran, ipanchomx],
+    originCity: 'Guadalajara',
+    destinationCity: 'Toluca',
+    dateOfCreation: DateTime.now().subtract(Duration(days: 12)),
+  ),
+  Conversation(
+    conversationId: "2",
+    members: [mau4duran, jprr44],
+    originCity: 'Ciudad de Mexico',
+    destinationCity: 'San Luis Potosí',
+    dateOfCreation: DateTime.now().subtract(Duration(days: 5)),
+  ),
+  Conversation(
+    conversationId: "2",
+    members: [mau4duran, cdaG],
+    originCity: 'Monterrey',
+    destinationCity: 'San Luis Potosí',
+    lastMessage: messages[messages.length - 1],
+    messages: messages,
+    dateOfCreation: DateTime.now().subtract(Duration(days: 2)),
   ),
 ];
