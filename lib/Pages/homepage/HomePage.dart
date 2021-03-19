@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pool_rides/Pages/create-trip/CreateTripPage.dart';
 import 'package:pool_rides/Pages/search-trip-page/SearchTripPage.dart';
 import 'package:pool_rides/Pages/trips/MyTrips.dart';
 import 'package:pool_rides/Pages/trips/Test.dart';
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -41,10 +42,9 @@ class _HomePageState extends State<HomePage> {
         ),
         body: TabBarView(
           children: [
-            MyTrips(),
             SearchTripPage(),
-            Test(),
-            Test(),
+            MyTrips(),
+            CreateTripPage(),
           ],
         ),
         bottomNavigationBar: Material(
@@ -52,31 +52,21 @@ class _HomePageState extends State<HomePage> {
           child: TabBar(
             tabs: [
               Tab(
-                icon: Icon(Icons.home),
-                child: Text(
-                  'Mis viajes',
-                  style: TextStyle(fontSize: 12),
-                ),
-              ),
-              Tab(
                 icon: Icon(Icons.search),
                 child: Text(
                   'Buscar',
-                  style: TextStyle(fontSize: 12),
+                ),
+              ),
+              Tab(
+                icon: Icon(Icons.home),
+                child: Text(
+                  'Mis viajes',
                 ),
               ),
               Tab(
                 icon: Icon(Icons.add),
                 child: Text(
                   'Nuevo Viaje',
-                  style: TextStyle(fontSize: 12),
-                ),
-              ),
-              Tab(
-                icon: Icon(Icons.person),
-                child: Text(
-                  'Perfil',
-                  style: TextStyle(fontSize: 12),
                 ),
               ),
             ],
