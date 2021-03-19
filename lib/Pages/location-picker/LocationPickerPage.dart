@@ -106,19 +106,16 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(20),
-              child: TextField(
-                controller: _textController,
+              child: GestureDetector(
                 onTap: searchLocation,
-                focusNode: FocusNode(
-                  canRequestFocus: false,
-                  descendantsAreFocusable: false,
-                  skipTraversal: false,
-                ),
-                enableInteractiveSelection: false,
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  prefixIcon: Icon(Icons.location_on),
-                  contentPadding: EdgeInsets.only(left: 8.0, top: 16.0),
+                child: TextField(
+                  controller: _textController,
+                  enabled: false,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    prefixIcon: Icon(Icons.location_on),
+                    contentPadding: EdgeInsets.only(left: 8.0, top: 16.0),
+                  ),
                 ),
               ),
             ),
