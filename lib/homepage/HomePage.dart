@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
             MyTrips(),
             SearchTrip(),
             Test(),
+            Test(),
           ],
         ),
         bottomNavigationBar: Material(
@@ -52,15 +53,31 @@ class _HomePageState extends State<HomePage> {
             tabs: [
               Tab(
                 icon: Icon(Icons.home),
-                child: Text('Mis viajes'),
+                child: Text(
+                  'Mis viajes',
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
               Tab(
                 icon: Icon(Icons.search),
-                child: Text('Buscar'),
+                child: Text(
+                  'Buscar',
+                  style: TextStyle(fontSize: 12),
+                ),
+              ),
+              Tab(
+                icon: Icon(Icons.add),
+                child: Text(
+                  'Nuevo Viaje',
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
               Tab(
                 icon: Icon(Icons.person),
-                child: Text('Perfil'),
+                child: Text(
+                  'Perfil',
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
             ],
           ),
