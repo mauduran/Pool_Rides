@@ -96,12 +96,44 @@ class _SearchTripPageState extends State<SearchTripPage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(bottom: 40),
-                        child: TextField(
-                          keyboardType: TextInputType.multiline,
-                          maxLines: null,
-                          controller: _originController,
+                        child: GestureDetector(
                           onTap: () {
                             _getLocation(origin: true);
+                          },
+                          child: TextField(
+                            enabled: false,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            controller: _originController,
+                            focusNode: FocusNode(
+                              canRequestFocus: false,
+                              descendantsAreFocusable: false,
+                              skipTraversal: false,
+                            ),
+                            enableInteractiveSelection: false,
+                            decoration: InputDecoration(
+                              hintText: "Origen",
+                              prefixIcon: Icon(
+                                Icons.location_on,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              contentPadding: EdgeInsets.only(
+                                  left: 8.0, top: 16.0, bottom: 12),
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          _getLocation(origin: false);
+                        },
+                        child: TextField(
+                          enabled: false,
+                          controller: _destinationController,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          onTap: () {
+                            _getLocation(origin: false);
                           },
                           focusNode: FocusNode(
                             canRequestFocus: false,
@@ -110,40 +142,17 @@ class _SearchTripPageState extends State<SearchTripPage> {
                           ),
                           enableInteractiveSelection: false,
                           decoration: InputDecoration(
-                            hintText: "Origen",
+                            hintText: "Destino",
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
                             prefixIcon: Icon(
                               Icons.location_on,
                               color: Theme.of(context).primaryColor,
                             ),
                             contentPadding: EdgeInsets.only(
-                                left: 8.0, top: 16.0, bottom: 12),
-                          ),
-                        ),
-                      ),
-                      TextField(
-                        controller: _destinationController,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        onTap: () {
-                          _getLocation(origin: false);
-                        },
-                        focusNode: FocusNode(
-                          canRequestFocus: false,
-                          descendantsAreFocusable: false,
-                          skipTraversal: false,
-                        ),
-                        enableInteractiveSelection: false,
-                        decoration: InputDecoration(
-                          hintText: "Destino",
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          prefixIcon: Icon(
-                            Icons.location_on,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          contentPadding: EdgeInsets.only(
-                            left: 8.0,
-                            top: 16.0,
-                            bottom: 12,
+                              left: 8.0,
+                              top: 16.0,
+                              bottom: 12,
+                            ),
                           ),
                         ),
                       ),

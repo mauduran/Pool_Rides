@@ -13,14 +13,14 @@ class Trip {
   final DateTime departureDate;
   final User driver;
   final int passengerCapacity;
-  final List<User> passengers;
+  List<User> passengers;
 
   final bool isCarSpecified;
   final Cars car;
   Trip({
     @required this.passengerCapacity,
     @required this.driver,
-    @required this.passengers,
+    this.passengers = const [],
     @required this.origin,
     @required this.destination,
     @required this.departureDate,
