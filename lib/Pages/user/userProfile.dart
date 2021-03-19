@@ -77,7 +77,7 @@ class _UserProfileState extends State<UserProfile> {
               GestureDetector(
                 onTap: () {
                   //TO DO: Ir hacia las reseñas de este usuario
-                  print(widget.user.name);
+
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => ReviewsPage(),

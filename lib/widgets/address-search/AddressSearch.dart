@@ -7,7 +7,7 @@ class AddressSearch extends SearchDelegate<Suggestion> {
   PlaceApiProvider apiClient;
 
   AddressSearch(this.sessionToken) {
-    apiClient = PlaceApiProvider(sessionToken);
+    apiClient = PlaceApiProvider(sessionToken: sessionToken);
   }
   @override
   List<Widget> buildActions(BuildContext context) {

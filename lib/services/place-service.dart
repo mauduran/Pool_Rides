@@ -9,13 +9,18 @@ import 'package:http/http.dart';
 class PlaceApiProvider {
   final client = Client();
 
-  PlaceApiProvider(this.sessionToken);
+  PlaceApiProvider({this.sessionToken = ''});
 
   final sessionToken;
 
   Future<List<Suggestion>> fetchSuggestions(String input) async {
-    final request = Uri.parse(
-        'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&language=es&components=country:mx&key=$GOOGLE_API_KEY');
+    String url =
+        'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&language=es&components=country:mx&key=$GOOGLE_API_KEY';
+
+    if (sessionToken != "") {
+      url += '&sessionToken=$sessionToken';
+    }
+    final request = Uri.parse(url);
     final response = await client.get(request);
 
     if (response.statusCode == 200) {
@@ -154,6 +159,26 @@ class PlaceApiProvider {
       throw Exception(result['error_message']);
     } else {
       throw Exception('Failed to fetch place details');
+    }
+  }
+
+  Future<int> getTimeFromOriginToDest(Place origin, Place destination) async {
+    final originId = origin.placeId;
+    final destinationId = destination.placeId;
+
+    final request = Uri.parse(
+        'https://maps.googleapis.com/maps/api/distancematrix/json?origins=place_id:$originId&destinations=place_id:$destinationId&key=$GOOGLE_API_KEY');
+
+    final response = await client.get(request);
+
+    if (response.statusCode == 200) {
+      final result = json.decode(response.body);
+
+      int duration = result['rows'][0]['elements'][0]['duration']['value'];
+
+      return duration;
+    } else {
+      throw Exception('Failed to fetch suggestion');
     }
   }
 }

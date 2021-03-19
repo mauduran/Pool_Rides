@@ -3,6 +3,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/trip.dart';
+import 'package:pool_rides/services/place-service.dart';
 import 'package:pool_rides/utils/lists.dart';
 import 'package:pool_rides/widgets/number-picker/NumberPicker.dart';
 import 'package:pool_rides/utils/date.utils.dart';
@@ -33,11 +34,16 @@ class _CreateTripPageState extends State<CreateTripPage> {
     super.initState();
   }
 
-  _createTrip() {
-    if (originPlace != null || destinationPlace != null) {
+  _createTrip() async {
+    if (originPlace != null && destinationPlace != null) {
+      int tripDuration = await PlaceApiProvider()
+          .getTimeFromOriginToDest(originPlace, destinationPlace);
+
+      DateTime arrivalDateTime =
+          tripDate.copyWith().add(Duration(seconds: tripDuration));
       Trip newTrip = Trip(
         startTime: DateFormat("hh:mm aaa").format(tripDate),
-        arrivalTime: "18:00",
+        arrivalTime: DateFormat("hh:mm aaa").format(arrivalDateTime),
         departureDate: tripDate,
         destination: destinationPlace,
         driver: users[0],

@@ -33,7 +33,7 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
       delegate: AddressSearch(sessionToken),
     );
     if (result != null) {
-      final placeDetails = await PlaceApiProvider(sessionToken)
+      final placeDetails = await PlaceApiProvider(sessionToken: sessionToken)
           .getPlaceDetailFromId(result.placeId, result.description);
 
       FocusScope.of(context).unfocus();
@@ -72,8 +72,8 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
     LatLng coords = LatLng(position.latitude, position.longitude);
 
     _mapController.animateCamera(CameraUpdate.newLatLng(coords));
-    final placeDetails =
-        await PlaceApiProvider(sessionToken).getPlaceFromCoords(coords);
+    final placeDetails = await PlaceApiProvider(sessionToken: sessionToken)
+        .getPlaceFromCoords(coords);
     _textController.text = placeDetails.description;
     setState(() {
       marker = Marker(markerId: MarkerId("location"), position: coords);
