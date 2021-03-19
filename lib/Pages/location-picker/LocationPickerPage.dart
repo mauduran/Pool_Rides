@@ -5,17 +5,16 @@ import 'package:pool_rides/services/place-service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
+import 'package:pool_rides/widgets/address-search/AddressSearch.dart';
 
-import 'AddressSearch.dart';
-
-class LocationPicker extends StatefulWidget {
-  LocationPicker({Key key}) : super(key: key);
+class LocationPickerPage extends StatefulWidget {
+  LocationPickerPage({Key key}) : super(key: key);
 
   @override
-  _LocationPickerState createState() => _LocationPickerState();
+  _LocationPickerPageState createState() => _LocationPickerPageState();
 }
 
-class _LocationPickerState extends State<LocationPicker> {
+class _LocationPickerPageState extends State<LocationPickerPage> {
   GoogleMapController _mapController;
   Marker marker;
   Place place;

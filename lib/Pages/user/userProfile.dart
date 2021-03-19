@@ -1,18 +1,18 @@
 import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pool_rides/reviews/ReviewsPage.dart';
+import 'package:pool_rides/Pages/reviews/ReviewsPage.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-class UserDetail extends StatefulWidget {
+class UserProfile extends StatefulWidget {
   final User user;
-  const UserDetail({Key key, @required this.user}) : super(key: key);
+  const UserProfile({Key key, @required this.user}) : super(key: key);
 
   @override
-  _UserDetailState createState() => _UserDetailState();
+  _UserProfileState createState() => _UserProfileState();
 }
 
-class _UserDetailState extends State<UserDetail> {
+class _UserProfileState extends State<UserProfile> {
   @override
   void initState() {
     super.initState();

@@ -8,18 +8,17 @@ class Trip {
   final String startTime;
   final Place origin;
   final Place destination;
-
   final String arrivalTime;
-
   final double tripPrice;
   final DateTime departureDate;
-
   final User driver;
+  final int passengerCapacity;
   final List<User> passengers;
 
   final bool isCarSpecified;
   final Cars car;
   Trip({
+    @required this.passengerCapacity,
     @required this.driver,
     @required this.passengers,
     @required this.origin,

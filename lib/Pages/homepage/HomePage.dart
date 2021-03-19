@@ -1,10 +1,10 @@
-import 'package:pool_rides/MyTrips/MyTrips.dart';
-import 'package:pool_rides/MyTrips/Test.dart';
 import 'package:flutter/material.dart';
-import 'package:pool_rides/messages-nav-icon/messagesNavigationIcon.dart';
-import 'package:pool_rides/search-trip/SearchTrip.dart';
-import 'package:pool_rides/user/user.dart';
+import 'package:pool_rides/Pages/search-trip-page/SearchTripPage.dart';
+import 'package:pool_rides/Pages/trips/MyTrips.dart';
+import 'package:pool_rides/Pages/trips/Test.dart';
+import 'package:pool_rides/Pages/user/userProfile.dart';
 import 'package:pool_rides/utils/lists.dart';
+import 'package:pool_rides/widgets/messages-nav-icon/messagesNavigationIcon.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, @required this.title}) : super(key: key);
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => UserDetail(user: users[0]),
+                  builder: (context) => UserProfile(user: users[0]),
                 ),
               );
             },
@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           children: [
             MyTrips(),
-            SearchTrip(),
+            SearchTripPage(),
             Test(),
             Test(),
           ],

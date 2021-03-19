@@ -1,9 +1,8 @@
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:pool_rides/chat-detail/message/MessageWithSep.dart';
+import 'package:pool_rides/widgets/message/MessageWithSep.dart';
 import 'package:pool_rides/models/conversation.dart';
 import 'package:flutter/material.dart';
-
-import 'message/Message.dart';
+import 'package:pool_rides/widgets/message/Message.dart';
 
 class ChatDetailPage extends StatefulWidget {
   final Conversation conversation;

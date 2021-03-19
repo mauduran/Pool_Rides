@@ -1,18 +1,18 @@
-import 'package:pool_rides/MyTrips/Trips.dart';
+import 'package:pool_rides/Pages/trips/Trips.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:pool_rides/models/trip-query.dart';
 
-class SearchTrip extends StatefulWidget {
-  SearchTrip({Key key}) : super(key: key);
+class SearchTripPage extends StatefulWidget {
+  SearchTripPage({Key key}) : super(key: key);
 
   @override
-  _SearchTripState createState() => _SearchTripState();
+  _SearchTripPageState createState() => _SearchTripPageState();
 }
 
-class _SearchTripState extends State<SearchTrip> {
+class _SearchTripPageState extends State<SearchTripPage> {
   TextEditingController _originController = TextEditingController();
   TextEditingController _destinationController = TextEditingController();
   DateFormat dateFormat;

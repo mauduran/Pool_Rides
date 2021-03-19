@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pool_rides/conversations/Conversations.dart';
+import 'package:pool_rides/Pages/conversations/ConversationsPage.dart';
 
 class MessagesNavigationIcon extends StatefulWidget {
   MessagesNavigationIcon({Key key}) : super(key: key);
@@ -46,7 +46,7 @@ class _MessagesNavigationIconState extends State<MessagesNavigationIcon> {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => Conversations(),
+                builder: (context) => ConversationsPage(),
               ),
             );
           }),

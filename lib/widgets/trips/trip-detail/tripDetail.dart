@@ -1,8 +1,7 @@
+import 'package:pool_rides/Pages/user/userProfile.dart';
 import 'package:pool_rides/models/cars.dart';
 import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
-import 'package:pool_rides/user/user.dart';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -243,7 +242,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
 
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => UserDetail(
+              builder: (context) => UserProfile(
                 user: user,
               ),
             ),
@@ -386,7 +385,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
         print(user.name);
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => UserDetail(
+            builder: (context) => UserProfile(
               user: user,
             ),
           ),

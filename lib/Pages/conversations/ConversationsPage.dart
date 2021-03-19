@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:pool_rides/chat-detail/ChatDetailPage.dart';
+import 'package:pool_rides/Pages/chat-detail/ChatDetailPage.dart';
 import 'package:pool_rides/models/conversation.dart';
 import 'package:pool_rides/utils/lists.dart';
 
-class Conversations extends StatefulWidget {
+class ConversationsPage extends StatefulWidget {
   final List<Conversation> conversationList = conversations;
 
-  Conversations({Key key}) : super(key: key);
+  ConversationsPage({Key key}) : super(key: key);
 
   @override
-  _ConversationsState createState() => _ConversationsState();
+  _ConversationsPageState createState() => _ConversationsPageState();
 }
 
-class _ConversationsState extends State<Conversations> {
+class _ConversationsPageState extends State<ConversationsPage> {
   @override
   void initState() {
     initializeDateFormatting();
