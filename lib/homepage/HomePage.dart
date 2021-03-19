@@ -1,10 +1,10 @@
 import 'package:pool_rides/MyTrips/MyTrips.dart';
 import 'package:pool_rides/MyTrips/Test.dart';
 import 'package:flutter/material.dart';
+import 'package:pool_rides/messages-nav-icon/messagesNavigationIcon.dart';
 import 'package:pool_rides/search-trip/SearchTrip.dart';
 import 'package:pool_rides/user/user.dart';
 import 'package:pool_rides/utils/lists.dart';
-import 'package:pool_rides/conversations/Conversations.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, @required this.title}) : super(key: key);
@@ -24,16 +24,7 @@ class _HomePageState extends State<HomePage> {
           centerTitle: true,
           title: Text(widget.title),
           actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => Conversations(),
-                  ),
-                );
-              },
-              icon: Icon(Icons.chat),
-            ),
+            MessagesNavigationIcon(),
           ],
           leading: IconButton(
             onPressed: () {
