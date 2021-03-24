@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pool_rides/bloc/user-bloc/user_bloc.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pool_rides/Pages/reviews/ReviewsPage.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:pool_rides/user/bloc/user_bloc.dart';
 
 class UserProfile extends StatefulWidget {
   final User user;
