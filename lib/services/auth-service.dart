@@ -14,7 +14,8 @@ class UserAuthProvider {
 
   UserAuthProvider._internal();
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>["email"]);
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: <String>["email", "https://www.googleapis.com/auth/plus.login"]);
   final FacebookLogin _facebookLogin = FacebookLogin();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   LoginType userAuthType = LoginType.NONE;
@@ -72,13 +73,14 @@ class UserAuthProvider {
 
   Future<void> registerWithEmail(
       {@required String email, String password, String name}) async {
-    UserCredential credential = await _auth.createUserWithEmailAndPassword(
+    await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
 
     await _auth.currentUser.updateProfile(
-        displayName: name,
-        photoURL:
-            "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png");
+      displayName: name,
+      photoURL:
+          "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
+    );
 
     userAuthType = LoginType.EMAIL;
   }

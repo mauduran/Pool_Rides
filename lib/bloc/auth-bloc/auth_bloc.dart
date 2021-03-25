@@ -67,7 +67,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             email: event.email, password: event.password, name: event.name);
         yield LoginSuccessState();
       } on FirebaseAuthException catch (e) {
-        yield LoginErrorState(error: e.code);
+        yield LoginErrorState(
+            error: "Email o contraseña no válidos.", code: e.code);
       }
     }
   }

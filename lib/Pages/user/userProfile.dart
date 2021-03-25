@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pool_rides/bloc/auth-bloc/auth_bloc.dart';
 import 'package:pool_rides/bloc/user-bloc/user_bloc.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
@@ -396,6 +397,23 @@ class UserWidget extends StatelessWidget {
                     ),
                   )
                 ],
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 90,
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    BlocProvider.of<AuthBloc>(context).add(SignOutAuthEvent());
+                  },
+                  child: Text(
+                    "Cerrar Sesión",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
               ),
             ),
           ],
