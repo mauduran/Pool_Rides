@@ -1,4 +1,5 @@
 import 'package:pool_rides/Pages/location-visualizer/location-visualizer.dart';
+import 'package:pool_rides/Pages/user/user-passenger/passenger.dart';
 import 'package:pool_rides/Pages/user/userProfile.dart';
 import 'package:pool_rides/models/car.dart';
 import 'package:pool_rides/models/place.dart';
@@ -7,7 +8,6 @@ import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:pool_rides/user/passenger.dart';
 
 class TripDetailPage extends StatefulWidget {
   final Trip tripDetail;
