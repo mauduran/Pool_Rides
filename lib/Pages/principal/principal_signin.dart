@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pool_rides/bloc/auth-bloc/auth_bloc.dart';
 
 class PrincipalSignIn extends StatefulWidget {
   PrincipalSignIn({Key key}) : super(key: key);
@@ -151,7 +153,12 @@ class _PrincipalSignInState extends State<PrincipalSignIn> {
                                       ),
                                     ],
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .popUntil((route) => route.isFirst);
+                                    BlocProvider.of<AuthBloc>(context)
+                                        .add(LoginWithFacebookEvent());
+                                  },
                                 ),
                               ),
                             ),
@@ -176,7 +183,6 @@ class _PrincipalSignInState extends State<PrincipalSignIn> {
                                           BorderRadius.circular(100.0)),
                                   height: 50,
                                   color: Colors.white,
-                                  // color: Color(0xFFf5f5e1),
                                   child: Row(
                                     children: [
                                       SizedBox(
@@ -198,7 +204,12 @@ class _PrincipalSignInState extends State<PrincipalSignIn> {
                                       ),
                                     ],
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .popUntil((route) => route.isFirst);
+                                    BlocProvider.of<AuthBloc>(context)
+                                        .add(LoginWithGoogleEvent());
+                                  },
                                 ),
                               ),
                             ),

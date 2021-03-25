@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pool_rides/bloc/auth-bloc/auth_bloc.dart';
 
 class SignIn extends StatefulWidget {
   SignIn({Key key}) : super(key: key);
@@ -104,7 +106,11 @@ class _SignInState extends State<SignIn> {
                           borderRadius: BorderRadius.circular(40),
                         ),
                         suffixIcon: IconButton(
-                          icon: Icon(Icons.remove_red_eye),
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
                           color: Theme.of(context).primaryColor,
                           onPressed: () {
                             setState(() {
@@ -118,33 +124,11 @@ class _SignInState extends State<SignIn> {
                   SizedBox(
                     height: 20,
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     Padding(
-                  //       padding: const EdgeInsets.only(left: 30.0),
-                  //       child: InkWell(
-                  //         child: new Text(
-                  //           'Contraseña olvidada',
-                  //           style: TextStyle(
-                  //             color: Theme.of(context).primaryColor,
-                  //             fontWeight: FontWeight.bold,
-                  //             fontSize: 18,
-                  //           ),
-                  //         ),
-                  //         onTap: () {
-                  //           Navigator.of(context).pushNamed("/");
-                  //         },
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                 ],
               ),
               SizedBox(
                 height: 25,
               ),
-              // TO do: Hacer que el botón aparezca cuando los campos son llenados.
               Align(
                 alignment: Alignment.bottomRight,
                 child: Padding(
@@ -155,14 +139,15 @@ class _SignInState extends State<SignIn> {
                     backgroundColor: Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
                     onPressed: () {
-                      // Respond to button press
-                      // Navigator.of(context).popAndPushNamed(
-                      //   '/home',
-                      // );
-
-                      // Navigator.of(context).popUntil(ModalRoute.withName("/"));
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          "/home", ModalRoute.withName("/"));
+                      if (_passwordController.text != "" &&
+                          _emailController.text != "") {
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
+                        BlocProvider.of<AuthBloc>(context).add(
+                            LoginWithEmailEvent(
+                                email: _emailController.text,
+                                password: _passwordController.text));
+                      }
                     },
                     child: Icon(
                       Icons.arrow_forward,

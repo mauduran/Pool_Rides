@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "106484210989",
+    "project_id": "pool-rides",
+    "storage_bucket": "pool-rides.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:106484210989:android:59fb5bd06c17904816c7a4",
+        "android_client_info": {
+          "package_name": "com.example.pool_rides"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "106484210989-lr555qfbu9qrqr4dc5o1g2qj0ca1i7qf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pool_rides",
+            "certificate_hash": "f4765432e3e8adafd81afa6d94ec45c71e8147bb"
+          }
+        },
+        {
+          "client_id": "106484210989-misr6ik3m0cf4cdlakhgq25cg9iop85o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLmPPc9QHZ63s0ad-TsDV5ZBZHcSV36og"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "106484210989-misr6ik3m0cf4cdlakhgq25cg9iop85o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

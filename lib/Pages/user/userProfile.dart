@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pool_rides/Pages/add-vehicle/addVehicle.dart';
+import 'package:pool_rides/bloc/auth-bloc/auth_bloc.dart';
+import 'package:pool_rides/bloc/user-bloc/user_bloc.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pool_rides/Pages/reviews/ReviewsPage.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:pool_rides/user/bloc/user_bloc.dart';
+import 'package:pool_rides/services/auth-service.dart';
 
 class UserProfile extends StatefulWidget {
   final User user;
@@ -105,7 +107,7 @@ class UserWidget extends StatelessWidget {
                 backgroundImage: selectedImage != null
                     ? FileImage(selectedImage)
                     : NetworkImage(
-                        "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
+                        UserAuthProvider().getPhotoUrl(),
                       ),
                 maxRadius: 60.0,
                 backgroundColor: Colors.grey[300],
@@ -399,6 +401,23 @@ class UserWidget extends StatelessWidget {
                     ),
                   )
                 ],
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 90,
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    BlocProvider.of<AuthBloc>(context).add(SignOutAuthEvent());
+                  },
+                  child: Text(
+                    "Cerrar Sesión",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
               ),
             ),
           ],
