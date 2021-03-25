@@ -465,3 +465,6 @@ List<Conversation> conversations = [
     dateOfCreation: DateTime.now().subtract(Duration(days: 2)),
   ),
 ];
+
+String marcasCoches =
+    '{"0":"Abarth","1":"Alfa Romeo","2":"Aro","3":"Asia","4":"Asia Motors","5":"Aston Martin","6":"Audi","7":"Austin","8":"Auverland","9":"Bentley","10":"Bertone","11":"Bmw","12":"Cadillac","13":"Chevrolet","14":"Chrysler","15":"Citroen","16":"Corvette","17":"Dacia","18":"Daewoo","19":"Daf","20":"Daihatsu","21":"Daimler","22":"Dodge","23":"Ferrari","24":"Fiat","25":"Ford","26":"Galloper","27":"Gmc","28":"Honda","29":"Hummer","30":"Hyundai","31":"Infiniti","32":"Innocenti","33":"Isuzu","34":"Iveco","35":"Iveco-pegaso","36":"Jaguar","37":"Jeep","38":"Kia","39":"Lada","40":"Lamborghini","41":"Lancia","42":"Land-rover","43":"Ldv","44":"Lexus","45":"Lotus","46":"Mahindra","47":"Maserati","48":"Maybach","49":"Mazda","50":"Mercedes-benz","51":"Mg","52":"Mini","53":"Mitsubishi","54":"Morgan","55":"Nissan","56":"Opel","57":"Peugeot","58":"Pontiac","59":"Porsche","60":"Renault","61":"Rolls-royce","62":"Rover","63":"Saab","64":"Santana","65":"Seat","66":"Skoda","67":"Smart","68":"Ssangyong","69":"Subaru","70":"Suzuki","71":"Talbot","72":"Tata","73":"Toyota","74":"Umm","75":"Vaz","76":"Volkswagen","77":"Volvo","78":"Wartburg"}';

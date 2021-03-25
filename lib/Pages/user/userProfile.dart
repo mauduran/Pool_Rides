@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pool_rides/Pages/add-vehicle/addVehicle.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -348,8 +349,10 @@ class UserWidget extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                _userBloc.add(
-                  ChangeAccountImageEvent(),
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => AddVehiclePage(),
+                  ),
                 );
               },
               child: Padding(

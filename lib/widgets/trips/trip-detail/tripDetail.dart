@@ -7,6 +7,7 @@ import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:pool_rides/user/passenger.dart';
 
 class TripDetailPage extends StatefulWidget {
   final Trip tripDetail;
@@ -232,11 +233,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: GestureDetector(
         onTap: () {
-          // To Do: Ir hacia perfil de usuario
-
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => UserProfile(
+              builder: (context) => PassengerDetail(
                 user: user,
               ),
             ),
