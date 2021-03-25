@@ -14,8 +14,10 @@ class UserAuthProvider {
 
   UserAuthProvider._internal();
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-      scopes: <String>["email", "https://www.googleapis.com/auth/plus.login"]);
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>[
+    "email",
+    "https://www.googleapis.com/auth/userinfo.profile"
+  ]);
   final FacebookLogin _facebookLogin = FacebookLogin();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   LoginType userAuthType = LoginType.NONE;
@@ -24,6 +26,13 @@ class UserAuthProvider {
     var user = _auth.currentUser;
 
     return user != null;
+  }
+
+  String getPhotoUrl() {
+    if (isLogged()) {
+      return _auth.currentUser.photoURL;
+    }
+    return "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png";
   }
 
   Future<void> signOutGoogle() async {

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pool_rides/Pages/reviews/ReviewsPage.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:pool_rides/services/auth-service.dart';
 
 class UserProfile extends StatefulWidget {
   final User user;
@@ -105,7 +106,7 @@ class UserWidget extends StatelessWidget {
                 backgroundImage: selectedImage != null
                     ? FileImage(selectedImage)
                     : NetworkImage(
-                        "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
+                        UserAuthProvider().getPhotoUrl(),
                       ),
                 maxRadius: 60.0,
                 backgroundColor: Colors.grey[300],
