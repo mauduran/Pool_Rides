@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:pool_rides/utils/lists.dart';
 
@@ -11,85 +9,205 @@ class AddVehiclePage extends StatefulWidget {
 }
 
 class _AddVehiclePageState extends State<AddVehiclePage> {
-  // List<ListItem> _dropdownItems = [];
-
-  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
-  ListItem _selectedItem;
-
-  void initState() {
-    super.initState();
-    _dropdownMenuItems = buildDropDownMenuItems();
-    _selectedItem = _dropdownMenuItems[0].value;
-  }
-
-  List<DropdownMenuItem<ListItem>> buildDropDownMenuItems() {
-    List<DropdownMenuItem<ListItem>> items = [];
-
-    var marcas = json.decode(marcasCoches);
-
-    for (int i = 0; i < marcas.length; i++) {
-      items.add(
-        DropdownMenuItem(
-          child: Container(
-            // height: 100,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(marcas["$i"]),
-              ],
-            ),
-          ),
-          value: ListItem(i, marcas["$i"]),
-        ),
-      );
-    }
-    return items;
-  }
+  var _marcaController = TextEditingController();
+  var _modeloController = TextEditingController();
+  var _placasController = TextEditingController();
+  var _colorController = TextEditingController();
+  var _yearController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15.0,
-              vertical: 10,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 25.0,
+                vertical: 5,
+              ),
+              child: Text(
+                "¿Cuál es la marca de tu vehículo?",
+                style: Theme.of(context).textTheme.headline4,
+              ),
             ),
-            child: Text(
-              "¿Cuál es la marca de tu vehículo?",
-              style: Theme.of(context).textTheme.headline4,
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20.0,
+                right: 20.0,
+                top: 10,
+              ),
+              child: TextField(
+                controller: _marcaController,
+                decoration: InputDecoration(
+                  labelText: 'Marca',
+                  hintText: "Ejemplo: Chevrolet",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Row(
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 25.0,
+                vertical: 5,
+              ),
+              child: Text(
+                "¿Cuál es el modelo?",
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20.0,
+                right: 20.0,
+                top: 10,
+              ),
+              child: TextField(
+                controller: _modeloController,
+                decoration: InputDecoration(
+                  labelText: 'Modelo',
+                  hintText: "Ejemplo: Cruze",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 25.0,
+                vertical: 5,
+              ),
+              child: Text(
+                "Ingresa las placas de tu vehiculo",
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20.0,
+                right: 20.0,
+                top: 10,
+              ),
+              child: TextField(
+                controller: _placasController,
+                decoration: InputDecoration(
+                  labelText: 'Placas',
+                  hintText: "Ejemplo: ABC - 00 - 00",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Row(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
-                  child: DropdownButton<ListItem>(
-                      value: _selectedItem,
-                      items: _dropdownMenuItems,
-                      // itemHeight: 2,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedItem = value;
-                        });
-                      }),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 25.0,
+                          vertical: 5,
+                        ),
+                        child: Text(
+                          "Color",
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20.0,
+                          right: 20.0,
+                          top: 10,
+                        ),
+                        child: TextField(
+                          controller: _colorController,
+                          decoration: InputDecoration(
+                            labelText: 'Color',
+                            hintText: "Ejemplo: Blanco",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 25.0,
+                          vertical: 5,
+                        ),
+                        child: Text(
+                          "Año",
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20.0,
+                          right: 20.0,
+                          top: 10,
+                        ),
+                        child: TextField(
+                          controller: _yearController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: 'Año',
+                            hintText: "Ejemplo: 2019",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
+            SizedBox(
+              width: double.infinity,
+              height: 90,
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Navigator.of(context).popUntil((route) => route.isFirst);
+                    // BlocProvider.of<AuthBloc>(context).add(SignOutAuthEvent());
+                  },
+                  child: Text(
+                    "Añadir Vehiculo",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
-}
-
-class ListItem {
-  int value;
-  String name;
-
-  ListItem(this.value, this.name);
 }
