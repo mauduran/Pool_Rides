@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "106484210989-888rdenb16u5f2a58udp1q0dq9a11499.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pool_rides",
+            "certificate_hash": "7ee109864bbc7fc0e1bbdeced319fc06a0e14f0a"
+          }
+        },
+        {
           "client_id": "106484210989-lr555qfbu9qrqr4dc5o1g2qj0ca1i7qf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
