@@ -22,13 +22,17 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   UserBloc _userBloc;
   File selectedImage;
-  bool newCar;
+  bool existCar;
   Car userCar;
   @override
   void initState() {
     super.initState();
     initializeDateFormatting();
-    newCar = false;
+    if (widget.user.car != null) {
+      existCar = true;
+      userCar = widget.user.car;
+    } else
+      existCar = false;
   }
 
   @override
@@ -47,7 +51,7 @@ class _UserProfileState extends State<UserProfile> {
             } else if (state is AccountNewImageState)
               selectedImage = state.image;
             else if (state is CarInformationState) {
-              newCar = state.newCar;
+              existCar = state.newCar;
               userCar = state.userCar;
             }
           },
@@ -56,9 +60,13 @@ class _UserProfileState extends State<UserProfile> {
               userBloc: _userBloc,
               selectedImage: selectedImage,
               user: widget.user,
-              newCar: newCar,
+              existCar: existCar,
               userCar: userCar,
             );
+
+            // return Center(
+            //   child: CircularProgressIndicator(),
+            // );
           },
         ),
       ),
@@ -92,56 +100,67 @@ class _UserProfileState extends State<UserProfile> {
         left: 30.0,
         right: 20,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                car.model,
-                style: TextStyle(
-                  fontSize: 17.5,
-                ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
+              Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    height: 5,
+                  ),
                   Text(
-                    "${car.color}", // To Do: agregar el atributo "No. de reseñas en conductor"
+                    car.model,
                     style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 17.5,
                     ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "${car.color}", // To Do: agregar el atributo "No. de reseñas en conductor"
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
                   )
                 ],
-              )
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                        car.image != ""
+                            ? car.image
+                            : "https://i.pinimg.com/originals/c0/0b/69/c00b692e9820c3970e907eae9bf2be25.png",
+                      ),
+                      maxRadius: 22.5,
+                      backgroundColor: Colors.grey[300],
+                    ),
+                  ),
+                  Icon(
+                    Icons.keyboard_arrow_right,
+                    size: 27.5,
+                  ),
+                ],
+              ),
             ],
           ),
-          Row(
-            children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(
-                  car.image != ""
-                      ? car.image
-                      : "https://i.pinimg.com/originals/c0/0b/69/c00b692e9820c3970e907eae9bf2be25.png",
-                ),
-                maxRadius: 22.5,
-                backgroundColor: Colors.grey[300],
-              ),
-              Icon(
-                Icons.keyboard_arrow_right,
-                size: 27.5,
-              ),
-            ],
-          ),
+          SizedBox(
+            height: 5,
+          )
         ],
       ),
     );
@@ -151,7 +170,7 @@ class _UserProfileState extends State<UserProfile> {
     @required UserBloc userBloc,
     @required selectedImage,
     @required user,
-    @required newCar,
+    @required existCar,
     @required userCar,
   }) {
     return SingleChildScrollView(
@@ -161,19 +180,14 @@ class _UserProfileState extends State<UserProfile> {
             SizedBox(
               height: 25,
             ),
-            GestureDetector(
-              onTap: () {
-                _userBloc.add(ChangeAccountImageByGalleryEvent());
-              },
-              child: CircleAvatar(
-                backgroundImage: selectedImage != null
-                    ? FileImage(selectedImage)
-                    : NetworkImage(
-                        UserAuthProvider().getPhotoUrl(),
-                      ),
-                maxRadius: 60.0,
-                backgroundColor: Colors.grey[300],
-              ),
+            CircleAvatar(
+              backgroundImage: selectedImage != null
+                  ? FileImage(selectedImage)
+                  : NetworkImage(
+                      UserAuthProvider().getPhotoUrl(),
+                    ),
+              maxRadius: 60.0,
+              backgroundColor: Colors.grey[300],
             ),
             Padding(
               padding: const EdgeInsets.only(top: 30.0),
@@ -411,7 +425,7 @@ class _UserProfileState extends State<UserProfile> {
             SizedBox(
               height: 5,
             ),
-            if (newCar) carInformation(car: userCar),
+            if (existCar) carInformation(car: userCar),
             GestureDetector(
               onTap: () async {
                 var result = await Navigator.of(context).push(
@@ -421,6 +435,9 @@ class _UserProfileState extends State<UserProfile> {
                 );
                 if (result != null) {
                   //
+                  print(result);
+                  print(result[0]);
+                  print(result[1]);
                   userBloc.add(LoadCarEvent());
                 }
               },
@@ -441,7 +458,7 @@ class _UserProfileState extends State<UserProfile> {
                       width: 5,
                     ),
                     Text(
-                      newCar ? "Cambiar auto" : "Añadir auto",
+                      existCar ? "Cambiar auto" : "Añadir auto",
                       style: TextStyle(
                         fontSize: 18,
                         color: Theme.of(context).primaryColor,
