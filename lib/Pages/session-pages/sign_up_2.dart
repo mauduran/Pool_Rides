@@ -8,16 +8,33 @@ class SignUp2 extends StatefulWidget {
 }
 
 class _SignUp2State extends State<SignUp2> {
-  bool _obscureText = true;
-  bool _obscureText2 = true;
   int _radioButtonValue = 3;
-  var _passwordController = TextEditingController();
-  var _confirmPasswordController = TextEditingController();
+
   List<String> _formasTratamiento = [
     "Sra./Srta.",
     "Sr.",
     "Prefiero no decirlo",
   ];
+
+  DateTime _date = DateTime.now().subtract(Duration(days: 365 * 18 + 5));
+
+  var _phoneController = TextEditingController();
+
+  void _selectDate() async {
+    final DateTime newDate = await showDatePicker(
+      context: context,
+      initialDate: _date,
+      firstDate: DateTime(1921, 1),
+      lastDate: _date,
+      helpText: 'Select a date',
+    );
+
+    if (newDate != null) {
+      setState(() {
+        _date = newDate;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +133,7 @@ class _SignUp2State extends State<SignUp2> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Necesitas una contraseña",
+                        "¿Cuál tu fecha de nacimiento?",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 22.5,
@@ -125,34 +142,26 @@ class _SignUp2State extends State<SignUp2> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 30.0, right: 30, top: 20),
-                    child: TextField(
-                      controller: _passwordController,
-                      obscureText: _obscureText,
-                      decoration: InputDecoration(
-                        labelText: 'Contraseña (mínimo 8 carácteres)',
-                        // errorText: 'Error message',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: _selectDate,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('Selecciona tu fecha'),
+                        SizedBox(
+                          width: 10,
                         ),
-                        suffixIcon: IconButton(
-                          icon: Icon(Icons.remove_red_eye),
-                          color: Theme.of(context).primaryColor,
-                          onPressed: () {
-                            setState(() {
-                              _obscureText = !_obscureText;
-                            });
-                          },
-                        ),
-                      ),
+                        Icon(Icons.date_range_outlined)
+                      ],
                     ),
                   ),
                 ],
               ),
               SizedBox(
-                height: 30,
+                height: 20,
               ),
               Column(
                 mainAxisSize: MainAxisSize.min,
@@ -162,7 +171,7 @@ class _SignUp2State extends State<SignUp2> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Confirmar contraseña",
+                        "Teléfono",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 22.5,
@@ -175,29 +184,29 @@ class _SignUp2State extends State<SignUp2> {
                     padding:
                         const EdgeInsets.only(left: 30.0, right: 30, top: 20),
                     child: TextField(
-                      controller: _confirmPasswordController,
+                      controller: _phoneController,
+                      // cursorColor: Colors.red,
                       keyboardType: TextInputType.phone,
-                      obscureText: _obscureText2,
                       decoration: InputDecoration(
-                        labelText: 'Contraseña (mínimo 8 carácteres)',
-                        // errorText: 'Error message',
+                        labelText: 'Número móvil',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
-                        suffixIcon: IconButton(
-                          icon: Icon(Icons.remove_red_eye),
+                        suffixIcon: Icon(
+                          Icons.phone,
                           color: Theme.of(context).primaryColor,
-                          onPressed: () {
-                            setState(() {
-                              _obscureText = !_obscureText2;
-                            });
-                          },
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
+
+/////////////////////////////////////
+/////////////////////////////////////
+/////////////////////////////////////
+/////////////////////////////////////
+
               SizedBox(
                 height: 25,
               ),

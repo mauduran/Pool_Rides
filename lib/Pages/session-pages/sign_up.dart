@@ -8,27 +8,13 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  DateTime _date = DateTime.now().subtract(Duration(days: 365 * 18 + 5));
   var _emailController = TextEditingController();
   var _firstNameController = TextEditingController();
   var _lastNameController = TextEditingController();
-  var _phoneController = TextEditingController();
-
-  void _selectDate() async {
-    final DateTime newDate = await showDatePicker(
-      context: context,
-      initialDate: _date,
-      firstDate: DateTime(1921, 1),
-      lastDate: _date,
-      helpText: 'Select a date',
-    );
-
-    if (newDate != null) {
-      setState(() {
-        _date = newDate;
-      });
-    }
-  }
+  bool _obscureText = true;
+  bool _obscureText2 = true;
+  var _passwordController = TextEditingController();
+  var _confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,51 +31,7 @@ class _SignUpState extends State<SignUp> {
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
-                height: 25,
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "¿Cuál es tu email?",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22.5,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 30.0, right: 30, top: 20),
-                    child: TextField(
-                      controller: _emailController,
-                      // cursorColor: Colors.red,
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        // errorText: 'Error message',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                        // enabledBorder: InputBorder()
-                        // fillColor: Colors.grey[200],
-                        // filled: true,
-                        suffixIcon: Icon(
-                          Icons.mail,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 30,
+                height: 15,
               ),
               Column(
                 mainAxisSize: MainAxisSize.min,
@@ -113,20 +55,11 @@ class _SignUpState extends State<SignUp> {
                         const EdgeInsets.only(left: 30.0, right: 30, top: 20),
                     child: TextField(
                       controller: _firstNameController,
-                      // cursorColor: Colors.red,
                       decoration: InputDecoration(
                         labelText: 'Nombre(s)',
-                        // errorText: 'Error message',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
-                        // enabledBorder: InputBorder()
-                        // fillColor: Colors.grey[200],
-                        // filled: true,
-                        // suffixIcon: Icon(
-                        //   Icons.mail,
-                        //   color: Colors.black,
-                        // ),
                       ),
                     ),
                   ),
@@ -135,59 +68,12 @@ class _SignUpState extends State<SignUp> {
                         const EdgeInsets.only(left: 30.0, right: 30, top: 25),
                     child: TextField(
                       controller: _lastNameController,
-                      // cursorColor: Colors.red,
                       decoration: InputDecoration(
                         labelText: 'Apellido(s)',
-                        // errorText: 'Error message',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
-                        // enabledBorder: InputBorder()
-                        // fillColor: Colors.grey[200],
-                        // filled: true,
-                        // suffixIcon: Icon(
-                        //   Icons.mail,
-                        //   color: Colors.black,
-                        // ),
                       ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "¿Cuál tu fecha de nacimiento?",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22.5,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: _selectDate,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text('Selecciona tu fecha'),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Icon(Icons.date_range_outlined)
-                      ],
                     ),
                   ),
                 ],
@@ -203,7 +89,7 @@ class _SignUpState extends State<SignUp> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Teléfono",
+                        "¿Cuál es tu email?",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 22.5,
@@ -216,20 +102,14 @@ class _SignUpState extends State<SignUp> {
                     padding:
                         const EdgeInsets.only(left: 30.0, right: 30, top: 20),
                     child: TextField(
-                      controller: _phoneController,
-                      // cursorColor: Colors.red,
-                      keyboardType: TextInputType.phone,
+                      controller: _emailController,
                       decoration: InputDecoration(
-                        labelText: 'Número móvil',
-                        // errorText: 'Error message',
+                        labelText: 'Email',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
-                        // enabledBorder: InputBorder()
-                        // fillColor: Colors.grey[200],
-                        // filled: true,
                         suffixIcon: Icon(
-                          Icons.phone,
+                          Icons.mail,
                           color: Theme.of(context).primaryColor,
                         ),
                       ),
@@ -239,6 +119,99 @@ class _SignUpState extends State<SignUp> {
               ),
               SizedBox(
                 height: 25,
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Necesitas una contraseña",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22.5,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 30.0, right: 30, top: 20),
+                    child: TextField(
+                      controller: _passwordController,
+                      obscureText: _obscureText,
+                      decoration: InputDecoration(
+                        labelText: 'Contraseña (mínimo 8 carácteres)',
+                        // errorText: 'Error message',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.remove_red_eye),
+                          color: Theme.of(context).primaryColor,
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Confirmar contraseña",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22.5,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 30.0, right: 30, top: 20),
+                    child: TextField(
+                      controller: _confirmPasswordController,
+                      keyboardType: TextInputType.phone,
+                      obscureText: _obscureText2,
+                      decoration: InputDecoration(
+                        labelText: 'Contraseña (mínimo 8 carácteres)',
+                        // errorText: 'Error message',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.remove_red_eye),
+                          color: Theme.of(context).primaryColor,
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText2;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 15,
               ),
               Align(
                 alignment: Alignment.bottomRight,
@@ -250,7 +223,6 @@ class _SignUpState extends State<SignUp> {
                     backgroundColor: Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
                     onPressed: () {
-                      // Respond to button press
                       Navigator.of(context).pushNamed(
                         '/signup2',
                       );
