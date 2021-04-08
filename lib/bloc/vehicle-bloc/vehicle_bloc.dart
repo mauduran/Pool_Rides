@@ -66,6 +66,9 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
       //TODO: GUARDAR EN BASE DE DATOS
 
       try {
+        // TODO: Primero subir la foto a Storage y luego obtener la url de la foto para colocarla en la siguiente interacción con la BD
+
+        // TODO: Subir la información el nuevo registro de coche a la BD y modificar el usuario (agregando el coche en el user)
         cars.add(Car(
           model: (event.brand.toUpperCase() + " " + event.model.toUpperCase()),
           color: event.color.toUpperCase(),
@@ -76,7 +79,8 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
         print(event.plates.toUpperCase());
         print(event.color.toUpperCase());
         print(event.year);
-        yield UpdatedSuccesfully(msg: "Auto agregado con éxito!");
+        yield UpdatedSuccesfully(
+            msg: "Auto agregado con éxito!", newCar: cars[cars.length - 1]);
       } catch (e) {
         yield ErrorState(
           error: e.toString(),

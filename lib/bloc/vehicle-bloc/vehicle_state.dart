@@ -31,9 +31,11 @@ class NewImageState extends VehicleState {
 
 class UpdatedSuccesfully extends VehicleState {
   final String msg;
+  final Car newCar;
   UpdatedSuccesfully({
     @required this.msg,
+    @required this.newCar,
   });
   @override
-  List<Object> get props => [msg];
+  List<Object> get props => [msg, newCar];
 }
