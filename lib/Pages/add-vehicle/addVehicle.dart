@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:pool_rides/bloc/vehicle-bloc/vehicle_bloc.dart';
+import 'package:pool_rides/models/car.dart';
 
 class AddVehiclePage extends StatefulWidget {
   AddVehiclePage({Key key}) : super(key: key);
@@ -108,6 +109,7 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
                 context,
                 "Operación exitosa:",
                 "Los datos fueron actualizados correctamente.",
+                state.newCar,
               );
             } else if (state is NewImageState) {
               selectedImage = state.image;
@@ -281,7 +283,6 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
                                         _yearSelected = newValue;
                                         setState(() {});
                                       },
-                                      // iconSize: 0,
                                     ),
                                   ),
                                 ),
@@ -540,7 +541,11 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
   }
 
   Future showDialogCustomized(
-      BuildContext context, String title, String content) {
+    BuildContext context,
+    String title,
+    String content,
+    Car carValue,
+  ) {
     return showDialog(
         context: context,
         builder: (context) {
@@ -551,7 +556,7 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-                  Navigator.of(context).pop(true);
+                  Navigator.of(context).pop([true, carValue]);
                 },
                 child: Text("Aceptar"),
               )
