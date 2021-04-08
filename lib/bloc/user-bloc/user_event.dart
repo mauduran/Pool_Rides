@@ -14,3 +14,7 @@ class ChangeAccountImageByPhotoEvent extends UserEvent {}
 class ChangeAccountImageByGalleryEvent extends UserEvent {}
 
 class ChangeBiographyEvent extends UserEvent {}
+
+class LoadCarEvent extends UserEvent {}
+
+class GetInformationEvent extends UserEvent {}

@@ -5,6 +5,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pool_rides/models/car.dart';
+import 'package:pool_rides/utils/lists.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';
@@ -55,6 +57,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
     } else if (event is ChangeBiographyEvent) {
       yield ChangeBiographyState();
+    } else if (event is LoadCarEvent) {
+      yield CarInformationState(userCar: cars[cars.length - 1], newCar: true);
     }
   }
 }

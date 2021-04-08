@@ -11,6 +11,10 @@ class UserInitial extends UserState {}
 
 class ChangingImageState extends UserState {}
 
+class LoadingState extends UserState {}
+
+class LoadedInformatiogState extends UserState {}
+
 class ErrorState extends UserState {
   final String error;
   final String errorEasy;
@@ -36,4 +40,12 @@ class AccountNewBiographyState extends UserState {
   AccountNewBiographyState({@required this.biography});
   @override
   List<Object> get props => [biography];
+}
+
+class CarInformationState extends UserState {
+  final Car userCar;
+  final bool newCar;
+  CarInformationState({@required this.userCar, @required this.newCar});
+  @override
+  List<Object> get props => [userCar, newCar];
 }
