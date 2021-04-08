@@ -16,7 +16,7 @@ class User {
 
   final DateTime joined;
   List<Review> reviews;
-  List<Car> cars;
+  Car car;
   User({
     @required this.name,
     @required this.biography,
@@ -29,7 +29,7 @@ class User {
     @required this.stars,
     @required this.joined,
     @required this.reviews,
-    this.cars,
+    this.car,
     this.password,
   });
 
