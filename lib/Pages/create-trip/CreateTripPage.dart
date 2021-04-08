@@ -60,18 +60,20 @@ class _CreateTripPageState extends State<CreateTripPage> {
 
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
-        ..showSnackBar(SnackBar(
-          content: Text("Viaje creado."),
-          duration: Duration(seconds: 3),
-          behavior: SnackBarBehavior.floating,
-          action: SnackBarAction(
-            label: "Aceptar",
-            textColor: Colors.blue,
-            onPressed: () {
-              ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            },
+        ..showSnackBar(
+          SnackBar(
+            content: Text("Viaje creado."),
+            duration: Duration(seconds: 3),
+            behavior: SnackBarBehavior.floating,
+            action: SnackBarAction(
+              label: "Aceptar",
+              textColor: Colors.blue,
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+            ),
           ),
-        ));
+        );
 
       final newDate = DateTime.now();
       setState(() {
