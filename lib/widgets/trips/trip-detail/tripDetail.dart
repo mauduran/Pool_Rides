@@ -349,14 +349,17 @@ class _TripDetailPageState extends State<TripDetailPage> {
           ),
           Row(
             children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(
-                  car.image != ""
-                      ? car.image
-                      : "https://i.pinimg.com/originals/c0/0b/69/c00b692e9820c3970e907eae9bf2be25.png",
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                    car.image != ""
+                        ? car.image
+                        : "https://i.pinimg.com/originals/c0/0b/69/c00b692e9820c3970e907eae9bf2be25.png",
+                  ),
+                  maxRadius: 22.5,
+                  backgroundColor: Colors.grey[300],
                 ),
-                maxRadius: 22.5,
-                backgroundColor: Colors.grey[300],
               ),
               Icon(
                 Icons.keyboard_arrow_right,
