@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pool_rides/Pages/add-vehicle/addVehicle.dart';
 import 'package:pool_rides/bloc/auth-bloc/auth_bloc.dart';
 import 'package:pool_rides/bloc/user-bloc/user_bloc.dart';
+import 'package:pool_rides/models/car.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -21,11 +22,13 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   UserBloc _userBloc;
   File selectedImage;
-
+  bool newCar;
+  Car userCar;
   @override
   void initState() {
     super.initState();
     initializeDateFormatting();
+    newCar = false;
   }
 
   @override
@@ -41,15 +44,20 @@ class _UserProfileState extends State<UserProfile> {
           listener: (context, state) {
             if (state is ErrorState) {
               showErrorDialog(context, state);
+            } else if (state is AccountNewImageState)
+              selectedImage = state.image;
+            else if (state is CarInformationState) {
+              newCar = state.newCar;
+              userCar = state.userCar;
             }
           },
           builder: (context, state) {
-            if (state is AccountNewImageState) selectedImage = state.image;
-
-            return UserWidget(
+            return _userWidget(
               userBloc: _userBloc,
               selectedImage: selectedImage,
               user: widget.user,
+              newCar: newCar,
+              userCar: userCar,
             );
           },
         ),
@@ -75,29 +83,83 @@ class _UserProfileState extends State<UserProfile> {
           );
         });
   }
-}
 
-class UserWidget extends StatelessWidget {
-  final UserBloc _userBloc;
-  final File selectedImage;
-  final User user;
+  Widget carInformation({
+    @required Car car,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 30.0,
+        right: 20,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                car.model,
+                style: TextStyle(
+                  fontSize: 17.5,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "${car.color}", // To Do: agregar el atributo "No. de reseñas en conductor"
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(
+                  car.image != ""
+                      ? car.image
+                      : "https://i.pinimg.com/originals/c0/0b/69/c00b692e9820c3970e907eae9bf2be25.png",
+                ),
+                maxRadius: 22.5,
+                backgroundColor: Colors.grey[300],
+              ),
+              Icon(
+                Icons.keyboard_arrow_right,
+                size: 27.5,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 
-  UserWidget({
-    Key key,
+  Widget _userWidget({
     @required UserBloc userBloc,
-    @required this.selectedImage,
-    @required this.user,
-  })  : _userBloc = userBloc,
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+    @required selectedImage,
+    @required user,
+    @required newCar,
+    @required userCar,
+  }) {
     return SingleChildScrollView(
       child: Center(
         child: Column(
           children: [
             SizedBox(
-              height: 40,
+              height: 25,
             ),
             GestureDetector(
               onTap: () {
@@ -349,13 +411,18 @@ class UserWidget extends StatelessWidget {
             SizedBox(
               height: 5,
             ),
+            if (newCar) carInformation(car: userCar),
             GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
+              onTap: () async {
+                var result = await Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => AddVehiclePage(),
                   ),
                 );
+                if (result != null) {
+                  //
+                  userBloc.add(LoadCarEvent());
+                }
               },
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -374,7 +441,7 @@ class UserWidget extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      "Añadir auto",
+                      newCar ? "Cambiar auto" : "Añadir auto",
                       style: TextStyle(
                         fontSize: 18,
                         color: Theme.of(context).primaryColor,
