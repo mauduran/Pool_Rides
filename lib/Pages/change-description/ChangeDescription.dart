@@ -99,6 +99,4 @@ class _ChangeDescriptionState extends State<ChangeDescription> {
       ),
     );
   }
-
-  // Widget
 }
