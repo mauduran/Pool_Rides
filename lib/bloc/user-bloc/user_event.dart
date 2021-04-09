@@ -13,7 +13,15 @@ class ChangeAccountImageByPhotoEvent extends UserEvent {}
 
 class ChangeAccountImageByGalleryEvent extends UserEvent {}
 
-class ChangeBiographyEvent extends UserEvent {}
+class ChangeBiographyEvent extends UserEvent {
+  final String newBiography;
+  final User currentUser;
+  ChangeBiographyEvent(
+      {@required this.newBiography, @required this.currentUser});
+
+  @override
+  List<Object> get props => [newBiography, currentUser];
+}
 
 class LoadCarEvent extends UserEvent {}
 

@@ -35,11 +35,11 @@ class AccountNewImageState extends UserState {
 class ChangeBiographyState extends UserState {}
 
 class AccountNewBiographyState extends UserState {
-  final String biography;
+  final String msg;
 
-  AccountNewBiographyState({@required this.biography});
+  AccountNewBiographyState({@required this.msg});
   @override
-  List<Object> get props => [biography];
+  List<Object> get props => [msg];
 }
 
 class CarInformationState extends UserState {
