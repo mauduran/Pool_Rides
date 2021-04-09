@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pool_rides/Pages/add-vehicle/addVehicle.dart';
+import 'package:pool_rides/Pages/change-description/ChangeDescription.dart';
 import 'package:pool_rides/bloc/auth-bloc/auth_bloc.dart';
 import 'package:pool_rides/bloc/user-bloc/user_bloc.dart';
 import 'package:pool_rides/models/car.dart';
@@ -369,8 +370,41 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 10,
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ChangeDescription(user: user),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 30.0,
+                  top: 10,
+                  bottom: 15,
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.description,
+                      size: 25,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      "Editar biografía",
+                      style: TextStyle(
+                        fontSize: 17.5,
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             GestureDetector(
               onTap: () {
