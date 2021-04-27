@@ -1,22 +1,36 @@
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hive/hive.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/user.dart';
 
 import 'car.dart';
 
-class Trip {
-  final String startTime;
-  final Place origin;
-  final Place destination;
-  final String arrivalTime;
-  final double tripPrice;
-  final DateTime departureDate;
-  final User driver;
-  final int passengerCapacity;
-  List<User> passengers;
+part 'trip.g.dart';
 
+@HiveType(typeId: 9, adapterName: "TripAdapter")
+class Trip {
+  @HiveField(0)
+  final String startTime;
+  @HiveField(1)
+  final Place origin;
+  @HiveField(2)
+  final Place destination;
+  @HiveField(3)
+  final String arrivalTime;
+  @HiveField(4)
+  final double tripPrice;
+  @HiveField(5)
+  final DateTime departureDate;
+  @HiveField(6)
+  final User driver;
+  @HiveField(7)
+  final int passengerCapacity;
+  @HiveField(8)
+  List<User> passengers;
+  @HiveField(10)
   final bool isCarSpecified;
+  @HiveField(11)
   final Car car;
 
   int availableSeatsNumber;
@@ -37,10 +51,10 @@ class Trip {
 
   static double distanceBetweenTwoPlaces(Place origin, Place destination) {
     double distanceInMeters = Geolocator.distanceBetween(
-      origin.coordinates.latitude,
-      origin.coordinates.longitude,
-      destination.coordinates.latitude,
-      destination.coordinates.longitude,
+      origin.coordinates.lat,
+      origin.coordinates.long,
+      destination.coordinates.lat,
+      destination.coordinates.long,
     );
 
     return distanceInMeters;

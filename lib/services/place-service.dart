@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:pool_rides/credentials.dart';
+import 'package:pool_rides/models/latilong.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/suggestion.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -67,7 +68,8 @@ class PlaceApiProvider {
         final coordinates = LatLng(coords["lat"], coords["lng"]);
         final place = Place(
           bounds: boundsInfo,
-          coordinates: coordinates,
+          coordinates:
+              LatiLong(lat: coordinates.latitude, long: coordinates.longitude),
           placeId: res["place_id"],
           description: res["formatted_address"],
         );
@@ -128,7 +130,8 @@ class PlaceApiProvider {
         final coordinates = LatLng(coords["lat"], coords["lng"]);
         final place = Place(
           bounds: boundsInfo,
-          coordinates: coordinates,
+          coordinates:
+              LatiLong(lat: coordinates.latitude, long: coordinates.longitude),
           placeId: placeId,
           description: description,
         );

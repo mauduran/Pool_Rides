@@ -119,55 +119,55 @@ class _PrincipalSignInState extends State<PrincipalSignIn> {
                       SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 20,
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(100.0)),
-                                  height: 50,
-                                  color: Color(0xFF3b5998),
-                                  child: Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 60,
-                                      ),
-                                      SvgPicture.asset(
-                                        "assets/images/icon_Facebook.svg",
-                                        color: Colors.white,
-                                      ),
-                                      Text(
-                                        "Continuar con Facebook",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .popUntil((route) => route.isFirst);
-                                    BlocProvider.of<AuthBloc>(context)
-                                        .add(LoginWithFacebookEvent());
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Expanded(
+                      //       child: Padding(
+                      //         padding: EdgeInsets.symmetric(
+                      //           horizontal: 20,
+                      //         ),
+                      //         child: ClipRRect(
+                      //           borderRadius: BorderRadius.circular(100),
+                      //           child: MaterialButton(
+                      //             shape: RoundedRectangleBorder(
+                      //                 borderRadius:
+                      //                     BorderRadius.circular(100.0)),
+                      //             height: 50,
+                      //             color: Color(0xFF3b5998),
+                      //             child: Row(
+                      //               children: [
+                      //                 SizedBox(
+                      //                   width: 60,
+                      //                 ),
+                      //                 SvgPicture.asset(
+                      //                   "assets/images/icon_Facebook.svg",
+                      //                   color: Colors.white,
+                      //                 ),
+                      //                 Text(
+                      //                   "Continuar con Facebook",
+                      //                   style: TextStyle(
+                      //                     color: Colors.white,
+                      //                     fontWeight: FontWeight.bold,
+                      //                     fontSize: 15,
+                      //                   ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //             onPressed: () {
+                      //               Navigator.of(context)
+                      //                   .popUntil((route) => route.isFirst);
+                      //               BlocProvider.of<AuthBloc>(context)
+                      //                   .add(LoginWithFacebookEvent());
+                      //             },
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
                       Row(
                         children: [
                           Expanded(

@@ -24,9 +24,15 @@ class TripDetailPage extends StatefulWidget {
 }
 
 class _TripDetailPageState extends State<TripDetailPage> {
+  double averageRating = 0;
+  int numOfReviews = 0;
   @override
   void initState() {
     super.initState();
+    numOfReviews = widget.tripDetail.driver.reviews.length;
+    averageRating = widget.tripDetail.driver.reviews.fold(
+            0, (previousValue, element) => previousValue + element.rating) /
+        numOfReviews;
     initializeDateFormatting();
   }
 
@@ -273,7 +279,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                         width: 5,
                       ),
                       Text(
-                        "${user.stars.toString().substring(0, 4)}/5 - ${user.reviewsNumber} reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                        "$averageRating/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                         ),
@@ -418,7 +424,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                       width: 5,
                     ),
                     Text(
-                      "${user.stars.toString().substring(0, 4)}/5 - ${user.reviewsNumber} reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                      "$averageRating/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                       ),

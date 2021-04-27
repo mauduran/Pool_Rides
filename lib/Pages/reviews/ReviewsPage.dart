@@ -28,6 +28,7 @@ List<Review> _getReviewDetails() {
       rating: "Excelente",
       reviewerImage: 'https://randomuser.me/api/portraits/men/5.jpg',
       date: DateTime.now(),
+      stars: 4,
     ),
     Review(
       reviewerName: "Hector",
@@ -36,6 +37,7 @@ List<Review> _getReviewDetails() {
       rating: "Excelente",
       reviewerImage: 'https://randomuser.me/api/portraits/men/5.jpg',
       date: DateTime.now(),
+      stars: 4,
     ),
     Review(
       reviewerName: "Gabriela",
@@ -44,6 +46,7 @@ List<Review> _getReviewDetails() {
       rating: "Muy bien",
       reviewerImage: 'https://randomuser.me/api/portraits/men/5.jpg',
       date: DateTime.now(),
+      stars: 4,
     ),
   ];
 

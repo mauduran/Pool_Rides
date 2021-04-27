@@ -36,6 +36,14 @@ dependencies:
   image_picker: ^0.7.3
   google_sign_in: ^5.0.0
   flutter_facebook_login: ^3.0.0
+  cloud_firestore: ^1.0.7
+  firebase_storage: ^8.0.5
+  hive: ^2.0.4
+  hive_flutter: ^1.0.0
+  connectivity: ^3.0.3
+  path_provider: ^2.0.1
+
+
 
 
 
@@ -46,6 +54,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator: ^1.1.0
+  build_runner: ^2.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

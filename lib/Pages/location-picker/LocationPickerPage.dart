@@ -38,8 +38,8 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
 
       FocusScope.of(context).unfocus();
 
-      _mapController
-          .animateCamera(CameraUpdate.newLatLng(placeDetails.coordinates));
+      _mapController.animateCamera(CameraUpdate.newLatLng(
+          LatLng(placeDetails.coordinates.lat, placeDetails.coordinates.long)));
 
       // _mapController
       //     .animateCamera(CameraUpdate.newLatLngBounds(placeDetails.bounds, 0));
@@ -47,7 +47,9 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
 
       setState(() {
         marker = Marker(
-            markerId: MarkerId("location"), position: placeDetails.coordinates);
+            markerId: MarkerId("location"),
+            position: LatLng(
+                placeDetails.coordinates.lat, placeDetails.coordinates.long));
         place = placeDetails;
       });
     }

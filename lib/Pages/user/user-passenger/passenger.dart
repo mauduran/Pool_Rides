@@ -13,9 +13,15 @@ class PassengerDetail extends StatefulWidget {
 }
 
 class _PassengerDetailState extends State<PassengerDetail> {
+  double averageRating = 0;
+  int numOfReviews = 0;
   @override
   void initState() {
     super.initState();
+    numOfReviews = widget.user.reviews.length;
+    averageRating = widget.user.reviews.fold(
+            0, (previousValue, element) => previousValue + element.rating) /
+        numOfReviews;
     initializeDateFormatting();
   }
 
@@ -100,7 +106,7 @@ class _PassengerDetailState extends State<PassengerDetail> {
                             width: 5,
                           ),
                           Text(
-                            "${widget.user.stars.toString().substring(0, 4)}/5 - ${widget.user.reviewsNumber} reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                            "$averageRating/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                               fontSize: 17.5,

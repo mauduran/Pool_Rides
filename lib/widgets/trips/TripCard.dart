@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class TripCard extends StatelessWidget {
   final Trip trip;
   final double cercania;
+
   TripCard({Key key, @required this.trip, this.cercania}) : super(key: key);
 
   @override
@@ -89,10 +90,7 @@ class TripCard extends StatelessWidget {
                               children: [
                                 Icon(Icons.star),
                                 SizedBox(width: 6),
-                                Text(
-                                    trip.driver.stars
-                                        .toString()
-                                        .substring(0, 4),
+                                Text("4.0",
                                     style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.w600,

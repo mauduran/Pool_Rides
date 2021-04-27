@@ -13,14 +13,15 @@ class LocationVisualizerPage extends StatelessWidget {
       appBar: AppBar(),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
-          target: location.coordinates,
+          target: LatLng(location.coordinates.lat, location.coordinates.long),
           zoom: 13,
         ),
         markers: Set<Marker>.from(
           [
             Marker(
               markerId: MarkerId(location.description),
-              position: location.coordinates,
+              position:
+                  LatLng(location.coordinates.lat, location.coordinates.long),
             ),
           ],
         ),
