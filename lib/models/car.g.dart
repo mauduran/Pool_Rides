@@ -19,29 +19,26 @@ class CarAdapter extends TypeAdapter<Car> {
     return Car(
       brand: fields[0] as String,
       model: fields[1] as String,
-      plate: fields[2] as String,
+      plates: fields[2] as String,
       color: fields[3] as String,
       year: fields[4] as int,
-      image: fields[5] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Car obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.brand)
       ..writeByte(1)
       ..write(obj.model)
       ..writeByte(2)
-      ..write(obj.plate)
+      ..write(obj.plates)
       ..writeByte(3)
       ..write(obj.color)
       ..writeByte(4)
-      ..write(obj.year)
-      ..writeByte(5)
-      ..write(obj.image);
+      ..write(obj.year);
   }
 
   @override

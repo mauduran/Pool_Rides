@@ -63,22 +63,26 @@ List<Car> cars = [
   Car(
     model: "Chevrolet Aveo",
     color: "blanco",
+    year: 2015,
     image:
         "https://www.chevrolet.com.mx/content/dam/chevrolet/na/mx/es/index/Car/2020-aveo/colorizer/01-images/azul-pacifico.jpg?imwidth=960",
   ),
   Car(
     model: "Mazda 2",
     color: "gris",
+    year: 2015,
     image:
         "https://www.mazda.mx/siteassets/mazda-mx/mycos-2021/mazda2-hatchback/vlp/360/gris-titanio/mazda2-hb-gris-titanio-ext-360-02-24-s.jpg",
   ),
   Car(
     model: "Volkswagen PASSAT",
+    year: 2015,
     color: "Azul",
     image: "https://fotos02.autofacil.es/2019/06/25/690x278/iris.jpg",
   ),
   Car(
     model: "Toyota Corolla",
+    year: 2015,
     color: "blanco",
     image:
         "https://www.excelenciasdelmotor.com/sites/default/files/2019-11/portada_corolla.jpg",
@@ -86,24 +90,28 @@ List<Car> cars = [
   Car(
     model: "Volkswagen Jetta",
     color: "negro",
+    year: 2015,
     image:
         "https://img.automexico.com/2020/05/19/i8InHrze/jetta-precios-5-4c7d.jpg",
   ),
   Car(
     model: "Nissan Sentra",
     color: "plata",
+    year: 2016,
     image:
         "https://www.revistaturbo.com/sites/default/files/nissansentra_0.jpg",
   ),
   Car(
     model: "Nissan Altima",
     color: "rojo",
+    year: 2015,
     image:
         "https://www.nissan.com.mx/content/dam/Nissan/mexico/vehicles/Altima/MY19/VAP/altima-grade-19-terantbwa-uslhd-pace.jpg.ximg.l_6_m.smart.png",
   ),
   Car(
     model: "Chevrolet Malibu",
     color: "plata",
+    year: 2015,
     image:
         "https://www.chevrolet.com/content/dam/chevrolet/na/us/english/index/vehicles/2021/cars/malibu/colorizer/01-images/2021-malibu-1zs69-gaz-colorizer.jpg?imwidth=960",
   ),

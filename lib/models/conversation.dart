@@ -42,4 +42,47 @@ class Conversation {
     messages.add(message);
     lastMessage = message;
   }
+
+  factory Conversation.fromJson(Map<String, dynamic> parsedJson) {
+    List<ChatMessage> messages = (parsedJson.containsKey('messages'))
+        ? []
+        : (parsedJson['messages'] as List<Map<String, dynamic>>)
+            .map((e) => ChatMessage.fromJson(e));
+    List<ConversationUser> members = (parsedJson.containsKey('members'))
+        ? []
+        : (parsedJson['members'] as List<Map<String, dynamic>>)
+            .map((e) => ConversationUser.fromJson(e));
+
+    return new Conversation(
+        messages: messages,
+        conversationId: parsedJson['conversationId'],
+        dateOfCreation: DateTime.parse(parsedJson['dateOfCreation']),
+        originCity: parsedJson['originCity'],
+        destinationCity: parsedJson['destinationCity'],
+        lastMessage: (parsedJson.containsKey('lastMessage'))
+            ? ChatMessage.fromJson(parsedJson['lastMessage'])
+            : null,
+        members: members);
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> json = {
+      "conversationId": conversationId,
+      "dateOfCreation": dateOfCreation.toIso8601String(),
+      "originCity": originCity,
+      "destinationCity": destinationCity,
+      "members": members.map((member) => member.toMap())
+    };
+
+    if (lastMessage != null) {
+      json.putIfAbsent('lastMessage', () => lastMessage.toMap());
+    }
+
+    if (messages != null) {
+      json.putIfAbsent(
+          'lastMessage', () => messages.map((message) => message.toMap()));
+    }
+
+    return json;
+  }
 }

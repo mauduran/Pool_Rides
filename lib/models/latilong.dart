@@ -14,4 +14,18 @@ class LatiLong {
     @required this.lat,
     @required this.long,
   });
+
+  factory LatiLong.fromJson(Map<String, dynamic> parsedJson) {
+    return new LatiLong(
+      long: parsedJson['longitude'],
+      lat: parsedJson['latitude'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "latitude": lat,
+      "longitude": long,
+    };
+  }
 }

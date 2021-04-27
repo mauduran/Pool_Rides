@@ -23,4 +23,24 @@ class ConversationUser {
     @required this.email,
     @required this.phoneNumber,
   });
+
+  factory ConversationUser.fromJson(Map<String, dynamic> parsedJson) {
+    return new ConversationUser(
+      email: parsedJson['email'],
+      image: parsedJson['image'],
+      name: parsedJson['name'],
+      phoneNumber: parsedJson['phoneNumber'],
+      userId: parsedJson['userId'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "email": email,
+      "image": image,
+      "name": name,
+      "phoneNumber": phoneNumber,
+      "userId": userId,
+    };
+  }
 }

@@ -10,19 +10,42 @@ class Car {
   @HiveField(1)
   String model;
   @HiveField(2)
-  String plate;
+  String plates;
   @HiveField(3)
   String color;
   @HiveField(4)
   int year;
-  @HiveField(5)
   String image;
   Car({
     this.brand,
     @required this.model,
-    this.plate,
+    this.plates,
     @required this.color,
-    this.year,
-    @required this.image,
+    @required this.year,
+    this.image,
   });
+
+  factory Car.fromJson(Map<String, dynamic> parsedJson) {
+    return new Car(
+      color: parsedJson['color'],
+      image: parsedJson['image'] ??
+          'http://firstchoiceautomarkham.com/images/car-placeholder.png',
+      model: parsedJson['model'],
+      brand: parsedJson['brand'],
+      plates: parsedJson['plates'],
+      year: parsedJson['year'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "color": color,
+      "image": image ??
+          'http://firstchoiceautomarkham.com/images/car-placeholder.png',
+      "model": model,
+      "brand": brand,
+      "plates": plates,
+      "year": year
+    };
+  }
 }
