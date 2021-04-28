@@ -1,13 +1,10 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pool_rides/models/user.dart' as UserModel;
 import 'package:pool_rides/services/auth-service.dart';
-import 'package:pool_rides/services/user-service.dart';
-
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -15,8 +12,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial());
 
   UserAuthProvider _authProvider = UserAuthProvider();
-  UserService _userService = UserService();
   UserModel.User currentUser;
+  String registerName;
+  String registerEmail;
+  String registerPassword;
+
   @override
   Stream<AuthState> mapEventToState(
     AuthEvent event,
@@ -64,8 +64,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield LoginErrorState(error: e.code);
       }
     } else if (event is ShowRegisterPageEvent) {
+      registerName = null;
+      registerEmail = null;
+      registerPassword = null;
       yield RegisterPageState();
     } else if (event is ShowRegister2PageEvent) {
+      registerName = event.name;
+      registerEmail = event.email;
+      registerPassword = event.password;
       yield RegisterPage2State();
     } else if (event is CancelRegisterEvent) {
       yield LoggedOutState();
@@ -73,11 +79,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         yield LoginLoadingState();
         await _authProvider.registerWithEmail(
-            email: event.email, password: event.password, name: event.name);
+          email: registerEmail,
+          password: registerPassword,
+          name: registerName,
+          birthdate: event.birthdate,
+          phone: event.phone,
+          title: event.title,
+        );
+
+        registerName = null;
+        registerEmail = null;
+        registerPassword = null;
         yield LoginSuccessState();
       } on FirebaseAuthException catch (e) {
         yield LoginErrorState(
             error: "No se pudo completar registro", code: e.code);
+      } on Exception catch (e) {
+        print(e);
+        yield LoginErrorState(
+            error: "No se pudo completar registro", code: '400');
       }
     }
   }

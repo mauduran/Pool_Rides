@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pool_rides/models/user.dart';
 
@@ -46,9 +47,18 @@ class UserService {
     await _cFirestore.collection('users').doc(uid).set(newUser.toMap());
   }
 
-  createUserFromEmail(
-      String uid, String email, String name, String image) async {
-    User newUser = User(email: email, joined: DateTime.now(), name: name);
+  createUserFromEmail(String uid, String email, String name, DateTime birthdate,
+      String phone, String title) async {
+    DateTime now = DateTime.now();
+    int age = (now.difference(birthdate).inDays / 365).floor();
+    User newUser = User(
+      email: email,
+      joined: DateTime.now(),
+      name: name,
+      birthdate: birthdate,
+      phoneNumber: phone,
+      age: age,
+    );
     await _cFirestore.collection('users').doc(uid).set(newUser.toMap());
   }
 

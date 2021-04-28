@@ -246,9 +246,9 @@ class _SignUp2State extends State<SignUp2> {
                       if (next) {
                         BlocProvider.of<AuthBloc>(context)
                             .add(RegisterWithEmailEvent(
-                          email: "email",
-                          password: "password",
-                          name: "name",
+                          birthdate: _date,
+                          phone: _phoneController.text,
+                          title: _formasTratamiento[_radioButtonValue],
                         ));
                       } else {
                         ScaffoldMessenger.of(context)

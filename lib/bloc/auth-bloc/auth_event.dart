@@ -37,14 +37,14 @@ class LoginWithEmailEvent extends AuthEvent {
 }
 
 class RegisterWithEmailEvent extends AuthEvent {
-  final String email;
-  final String password;
-  final String name;
+  final DateTime birthdate;
+  final String phone;
+  final String title;
 
   RegisterWithEmailEvent(
-      {@required this.email, @required this.password, @required this.name});
+      {@required this.birthdate, @required this.phone, @required this.title});
   @override
-  List<Object> get props => [email, password, name];
+  List<Object> get props => [birthdate, phone, title];
 }
 
 class ShowRegisterPageEvent extends AuthEvent {

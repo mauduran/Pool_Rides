@@ -103,7 +103,12 @@ class UserAuthProvider {
   }
 
   Future<void> registerWithEmail(
-      {@required String email, String password, String name}) async {
+      {@required String email,
+      @required String password,
+      @required String name,
+      @required DateTime birthdate,
+      @required String phone,
+      @required String title}) async {
     await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
 
@@ -112,6 +117,12 @@ class UserAuthProvider {
       photoURL:
           "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
     );
+
+    final userExists = await _userService.existsUser(_auth.currentUser.uid);
+    if (!userExists) {
+      await _userService.createUserFromEmail(_auth.currentUser.uid,
+          _auth.currentUser.email, name, birthdate, phone, title);
+    }
 
     userAuthType = LoginType.EMAIL;
   }
