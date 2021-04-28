@@ -33,7 +33,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  final _localStorage = await getExternalStorageDirectory();
+  final _localStorage = await getApplicationDocumentsDirectory();
   Hive
     ..init(_localStorage.path)
     ..registerAdapter(ReviewAdapter())

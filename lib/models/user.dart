@@ -31,17 +31,17 @@ class User {
   Car car;
 
   User({
-    @required this.name,
     this.biography,
-    @required this.image,
-    @required this.email,
-    @required this.phoneNumber,
-    @required this.age,
-    @required this.tripNumber,
-    @required this.joined,
+    this.image,
+    this.phoneNumber,
+    this.age,
+    this.tripNumber,
     this.reviews = const [],
-    @required this.car,
-    @required this.birthdate,
+    this.car,
+    this.birthdate,
+    @required this.name,
+    @required this.email,
+    @required this.joined,
   });
 
   bool changePhoto(String url) {
@@ -78,6 +78,10 @@ class User {
   }
 
   Map<String, dynamic> toMap() {
+    final Map<String, dynamic> carMap = (car != null) ? car.toMap() : {};
+    final String birthdateString =
+        (birthdate != null) ? birthdate.toIso8601String() : '';
+
     return {
       "name": name,
       "biography": biography,
@@ -87,9 +91,9 @@ class User {
       "age": age,
       "tripNumber": tripNumber,
       "joined": joined.toIso8601String(),
-      "reviews": reviews.map((e) => e.toMap()),
-      "car": car.toMap(),
-      "birthdate": birthdate.toIso8601String(),
+      "reviews": reviews.map((e) => e.toMap()).toList(),
+      "car": carMap,
+      "birthdate": birthdateString,
     };
   }
 }

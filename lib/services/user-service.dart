@@ -3,7 +3,7 @@ import 'package:pool_rides/models/user.dart';
 
 class UserService {
   final _cFirestore = FirebaseFirestore.instance;
-  User currentUser;
+  User _currentUser;
   var userListener;
 
   static final UserService _userRepository = new UserService._internal();
@@ -15,24 +15,47 @@ class UserService {
 
   getCurrentUser(String currentUser) async {
     if (currentUser == null) await fetchCurrentUser(currentUser);
-    return this.currentUser;
+    return this._currentUser;
   }
 
-  fetchCurrentUser(String currentUser) async {
-    QuerySnapshot result = await _cFirestore
-        .collection("users")
-        .where("email", isEqualTo: currentUser)
-        .get();
-    if (result.size == 0) return null;
-    QueryDocumentSnapshot userSnapshot = result.docs[0];
-    // this.userListener = userSnapshot.reference.snapshots().listen((event) {
-    //   currentUser = User.fromJson(event.data());
-    // });
-    return User.fromJson(userSnapshot.data());
+  fetchCurrentUser(String uid) async {
+    DocumentReference ref = _cFirestore.collection("users").doc(uid);
+
+    DocumentSnapshot snapshot = await ref.get();
+
+    userListener = ref.snapshots().listen((event) {
+      _currentUser = User.fromJson(event.data());
+    });
+
+    if (!snapshot.exists) return null;
+
+    return User.fromJson(snapshot.data());
+  }
+
+  existsUser(String uid) async {
+    DocumentSnapshot snapshot =
+        await _cFirestore.collection('users').doc(uid).get();
+    return snapshot.exists;
+  }
+
+  createUserFromGoogle(
+      String uid, String email, String name, String image, String phone) async {
+    User newUser = User(
+        email: email,
+        joined: DateTime.now(),
+        name: name,
+        image: image,
+        phoneNumber: phone);
+
+    await _cFirestore.collection('users').doc(uid).set(newUser.toMap());
+  }
+
+  createUserFromEmail(String uid, String email, String name, String image) {
+    User newUser = User(email: email, joined: DateTime.now(), name: name);
   }
 
   removeCurrentUser() {
     userListener?.cancel();
-    currentUser = null;
+    _currentUser = null;
   }
 }
