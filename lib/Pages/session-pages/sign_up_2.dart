@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pool_rides/bloc/auth-bloc/auth_bloc.dart';
 
 class SignUp2 extends StatefulWidget {
-  SignUp2({Key key}) : super(key: key);
+  SignUp2({
+    Key key,
+  }) : super(key: key);
 
   @override
   _SignUp2State createState() => _SignUp2State();
@@ -40,6 +42,9 @@ class _SignUp2State extends State<SignUp2> {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, Object> receiveData =
+        ModalRoute.of(context).settings.arguments;
+    print(receiveData);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -235,12 +240,36 @@ class _SignUp2State extends State<SignUp2> {
                     backgroundColor: Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
                     onPressed: () {
-                      BlocProvider.of<AuthBloc>(context)
-                          .add(RegisterWithEmailEvent(
-                        email: "email",
-                        password: "password",
-                        name: "name",
-                      ));
+                      var next = _formasTratamiento[_radioButtonValue] != "" &&
+                          _date.year > 0 &&
+                          _phoneController.text != "";
+                      if (next) {
+                        BlocProvider.of<AuthBloc>(context)
+                            .add(RegisterWithEmailEvent(
+                          email: "email",
+                          password: "password",
+                          name: "name",
+                        ));
+                      } else {
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text("Por favor complete todos los campos"),
+                              duration: Duration(seconds: 3),
+                              behavior: SnackBarBehavior.floating,
+                              action: SnackBarAction(
+                                label: "Aceptar",
+                                textColor: Colors.blue,
+                                onPressed: () {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                },
+                              ),
+                            ),
+                          );
+                      }
                     },
                     child: Icon(
                       Icons.check,

@@ -145,14 +145,16 @@ class _SignUpState extends State<SignUp> {
                     child: TextField(
                       controller: _passwordController,
                       obscureText: _obscureText,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         labelText: 'Contraseña (mínimo 8 carácteres)',
-                        // errorText: 'Error message',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
                         suffixIcon: IconButton(
-                          icon: Icon(Icons.remove_red_eye),
+                          icon: Icon(_obscureText
+                              ? Icons.remove_red_eye
+                              : Icons.visibility_off),
                           color: Theme.of(context).primaryColor,
                           onPressed: () {
                             setState(() {
@@ -190,20 +192,21 @@ class _SignUpState extends State<SignUp> {
                         const EdgeInsets.only(left: 30.0, right: 30, top: 20),
                     child: TextField(
                       controller: _confirmPasswordController,
-                      keyboardType: TextInputType.phone,
+                      keyboardType: TextInputType.emailAddress,
                       obscureText: _obscureText2,
                       decoration: InputDecoration(
                         labelText: 'Contraseña (mínimo 8 carácteres)',
-                        // errorText: 'Error message',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
                         suffixIcon: IconButton(
-                          icon: Icon(Icons.remove_red_eye),
+                          icon: Icon(_obscureText2
+                              ? Icons.remove_red_eye
+                              : Icons.visibility_off),
                           color: Theme.of(context).primaryColor,
                           onPressed: () {
                             setState(() {
-                              _obscureText = !_obscureText2;
+                              _obscureText2 = !_obscureText2;
                             });
                           },
                         ),
@@ -248,11 +251,40 @@ class _SignUpState extends State<SignUp> {
                         backgroundColor: Theme.of(context).primaryColor,
                         foregroundColor: Colors.white,
                         onPressed: () {
-                          BlocProvider.of<AuthBloc>(context).add(
-                              ShowRegister2PageEvent(
-                                  email: "email",
-                                  password: "password",
-                                  name: "name"));
+                          var passwordsEquals = _passwordController.text ==
+                              _confirmPasswordController.text;
+                          var next = _emailController.text != "" &&
+                              _firstNameController.text != "" &&
+                              _lastNameController.text != "" &&
+                              passwordsEquals == true;
+
+                          if (next) {
+                            BlocProvider.of<AuthBloc>(context).add(
+                                ShowRegister2PageEvent(
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                    name:
+                                        "${_firstNameController.text} ${_lastNameController.text}"));
+                          } else {
+                            ScaffoldMessenger.of(context)
+                              ..hideCurrentSnackBar()
+                              ..showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      "Por favor complete todos los campos"),
+                                  duration: Duration(seconds: 3),
+                                  behavior: SnackBarBehavior.floating,
+                                  action: SnackBarAction(
+                                    label: "Aceptar",
+                                    textColor: Colors.blue,
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                    },
+                                  ),
+                                ),
+                              );
+                          }
                         },
                         child: Icon(
                           Icons.arrow_forward,
