@@ -41,7 +41,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         yield LoginLoadingState();
         await _authProvider.signInWithGoogle();
-        currentUser = await _userService.getCurrentUser(_authProvider.getUid());
         yield LoginSuccessState();
       } catch (e) {
         print(e.toString());

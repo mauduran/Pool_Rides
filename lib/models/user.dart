@@ -73,7 +73,9 @@ class User {
       car: (parsedJson.containsKey('car'))
           ? Car.fromJson(parsedJson['car'])
           : null,
-      birthdate: DateTime.parse(parsedJson['birthdate']),
+      birthdate: (parsedJson['birthdate'] != '')
+          ? DateTime.parse(parsedJson['birthdate'])
+          : null,
     );
   }
 
