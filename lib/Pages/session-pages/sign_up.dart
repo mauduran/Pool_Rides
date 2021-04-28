@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pool_rides/bloc/auth-bloc/auth_bloc.dart';
 
 class SignUp extends StatefulWidget {
   SignUp({Key key}) : super(key: key);
@@ -214,26 +216,53 @@ class _SignUpState extends State<SignUp> {
                 height: 15,
               ),
               Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    right: 12.0,
-                  ),
-                  child: FloatingActionButton(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    foregroundColor: Colors.white,
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                        '/signup2',
-                      );
-                    },
-                    child: Icon(
-                      Icons.arrow_forward,
-                      size: 37,
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 12.0,
+                      ),
+                      child: FloatingActionButton(
+                        heroTag: "cancelRegister",
+                        backgroundColor: Theme.of(context).primaryColor,
+                        foregroundColor: Colors.white,
+                        onPressed: () {
+                          BlocProvider.of<AuthBloc>(context)
+                              .add(CancelRegisterEvent());
+                        },
+                        child: Icon(
+                          Icons.clear,
+                          size: 37,
+                        ),
+                      ),
                     ),
-                  ),
+                    Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        right: 12.0,
+                      ),
+                      child: FloatingActionButton(
+                        heroTag: "next",
+                        backgroundColor: Theme.of(context).primaryColor,
+                        foregroundColor: Colors.white,
+                        onPressed: () {
+                          BlocProvider.of<AuthBloc>(context).add(
+                              ShowRegister2PageEvent(
+                                  email: "email",
+                                  password: "password",
+                                  name: "name"));
+                        },
+                        child: Icon(
+                          Icons.arrow_forward,
+                          size: 37,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -47,6 +47,28 @@ class RegisterWithEmailEvent extends AuthEvent {
   List<Object> get props => [email, password, name];
 }
 
+class ShowRegisterPageEvent extends AuthEvent {
+  ShowRegisterPageEvent();
+  @override
+  List<Object> get props => [];
+}
+
+class ShowRegister2PageEvent extends AuthEvent {
+  final String email;
+  final String password;
+  final String name;
+  ShowRegister2PageEvent(
+      {@required this.email, @required this.password, @required this.name});
+  @override
+  List<Object> get props => [email, password, name];
+}
+
+class CancelRegisterEvent extends AuthEvent {
+  CancelRegisterEvent();
+  @override
+  List<Object> get props => [];
+}
+
 class ForgotPasswordEvent extends AuthEvent {
   @override
   List<Object> get props => [];

@@ -63,6 +63,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } on FirebaseAuthException catch (e) {
         yield LoginErrorState(error: e.code);
       }
+    } else if (event is ShowRegisterPageEvent) {
+      yield RegisterPageState();
+    } else if (event is ShowRegister2PageEvent) {
+      yield RegisterPage2State();
+    } else if (event is CancelRegisterEvent) {
+      yield LoggedOutState();
     } else if (event is RegisterWithEmailEvent) {
       try {
         yield LoginLoadingState();
@@ -71,7 +77,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield LoginSuccessState();
       } on FirebaseAuthException catch (e) {
         yield LoginErrorState(
-            error: "Email o contraseña no válidos.", code: e.code);
+            error: "No se pudo completar registro", code: e.code);
       }
     }
   }

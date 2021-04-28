@@ -251,7 +251,11 @@ class _PrincipalSignInState extends State<PrincipalSignIn> {
                                 ),
                               ),
                               onTap: () {
-                                Navigator.of(context).pushNamed("/signup");
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
+                                BlocProvider.of<AuthBloc>(context)
+                                    .add(ShowRegisterPageEvent());
+                                // Navigator.of(context).pushNamed("/signup");
                               },
                             ),
                           ),

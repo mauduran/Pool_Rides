@@ -4,6 +4,8 @@ import 'package:pool_rides/Pages/homepage/HomePage.dart';
 import 'package:pool_rides/Pages/loading-page/LoadingPage.dart';
 import 'package:pool_rides/Pages/principal/principal.dart';
 import 'package:pool_rides/Pages/principal/principal_signin.dart';
+import 'package:pool_rides/Pages/session-pages/sign_up.dart';
+import 'package:pool_rides/Pages/session-pages/sign_up_2.dart';
 import 'package:pool_rides/Pages/splash-screen/SplashScreen.dart';
 import 'package:pool_rides/bloc/auth-bloc/auth_bloc.dart';
 
@@ -48,6 +50,10 @@ class _SessionManagerState extends State<SessionManager> {
           return PrincipalSignIn();
         } else if (state is LoginLoadingState) {
           return LoadingPage();
+        } else if (state is RegisterPageState) {
+          return SignUp();
+        } else if (state is RegisterPage2State) {
+          return SignUp2();
         }
         return SplashScreen();
       },

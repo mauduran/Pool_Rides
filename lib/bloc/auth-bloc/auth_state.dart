@@ -39,6 +39,16 @@ class RegisterSuccessState extends AuthState {
   List<Object> get props => [];
 }
 
+class RegisterPageState extends AuthState {
+  @override
+  List<Object> get props => [];
+}
+
+class RegisterPage2State extends AuthState {
+  @override
+  List<Object> get props => [];
+}
+
 class LoginErrorState extends AuthState {
   final String error;
   final String code;

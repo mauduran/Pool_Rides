@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pool_rides/bloc/auth-bloc/auth_bloc.dart';
 
 class SignUp2 extends StatefulWidget {
   SignUp2({Key key}) : super(key: key);
@@ -45,202 +47,211 @@ class _SignUp2State extends State<SignUp2> {
           "Registro",
         ),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          SizedBox(
+            height: 25,
+          ),
+          Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
-                height: 25,
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "¿Qué forma de tratamiento te agrada más?",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22.5,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "¿Qué forma de tratamiento te agrada más?",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22.5,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
-                  for (int count = 0;
-                      count < _formasTratamiento.length;
-                      count++)
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20.0,
+                ),
+              ),
+              for (int count = 0; count < _formasTratamiento.length; count++)
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20.0,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListTile(
+                        title: Text(
+                          '${_formasTratamiento[count]}',
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        trailing: Radio(
+                          value: count,
+                          groupValue: _radioButtonValue,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _radioButtonValue = newValue;
+                            });
+                          },
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _radioButtonValue = count;
+                          });
+                        },
                       ),
-                      child: Column(
+                      Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          ListTile(
-                            title: Text(
-                              '${_formasTratamiento[count]}',
-                              style: Theme.of(context).textTheme.headline6,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                right: 30.0,
+                                left: 15.0,
+                              ),
+                              child: Divider(
+                                color: Colors.black,
+                                thickness: 1.1,
+                              ),
                             ),
-                            trailing: Radio(
-                              value: count,
-                              groupValue: _radioButtonValue,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  _radioButtonValue = newValue;
-                                });
-                              },
-                            ),
-                            onTap: () {
-                              setState(() {
-                                _radioButtonValue = count;
-                              });
-                            },
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                    right: 30.0,
-                                    left: 15.0,
-                                  ),
-                                  child: Divider(
-                                    color: Colors.black,
-                                    thickness: 1.1,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
+                          )
                         ],
                       ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "¿Cuál tu fecha de nacimiento?",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22.5,
+                      color: Theme.of(context).primaryColor,
                     ),
-                ],
+                  ),
+                ),
               ),
               SizedBox(
-                height: 30,
+                height: 10,
               ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "¿Cuál tu fecha de nacimiento?",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22.5,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
+              ElevatedButton(
+                onPressed: _selectDate,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Selecciona tu fecha'),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Icon(Icons.date_range_outlined)
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Teléfono",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22.5,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: _selectDate,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text('Selecciona tu fecha'),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Icon(Icons.date_range_outlined)
-                      ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 20),
+                child: TextField(
+                  controller: _phoneController,
+                  // cursorColor: Colors.red,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    labelText: 'Número móvil',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    suffixIcon: Icon(
+                      Icons.phone,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
-                ],
+                ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Teléfono",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22.5,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 30.0, right: 30, top: 20),
-                    child: TextField(
-                      controller: _phoneController,
-                      // cursorColor: Colors.red,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        labelText: 'Número móvil',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                        suffixIcon: Icon(
-                          Icons.phone,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-/////////////////////////////////////
-/////////////////////////////////////
-/////////////////////////////////////
-/////////////////////////////////////
-
-              SizedBox(
-                height: 25,
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
+            ],
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 25),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
                   padding: const EdgeInsets.only(
-                    right: 12.0,
-                    top: 6,
+                    left: 12.0,
                   ),
                   child: FloatingActionButton(
+                    heroTag: "goBack",
                     backgroundColor: Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
                     onPressed: () {
-                      // Respond to button press
-                      // Navigator.pushAndRemoveUntil()  ----> Podría ser útil esto.
-                      // Navigator.of(context).pushNamed("/home");
-                      // Navigator.of(context).popAndPushNamed(
-                      //   '/home',
-                      // );
-
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          "/home", ModalRoute.withName("/"));
+                      BlocProvider.of<AuthBloc>(context)
+                          .add(ShowRegisterPageEvent());
                     },
                     child: Icon(
-                      Icons.arrow_forward,
+                      Icons.arrow_back,
                       size: 37,
                     ),
                   ),
                 ),
-              )
-            ],
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    right: 12.0,
+                  ),
+                  child: FloatingActionButton(
+                    heroTag: "register",
+                    backgroundColor: Theme.of(context).primaryColor,
+                    foregroundColor: Colors.white,
+                    onPressed: () {
+                      BlocProvider.of<AuthBloc>(context)
+                          .add(RegisterWithEmailEvent(
+                        email: "email",
+                        password: "password",
+                        name: "name",
+                      ));
+                    },
+                    child: Icon(
+                      Icons.check,
+                      size: 37,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
