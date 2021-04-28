@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pool_rides/services/user-service.dart';
 
 enum LoginType { FACEBOOK, GOOGLE, EMAIL, NONE }
 
 class UserAuthProvider {
   static final UserAuthProvider _singleton = UserAuthProvider._internal();
+  static final UserService _userService = UserService();
 
   factory UserAuthProvider() {
     return _singleton;
@@ -24,8 +26,11 @@ class UserAuthProvider {
 
   bool isLogged() {
     var user = _auth.currentUser;
-
     return user != null;
+  }
+
+  String getUid() {
+    return _auth.currentUser.uid;
   }
 
   String getEmail() {
@@ -65,6 +70,16 @@ class UserAuthProvider {
     final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
     await _auth.signInWithCredential(credential);
+    final userExists = await _userService.existsUser(_auth.currentUser.uid);
+    if (!userExists) {
+      await _userService.createUserFromGoogle(
+          _auth.currentUser.uid,
+          _auth.currentUser.email,
+          _auth.currentUser.displayName,
+          _auth.currentUser.photoURL,
+          _auth.currentUser.phoneNumber);
+    }
+
     userAuthType = LoginType.GOOGLE;
   }
 
