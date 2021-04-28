@@ -74,11 +74,6 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
           color: event.color.toUpperCase(),
           image: event.image.toString(),
         ));
-        print(event.brand.toUpperCase());
-        print(event.model.toUpperCase());
-        print(event.plates.toUpperCase());
-        print(event.color.toUpperCase());
-        print(event.year);
         yield UpdatedSuccesfully(
             msg: "Auto agregado con éxito!", newCar: cars[cars.length - 1]);
       } catch (e) {

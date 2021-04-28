@@ -25,9 +25,16 @@ class _UserProfileState extends State<UserProfile> {
   File selectedImage;
   bool existCar;
   Car userCar;
+
+  double averageRating = 0;
+  int numOfReviews = 0;
   @override
   void initState() {
     super.initState();
+    numOfReviews = widget.user.reviews.length;
+    averageRating = widget.user.reviews.fold(
+            0, (previousValue, element) => previousValue + element.rating) /
+        numOfReviews;
     initializeDateFormatting();
     if (widget.user.car != null) {
       existCar = true;
@@ -432,7 +439,9 @@ class _UserProfileState extends State<UserProfile> {
                           width: 5,
                         ),
                         Text(
-                          "${user.stars.toString().substring(0, 4)}/5 - ${user.reviewsNumber} reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                          numOfReviews == 0
+                              ? "No hay reseñas aún"
+                              : "$averageRating/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
                           style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: 17.5,

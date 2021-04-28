@@ -23,7 +23,7 @@ class UserAdapter extends TypeAdapter<User> {
       email: fields[3] as String,
       phoneNumber: fields[5] as String,
       age: fields[6] as int,
-      tripNumber: fields[7] as int,
+      tripNumber: fields[7] as String,
       joined: fields[8] as DateTime,
       reviews: (fields[9] as List)?.cast<Review>(),
       car: fields[10] as Car,

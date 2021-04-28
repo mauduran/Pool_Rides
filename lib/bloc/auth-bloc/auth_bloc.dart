@@ -4,7 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pool_rides/models/user.dart' as UserModel;
 import 'package:pool_rides/services/auth-service.dart';
+import 'package:pool_rides/services/user-service.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -13,7 +15,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial());
 
   UserAuthProvider _authProvider = UserAuthProvider();
-
+  UserService _userService = UserService();
+  UserModel.User currentUser;
   @override
   Stream<AuthState> mapEventToState(
     AuthEvent event,
@@ -38,6 +41,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         yield LoginLoadingState();
         await _authProvider.signInWithGoogle();
+        currentUser =
+            await _userService.getCurrentUser(_authProvider.getEmail());
         yield LoginSuccessState();
       } catch (e) {
         print(e.toString());

@@ -22,7 +22,7 @@ class User {
   @HiveField(6)
   int age;
   @HiveField(7)
-  int tripNumber;
+  String tripNumber;
   @HiveField(8)
   final DateTime joined;
   @HiveField(9)
@@ -32,7 +32,7 @@ class User {
 
   User({
     @required this.name,
-    @required this.biography,
+    this.biography,
     @required this.image,
     @required this.email,
     @required this.phoneNumber,
@@ -57,8 +57,9 @@ class User {
   factory User.fromJson(Map<String, dynamic> parsedJson) {
     List<Review> reviews = (!parsedJson.containsKey('reviews'))
         ? []
-        : (parsedJson['reviews'] as List<Map<String, dynamic>>)
-            .map((e) => Review.fromJson(e));
+        : (parsedJson['reviews'] as List)
+            .map((e) => Review.fromJson(e as Map<String, dynamic>))
+            .toList();
     return new User(
       name: parsedJson['name'],
       biography: parsedJson['biography'],

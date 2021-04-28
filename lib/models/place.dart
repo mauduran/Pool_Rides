@@ -29,16 +29,16 @@ class Place {
   String placeId;
 
   Place({
-    streetNumber,
-    street,
-    city,
-    zipCode,
-    state,
-    country,
-    bounds,
-    coordinates,
-    placeId,
-    description,
+    this.streetNumber,
+    this.street,
+    this.city,
+    this.zipCode,
+    this.state,
+    this.country,
+    this.bounds,
+    this.coordinates,
+    this.placeId,
+    this.description,
   });
 
   @override

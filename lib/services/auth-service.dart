@@ -28,6 +28,13 @@ class UserAuthProvider {
     return user != null;
   }
 
+  String getEmail() {
+    if (isLogged()) {
+      return _auth.currentUser.email;
+    }
+    return null;
+  }
+
   String getPhotoUrl() {
     if (isLogged()) {
       return _auth.currentUser.photoURL;
