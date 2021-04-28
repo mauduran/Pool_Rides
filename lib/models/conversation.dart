@@ -44,11 +44,11 @@ class Conversation {
   }
 
   factory Conversation.fromJson(Map<String, dynamic> parsedJson) {
-    List<ChatMessage> messages = (parsedJson.containsKey('messages'))
+    List<ChatMessage> messages = (!parsedJson.containsKey('messages'))
         ? []
         : (parsedJson['messages'] as List<Map<String, dynamic>>)
             .map((e) => ChatMessage.fromJson(e));
-    List<ConversationUser> members = (parsedJson.containsKey('members'))
+    List<ConversationUser> members = (!parsedJson.containsKey('members'))
         ? []
         : (parsedJson['members'] as List<Map<String, dynamic>>)
             .map((e) => ConversationUser.fromJson(e));

@@ -29,20 +29,50 @@ class Place {
   String placeId;
 
   Place({
-    this.streetNumber,
-    this.street,
-    this.city,
-    this.zipCode,
-    this.state,
-    this.country,
-    @required this.coordinates,
-    this.bounds,
-    @required this.placeId,
-    @required this.description,
+    streetNumber,
+    street,
+    city,
+    zipCode,
+    state,
+    country,
+    bounds,
+    coordinates,
+    placeId,
+    description,
   });
 
   @override
   String toString() {
     return 'Place(streetNumber: $streetNumber, street: $street, city: $city, zipCode: $zipCode)';
+  }
+
+  factory Place.fromJson(Map<String, dynamic> parsedJson) {
+    return new Place(
+      streetNumber: parsedJson['streetNumber'],
+      street: parsedJson['street'],
+      city: parsedJson['city'],
+      zipCode: parsedJson['zipCode'],
+      state: parsedJson['state'],
+      country: parsedJson['country'],
+      coordinates: (parsedJson.containsKey('coordinates'))
+          ? LatiLong.fromJson(parsedJson['coordinates'])
+          : null,
+      placeId: parsedJson['placeId'],
+      description: parsedJson['description'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "streetNumber": streetNumber,
+      "street": street,
+      "city": city,
+      "zipCode": zipCode,
+      "state": state,
+      "country": country,
+      "coordinates": coordinates.toMap(),
+      "placeId": placeId,
+      "description": description,
+    };
   }
 }

@@ -33,7 +33,6 @@ class Trip {
   @HiveField(11)
   final Car car;
 
-  int availableSeatsNumber;
   Trip({
     @required this.passengerCapacity,
     @required this.driver,
@@ -46,7 +45,6 @@ class Trip {
     @required this.tripPrice,
     @required this.isCarSpecified,
     this.car, // To Do: hacerlo required
-    this.availableSeatsNumber,
   });
 
   static double distanceBetweenTwoPlaces(Place origin, Place destination) {
@@ -58,5 +56,48 @@ class Trip {
     );
 
     return distanceInMeters;
+  }
+
+  factory Trip.fromJson(Map<String, dynamic> parsedJson) {
+    List<User> passenger = (!parsedJson.containsKey('passengers'))
+        ? []
+        : (parsedJson['passengers'] as List<Map<String, dynamic>>)
+            .map((e) => User.fromJson(e));
+
+    return new Trip(
+      passengerCapacity: parsedJson['passengerCapacity'],
+      driver: (parsedJson.containsKey('driver'))
+          ? User.fromJson(parsedJson['driver'])
+          : null,
+      passengers: passenger,
+      origin: (parsedJson.containsKey('origin'))
+          ? Place.fromJson(parsedJson['origin'])
+          : null,
+      destination: (parsedJson.containsKey('destination'))
+          ? Place.fromJson(parsedJson['destination'])
+          : null,
+      departureDate: DateTime.parse(parsedJson['departureDate']),
+      startTime: parsedJson['startTime'],
+      arrivalTime: parsedJson['arrivalTime'],
+      tripPrice: parsedJson['tripPrice'],
+      isCarSpecified: parsedJson['isCarSpecified'],
+      car: parsedJson['car'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "passengerCapacity": passengerCapacity,
+      "driver": driver.toMap(),
+      "passengers": passengers.map((e) => e.toMap()),
+      "origin": origin.toMap(),
+      "destination": destination.toMap(),
+      "departureDate": departureDate.toIso8601String(),
+      "startTime": startTime,
+      "arrivalTime": arrivalTime,
+      "tripPrice": tripPrice,
+      "isCarSpecified": isCarSpecified,
+      "car": car.toMap(),
+    };
   }
 }

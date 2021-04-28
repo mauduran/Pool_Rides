@@ -4,6 +4,7 @@ import 'package:pool_rides/models/review.dart';
 import 'car.dart';
 
 part 'user.g.dart';
+
 @HiveType(typeId: 3, adapterName: "UserAdapter")
 class User {
   @HiveField(0)
@@ -29,18 +30,19 @@ class User {
   @HiveField(10)
   Car car;
 
-  User(
-      {@required this.name,
-      @required this.biography,
-      @required this.image,
-      @required this.email,
-      @required this.phoneNumber,
-      @required this.age,
-      @required this.tripNumber,
-      @required this.joined,
-      this.reviews,
-      this.car,
-      @required this.birthdate});
+  User({
+    @required this.name,
+    @required this.biography,
+    @required this.image,
+    @required this.email,
+    @required this.phoneNumber,
+    @required this.age,
+    @required this.tripNumber,
+    @required this.joined,
+    this.reviews = const [],
+    @required this.car,
+    @required this.birthdate,
+  });
 
   bool changePhoto(String url) {
     var currentPhoto = this.image;
@@ -50,5 +52,43 @@ class User {
       return true;
     }
     return false;
+  }
+
+  factory User.fromJson(Map<String, dynamic> parsedJson) {
+    List<Review> reviews = (!parsedJson.containsKey('reviews'))
+        ? []
+        : (parsedJson['reviews'] as List<Map<String, dynamic>>)
+            .map((e) => Review.fromJson(e));
+    return new User(
+      name: parsedJson['name'],
+      biography: parsedJson['biography'],
+      image: parsedJson['image'],
+      email: parsedJson['email'],
+      phoneNumber: parsedJson['phoneNumber'],
+      age: parsedJson['age'],
+      tripNumber: parsedJson['tripNumber'],
+      joined: DateTime.parse(parsedJson['joined']),
+      reviews: reviews,
+      car: (parsedJson.containsKey('car'))
+          ? Car.fromJson(parsedJson['car'])
+          : null,
+      birthdate: DateTime.parse(parsedJson['birthdate']),
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "name": name,
+      "biography": biography,
+      "image": image,
+      "email": email,
+      "phoneNumber": phoneNumber,
+      "age": age,
+      "tripNumber": tripNumber,
+      "joined": joined.toIso8601String(),
+      "reviews": reviews.map((e) => e.toMap()),
+      "car": car.toMap(),
+      "birthdate": birthdate.toIso8601String(),
+    };
   }
 }
