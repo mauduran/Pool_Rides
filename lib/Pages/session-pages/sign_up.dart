@@ -143,9 +143,9 @@ class _SignUpState extends State<SignUp> {
                     child: TextField(
                       controller: _passwordController,
                       obscureText: _obscureText,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         labelText: 'Contraseña (mínimo 8 carácteres)',
-                        // errorText: 'Error message',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
@@ -188,11 +188,10 @@ class _SignUpState extends State<SignUp> {
                         const EdgeInsets.only(left: 30.0, right: 30, top: 20),
                     child: TextField(
                       controller: _confirmPasswordController,
-                      keyboardType: TextInputType.phone,
+                      keyboardType: TextInputType.emailAddress,
                       obscureText: _obscureText2,
                       decoration: InputDecoration(
                         labelText: 'Contraseña (mínimo 8 carácteres)',
-                        // errorText: 'Error message',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
@@ -223,9 +222,40 @@ class _SignUpState extends State<SignUp> {
                     backgroundColor: Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
                     onPressed: () {
-                      Navigator.of(context).pushNamed(
-                        '/signup2',
-                      );
+                      var passwordsEquals = _passwordController.text ==
+                          _confirmPasswordController.text;
+                      var next = _emailController.text != "" &&
+                          _firstNameController.text != "" &&
+                          _lastNameController.text != "" &&
+                          passwordsEquals == true;
+
+                      if (next) {
+                        Navigator.of(context).pushNamed('/signup2', arguments: {
+                          "name": _firstNameController.text +
+                              _lastNameController.text,
+                          "email": _emailController.text,
+                          "password": _passwordController.text,
+                        });
+                      } else {
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text("Por favor complete todos los campos"),
+                              duration: Duration(seconds: 3),
+                              behavior: SnackBarBehavior.floating,
+                              action: SnackBarAction(
+                                label: "Aceptar",
+                                textColor: Colors.blue,
+                                onPressed: () {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                },
+                              ),
+                            ),
+                          );
+                      }
                     },
                     child: Icon(
                       Icons.arrow_forward,

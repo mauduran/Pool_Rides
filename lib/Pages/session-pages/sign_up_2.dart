@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SignUp2 extends StatefulWidget {
-  SignUp2({Key key}) : super(key: key);
+  SignUp2({
+    Key key,
+  }) : super(key: key);
 
   @override
   _SignUp2State createState() => _SignUp2State();
@@ -38,6 +40,9 @@ class _SignUp2State extends State<SignUp2> {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, Object> receiveData =
+        ModalRoute.of(context).settings.arguments;
+    print(receiveData);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -185,7 +190,6 @@ class _SignUp2State extends State<SignUp2> {
                         const EdgeInsets.only(left: 30.0, right: 30, top: 20),
                     child: TextField(
                       controller: _phoneController,
-                      // cursorColor: Colors.red,
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         labelText: 'Número móvil',
@@ -201,12 +205,6 @@ class _SignUp2State extends State<SignUp2> {
                   ),
                 ],
               ),
-
-/////////////////////////////////////
-/////////////////////////////////////
-/////////////////////////////////////
-/////////////////////////////////////
-
               SizedBox(
                 height: 25,
               ),
@@ -221,15 +219,32 @@ class _SignUp2State extends State<SignUp2> {
                     backgroundColor: Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
                     onPressed: () {
-                      // Respond to button press
-                      // Navigator.pushAndRemoveUntil()  ----> Podría ser útil esto.
-                      // Navigator.of(context).pushNamed("/home");
-                      // Navigator.of(context).popAndPushNamed(
-                      //   '/home',
-                      // );
-
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          "/home", ModalRoute.withName("/"));
+                      var next = _formasTratamiento[_radioButtonValue] != "" &&
+                          _date.year > 0 &&
+                          _phoneController.text != "";
+                      if (next) {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            "/home", ModalRoute.withName("/"));
+                      } else {
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text("Por favor complete todos los campos"),
+                              duration: Duration(seconds: 3),
+                              behavior: SnackBarBehavior.floating,
+                              action: SnackBarAction(
+                                label: "Aceptar",
+                                textColor: Colors.blue,
+                                onPressed: () {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                },
+                              ),
+                            ),
+                          );
+                      }
                     },
                     child: Icon(
                       Icons.arrow_forward,
