@@ -29,6 +29,12 @@ class User {
   List<Review> reviews;
   @HiveField(10)
   Car car;
+  @HiveField(11)
+  String uid;
+  @HiveField(12)
+  int totalStars;
+  @HiveField(13)
+  int totalReviews;
 
   User({
     this.biography,
@@ -39,6 +45,9 @@ class User {
     this.reviews = const [],
     this.car,
     this.birthdate,
+    this.totalStars = 0,
+    this.totalReviews = 0,
+    @required this.uid,
     @required this.name,
     @required this.email,
     @required this.joined,
@@ -61,22 +70,24 @@ class User {
             .map((e) => Review.fromJson(e as Map<String, dynamic>))
             .toList();
     return new User(
-      name: parsedJson['name'],
-      biography: parsedJson['biography'],
-      image: parsedJson['image'],
-      email: parsedJson['email'],
-      phoneNumber: parsedJson['phoneNumber'],
-      age: parsedJson['age'],
-      tripNumber: parsedJson['tripNumber'],
-      joined: DateTime.parse(parsedJson['joined']),
-      reviews: reviews,
-      car: (parsedJson.containsKey('car'))
-          ? Car.fromJson(parsedJson['car'])
-          : null,
-      birthdate: (parsedJson['birthdate'] != '')
-          ? DateTime.parse(parsedJson['birthdate'])
-          : null,
-    );
+        name: parsedJson['name'],
+        uid: parsedJson['uid'],
+        biography: parsedJson['biography'],
+        image: parsedJson['image'],
+        email: parsedJson['email'],
+        phoneNumber: parsedJson['phoneNumber'],
+        age: parsedJson['age'],
+        tripNumber: parsedJson['tripNumber'],
+        joined: DateTime.parse(parsedJson['joined']),
+        reviews: reviews,
+        car: (parsedJson.containsKey('car'))
+            ? Car.fromJson(parsedJson['car'])
+            : null,
+        birthdate: (parsedJson['birthdate'] != '')
+            ? DateTime.parse(parsedJson['birthdate'])
+            : null,
+        totalStars: parsedJson['totalStarts'] ?? 0,
+        totalReviews: parsedJson['totalReviews'] ?? 0);
   }
 
   Map<String, dynamic> toMap() {
@@ -86,6 +97,7 @@ class User {
 
     return {
       "name": name,
+      "uid": uid,
       "biography": biography,
       "image": image,
       "email": email,
@@ -96,6 +108,8 @@ class User {
       "reviews": reviews.map((e) => e.toMap()).toList(),
       "car": carMap,
       "birthdate": birthdateString,
+      "totalStarts": totalStars,
+      "totalReviews": totalReviews
     };
   }
 }
