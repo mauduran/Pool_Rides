@@ -1,13 +1,12 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pool_rides/bloc/search-trips-bloc/search_trips_bloc.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/trip-query.dart';
 
 import 'package:flutter/material.dart';
 import 'package:pool_rides/models/trip.dart';
-import 'package:pool_rides/utils/lists.dart';
 import 'package:pool_rides/widgets/trips/TripCard.dart';
 import 'package:pool_rides/widgets/trips/trip-detail/tripDetail.dart';
-
-import '../../theme.dart';
 
 class Trips extends StatefulWidget {
   final TripQuery query;
@@ -18,6 +17,8 @@ class Trips extends StatefulWidget {
 }
 
 class _TripsState extends State<Trips> {
+  SearchTripsBloc _bloc;
+  int distance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,65 +26,118 @@ class _TripsState extends State<Trips> {
         title: Text("Buscar Viajes"),
       ),
       body: Container(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(top: 16, left: 16, right: 16),
-            child: Column(
-              children: [
-                TextField(
-                  decoration: InputDecoration(
-                      hintText: "Search...",
-                      hintStyle: TextStyle(color: Colors.grey.shade600),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Colors.grey.shade600,
-                        size: 20,
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey.shade300,
-                      contentPadding: EdgeInsets.all(8),
-                      focusedBorder: roundedInputBorder,
-                      border: roundedInputBorder,
-                      enabledBorder: roundedInputBorder),
-                ),
-                SizedBox(height: 20),
-                for (int i = 0; i < tripList.length; i++)
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => TripDetailPage(
-                            tripDetail: tripList[i],
-                            cercania: (i % 3) * 1.0,
-                          ),
+        child: BlocProvider(
+            create: (context) {
+              _bloc = SearchTripsBloc();
+              return _bloc..add(SearchTripsQueryEvent(query: widget.query));
+            },
+            child: BlocConsumer<SearchTripsBloc, SearchTripsState>(
+              listener: (context, state) {
+                if (state is TripsErrorState) {
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      SnackBar(
+                        content: Text("Error al buscar viajes"),
+                        duration: Duration(seconds: 3),
+                        behavior: SnackBarBehavior.floating,
+                        action: SnackBarAction(
+                          label: "Aceptar",
+                          textColor: Colors.blue,
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          },
                         ),
-                      );
-                    },
-                    child: TripCard(
-                      trip: tripList[i],
-                      cercania: (i % 3) * 1.0,
+                      ),
+                    );
+                }
+              },
+              builder: (context, state) {
+                if (state is TripsLoadingState) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is SearchTripResults) {
+                  return Padding(
+                    padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        _bloc.add(SearchTripsQueryEvent(query: widget.query));
+                        return;
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          if (state.trips.length == 0)
+                            Center(
+                              child: Text(
+                                'No se encontraron viajes',
+                                style: TextStyle(
+                                    fontSize: 26, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: state.trips.length,
+                              itemBuilder: (context, idx) {
+                                Trip trip = state.trips[idx];
+                                double distOrigin = getDistance(
+                                    widget.query.origin, trip.origin);
+                                double distDestination = getDistance(
+                                    widget.query.destination, trip.destination);
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => TripDetailPage(
+                                          tripDetail: trip,
+                                          distanceDestination: distDestination,
+                                          distanceOrigin: distOrigin,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: TripCard(
+                                    trip: state.trips[idx],
+                                    distanceDestination: distDestination,
+                                    distanceOrigin: distOrigin,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  )
-              ],
-            ),
-          ),
-        ),
+                  );
+                }
+                return Container(
+                  child: Text(
+                    "Error. No se pudieron encontrar viajes",
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              },
+            )),
       ),
     );
   }
 
-  double getCercania(Place origin, Place destination) {
+  double getDistance(Place origin, Place destination) {
     double distanceInMeters =
         Trip.distanceBetweenTwoPlaces(origin, destination);
 
-    double cercania = 0.0;
+    double distance = 0.0;
     if (distanceInMeters >= 0 && distanceInMeters < 5)
-      cercania = 0;
+      distance = 0;
     else if (distanceInMeters >= 5 && distanceInMeters < 10)
-      cercania = 1;
+      distance = 1;
     else
-      cercania = 2;
+      distance = 2;
 
-    return cercania;
+    return distance;
   }
 }

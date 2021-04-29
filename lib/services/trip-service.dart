@@ -72,6 +72,12 @@ class TripService {
 
     List<QueryDocumentSnapshot> docs = queryResult.docs;
 
-    return docs.map((e) => Trip.fromJson(e.data()));
+    List<Trip> trips = docs.map((e) => Trip.fromJson(e.data())).toList();
+
+    return trips.where((element) {
+      return (Trip.distanceBetweenTwoPlaces(origin, element.origin) < 20000 &&
+          Trip.distanceBetweenTwoPlaces(destination, element.destination) <
+              20000);
+    }).toList();
   }
 }
