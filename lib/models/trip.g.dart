@@ -27,6 +27,7 @@ class TripAdapter extends TypeAdapter<Trip> {
       arrivalTime: fields[3] as String,
       tripPrice: fields[4] as double,
       isCarSpecified: fields[10] as bool,
+      formattedDepartureDate: fields[12] as String,
       car: fields[11] as Car,
     );
   }
@@ -34,7 +35,7 @@ class TripAdapter extends TypeAdapter<Trip> {
   @override
   void write(BinaryWriter writer, Trip obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.startTime)
       ..writeByte(1)
@@ -56,7 +57,9 @@ class TripAdapter extends TypeAdapter<Trip> {
       ..writeByte(10)
       ..write(obj.isCarSpecified)
       ..writeByte(11)
-      ..write(obj.car);
+      ..write(obj.car)
+      ..writeByte(12)
+      ..write(obj.formattedDepartureDate);
   }
 
   @override
