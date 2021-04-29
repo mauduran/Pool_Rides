@@ -70,6 +70,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
 
         // TODO: Subir la información el nuevo registro de coche a la BD y modificar el usuario (agregando el coche en el user)
         cars.add(Car(
+          year: 2014,
           model: (event.brand.toUpperCase() + " " + event.model.toUpperCase()),
           color: event.color.toUpperCase(),
           image: event.image.toString(),

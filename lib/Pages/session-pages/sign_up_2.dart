@@ -208,7 +208,6 @@ class _SignUp2State extends State<SignUp2> {
             SizedBox(
               height: 25,
             ),
-            Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: 25),
               child: Row(
@@ -232,7 +231,7 @@ class _SignUp2State extends State<SignUp2> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 25),
+                  Spacer(),
                   Padding(
                     padding: const EdgeInsets.only(
                       right: 12.0,
