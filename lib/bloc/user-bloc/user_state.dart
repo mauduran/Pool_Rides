@@ -13,8 +13,6 @@ class ChangingImageState extends UserState {}
 
 class LoadingState extends UserState {}
 
-class LoadedInformatiogState extends UserState {}
-
 class ErrorState extends UserState {
   final String error;
   final String errorEasy;
@@ -34,10 +32,18 @@ class AccountNewImageState extends UserState {
 
 class ChangeBiographyState extends UserState {}
 
+class UserFoundState extends UserState {
+  final String msg;
+  final User currentUser;
+  UserFoundState({@required this.msg, @required this.currentUser});
+  @override
+  List<Object> get props => [msg, currentUser];
+}
+
 class AccountNewBiographyState extends UserState {
   final String msg;
-
-  AccountNewBiographyState({@required this.msg});
+  final String biography;
+  AccountNewBiographyState({@required this.msg, @required this.biography});
   @override
   List<Object> get props => [msg];
 }
