@@ -22,7 +22,7 @@ class Car {
     this.plates,
     @required this.color,
     @required this.year,
-    this.image,
+    this.image = 'http://firstchoiceautomarkham.com/images/car-placeholder.png',
   });
 
   factory Car.fromJson(Map<String, dynamic> parsedJson) {
