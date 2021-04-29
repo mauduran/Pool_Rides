@@ -31,7 +31,7 @@ Widget places({
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: distanceOrigin == 0
+                  color: distanceOrigin <= 5
                       ? Colors.green[400]
                       : Color(0xFFEFF2F6),
                 ),
@@ -47,7 +47,7 @@ Widget places({
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: distanceOrigin == 1
+                  color: distanceOrigin > 5 && distanceOrigin <= 10
                       ? Colors.yellow[700]
                       : Color(0xFFEFF2F6),
                 ),
@@ -61,7 +61,7 @@ Widget places({
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: distanceOrigin == 2
+                  color: distanceOrigin > 10
                       ? Color(0xFFff6257)
                       : Color(0xFFEFF2F6),
                 ),
@@ -90,7 +90,7 @@ Widget places({
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: distanceDestination == 0
+                  color: distanceDestination <= 5
                       ? Colors.green[400]
                       : Color(0xFFEFF2F6),
                 ),
@@ -102,7 +102,7 @@ Widget places({
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: distanceDestination == 1
+                  color: distanceDestination > 5 && distanceDestination <= 10
                       ? Colors.yellow[700]
                       : Color(0xFFEFF2F6),
                 ),
@@ -116,7 +116,7 @@ Widget places({
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: distanceDestination == 2
+                  color: distanceDestination > 10
                       ? Color(0xFFff6257)
                       : Color(0xFFEFF2F6),
                 ),

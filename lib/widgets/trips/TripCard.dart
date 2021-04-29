@@ -16,8 +16,6 @@ class TripCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(trip);
-
     return Padding(
       padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
       child: Material(

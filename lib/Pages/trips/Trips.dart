@@ -130,14 +130,6 @@ class _TripsState extends State<Trips> {
     double distanceInMeters =
         Trip.distanceBetweenTwoPlaces(origin, destination);
 
-    double distance = 0.0;
-    if (distanceInMeters >= 0 && distanceInMeters < 5)
-      distance = 0;
-    else if (distanceInMeters >= 5 && distanceInMeters < 10)
-      distance = 1;
-    else
-      distance = 2;
-
-    return distance;
+    return distanceInMeters / 1000;
   }
 }

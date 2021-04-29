@@ -73,6 +73,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
               startTime: widget.tripDetail.startTime,
               location: widget.tripDetail.origin,
               distance: widget.distanceOrigin,
+              salida: true,
               icon: Icons.hail,
             ),
             SizedBox(
@@ -459,7 +460,8 @@ class _TripDetailPageState extends State<TripDetailPage> {
   Widget tripInformation({
     @required startTime,
     @required Place location,
-    @required distance,
+    @required double distance,
+    bool salida = false,
     @required IconData icon,
   }) {
     return Padding(
@@ -542,11 +544,11 @@ class _TripDetailPageState extends State<TripDetailPage> {
                       Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Text(
-                          "A 6 km de tu punto de salida",
+                          "A $distance km de tu punto de ${salida ? 'salida' : 'llegada'}",
                           style: TextStyle(
-                            color: distance == 0
+                            color: distance <= 5
                                 ? Colors.green[400]
-                                : widget.distanceOrigin == 1
+                                : distance > 5 && distance <= 10
                                     ? Colors.yellow[700]
                                     : Color(0xFFff6257),
                             fontSize: 13.5,

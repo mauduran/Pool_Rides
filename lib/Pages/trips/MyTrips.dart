@@ -45,16 +45,16 @@ class _MyTripsState extends State<MyTrips> {
                       MaterialPageRoute(
                         builder: (context) => TripDetailPage(
                           tripDetail: tripList[i],
-                          distanceOrigin: (i % 3) * 1.0,
-                          distanceDestination: (i % 3) * 1.0,
+                          distanceOrigin: (i % 4) * 5.0,
+                          distanceDestination: (i + 1 % 4) * 5.0,
                         ),
                       ),
                     );
                   },
                   child: TripCard(
                     trip: tripList[i],
-                    distanceOrigin: (i % 3) * 1.0,
-                    distanceDestination: (i % 3) * 1.0,
+                    distanceOrigin: (i % 4) * 5.0,
+                    distanceDestination: (i + 1 % 4) * 5.0,
                   ),
                 )
             ],
