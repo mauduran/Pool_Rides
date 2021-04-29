@@ -5,19 +5,21 @@ Widget places({
   @required downText,
   @required context,
   @required colorDefault,
-  @required cercaniaOrigen,
-  @required cercaniaDestino,
+  @required distanceOrigin,
+  @required distanceDestination,
 }) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
-        upText,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
+      Flexible(
+        child: Text(
+          upText,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       Padding(
@@ -29,7 +31,7 @@ Widget places({
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: cercaniaOrigen == 0
+                  color: distanceOrigin == 0
                       ? Colors.green[400]
                       : Color(0xFFEFF2F6),
                 ),
@@ -45,7 +47,7 @@ Widget places({
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: cercaniaOrigen == 1
+                  color: distanceOrigin == 1
                       ? Colors.yellow[700]
                       : Color(0xFFEFF2F6),
                 ),
@@ -59,7 +61,7 @@ Widget places({
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: cercaniaOrigen == 2
+                  color: distanceOrigin == 2
                       ? Color(0xFFff6257)
                       : Color(0xFFEFF2F6),
                 ),
@@ -73,6 +75,7 @@ Widget places({
       ),
       Text(
         downText,
+        softWrap: true,
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
@@ -87,7 +90,7 @@ Widget places({
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: cercaniaDestino == 0
+                  color: distanceDestination == 0
                       ? Colors.green[400]
                       : Color(0xFFEFF2F6),
                 ),
@@ -99,7 +102,7 @@ Widget places({
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: cercaniaDestino == 1
+                  color: distanceDestination == 1
                       ? Colors.yellow[700]
                       : Color(0xFFEFF2F6),
                 ),
@@ -113,7 +116,7 @@ Widget places({
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: cercaniaDestino == 2
+                  color: distanceDestination == 2
                       ? Color(0xFFff6257)
                       : Color(0xFFEFF2F6),
                 ),

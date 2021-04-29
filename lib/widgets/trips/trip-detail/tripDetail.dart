@@ -11,12 +11,14 @@ import 'package:intl/date_symbol_data_local.dart';
 
 class TripDetailPage extends StatefulWidget {
   final Trip tripDetail;
-  final double cercania;
+  final double distanceOrigin;
+  final double distanceDestination;
 
   TripDetailPage({
     Key key,
     @required this.tripDetail,
-    @required this.cercania,
+    @required this.distanceOrigin,
+    @required this.distanceDestination,
   }) : super(key: key);
 
   @override
@@ -70,7 +72,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
             tripInformation(
               startTime: widget.tripDetail.startTime,
               location: widget.tripDetail.origin,
-              cercania: widget.cercania,
+              distance: widget.distanceOrigin,
               icon: Icons.hail,
             ),
             SizedBox(
@@ -79,7 +81,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
             tripInformation(
               startTime: widget.tripDetail.arrivalTime,
               location: widget.tripDetail.destination,
-              cercania: widget.cercania,
+              distance: widget.distanceDestination,
               icon: Icons.place,
             ),
             SizedBox(
@@ -459,7 +461,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
   Widget tripInformation({
     @required startTime,
     @required Place location,
-    @required cercania,
+    @required distance,
     @required IconData icon,
   }) {
     return Padding(
@@ -529,9 +531,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
                         height: 30,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: cercania == 0
+                          color: distance == 0
                               ? Colors.green[400]
-                              : widget.cercania == 1
+                              : widget.distanceOrigin == 1
                                   ? Colors.yellow[700]
                                   : Color(0xFFff6257),
                         ),
@@ -544,9 +546,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
                         child: Text(
                           "A 6 km de tu punto de salida",
                           style: TextStyle(
-                            color: cercania == 0
+                            color: distance == 0
                                 ? Colors.green[400]
-                                : widget.cercania == 1
+                                : widget.distanceOrigin == 1
                                     ? Colors.yellow[700]
                                     : Color(0xFFff6257),
                             fontSize: 13.5,

@@ -5,8 +5,14 @@ import 'package:flutter/material.dart';
 
 class TripCard extends StatelessWidget {
   final Trip trip;
-  final double cercania;
-  TripCard({Key key, @required this.trip, this.cercania}) : super(key: key);
+  final double distanceOrigin;
+  final double distanceDestination;
+  TripCard(
+      {Key key,
+      @required this.trip,
+      @required this.distanceOrigin,
+      @required this.distanceDestination})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +25,13 @@ class TripCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         child: Container(
           padding: EdgeInsets.fromLTRB(20, 10, 15, 10),
-          // color: Color(0xFFEFF2F6),
+          height: 225,
           decoration: BoxDecoration(
             color: Color(0xFFEFF2F6),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Stack(
+            fit: StackFit.loose,
             children: [
               Container(
                 width: 300,
@@ -41,14 +48,16 @@ class TripCard extends StatelessWidget {
                           colorDefault: true,
                         ),
                         SizedBox(width: 15),
-                        places(
-                          context: context,
-                          upText: trip.origin.city,
-                          downText: trip.destination.city,
-                          colorDefault: false,
-                          cercaniaOrigen: cercania,
-                          cercaniaDestino: (cercania + 1) % 3,
-                        ),
+                        Expanded(
+                          child: places(
+                            context: context,
+                            upText: trip.origin.city,
+                            downText: trip.destination.city,
+                            colorDefault: false,
+                            distanceOrigin: distanceOrigin,
+                            distanceDestination: distanceDestination,
+                          ),
+                        )
                       ],
                     ),
                     SizedBox(
@@ -106,9 +115,9 @@ class TripCard extends StatelessWidget {
                 ),
               ),
               Align(
-                alignment: Alignment.topRight,
+                alignment: Alignment.bottomRight,
                 child: Text(
-                  "\$${trip.tripPrice.toString().substring(0, 6)}",
+                  "\$${trip.tripPrice.floor().toString()}",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
