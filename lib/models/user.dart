@@ -38,7 +38,8 @@ class User {
 
   User({
     this.biography,
-    this.image,
+    this.image =
+        "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
     this.phoneNumber,
     this.age,
     this.tripNumber,
