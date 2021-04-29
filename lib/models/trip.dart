@@ -32,7 +32,8 @@ class Trip {
   final bool isCarSpecified;
   @HiveField(11)
   final Car car;
-
+  @HiveField(12)
+  final String formattedDepartureDate;
   Trip({
     @required this.passengerCapacity,
     @required this.driver,
@@ -44,6 +45,7 @@ class Trip {
     @required this.arrivalTime,
     @required this.tripPrice,
     @required this.isCarSpecified,
+    @required this.formattedDepartureDate,
     this.car, // To Do: hacerlo required
   });
 
@@ -62,34 +64,35 @@ class Trip {
     List<User> passenger = (!parsedJson.containsKey('passengers'))
         ? []
         : (parsedJson['passengers'] as List<Map<String, dynamic>>)
-            .map((e) => User.fromJson(e));
+            .map((e) => User.fromJson(e))
+            .toList();
 
     return new Trip(
-      passengerCapacity: parsedJson['passengerCapacity'],
-      driver: (parsedJson.containsKey('driver'))
-          ? User.fromJson(parsedJson['driver'])
-          : null,
-      passengers: passenger,
-      origin: (parsedJson.containsKey('origin'))
-          ? Place.fromJson(parsedJson['origin'])
-          : null,
-      destination: (parsedJson.containsKey('destination'))
-          ? Place.fromJson(parsedJson['destination'])
-          : null,
-      departureDate: DateTime.parse(parsedJson['departureDate']),
-      startTime: parsedJson['startTime'],
-      arrivalTime: parsedJson['arrivalTime'],
-      tripPrice: parsedJson['tripPrice'],
-      isCarSpecified: parsedJson['isCarSpecified'],
-      car: parsedJson['car'],
-    );
+        passengerCapacity: parsedJson['passengerCapacity'],
+        driver: (parsedJson.containsKey('driver'))
+            ? User.fromJson(parsedJson['driver'])
+            : null,
+        passengers: passenger,
+        origin: (parsedJson.containsKey('origin'))
+            ? Place.fromJson(parsedJson['origin'])
+            : null,
+        destination: (parsedJson.containsKey('destination'))
+            ? Place.fromJson(parsedJson['destination'])
+            : null,
+        departureDate: DateTime.parse(parsedJson['departureDate']),
+        startTime: parsedJson['startTime'],
+        arrivalTime: parsedJson['arrivalTime'],
+        tripPrice: parsedJson['tripPrice'],
+        isCarSpecified: parsedJson['isCarSpecified'],
+        car: parsedJson['car'],
+        formattedDepartureDate: parsedJson['formattedDepartureDate']);
   }
 
   Map<String, dynamic> toMap() {
     return {
       "passengerCapacity": passengerCapacity,
       "driver": driver.toMap(),
-      "passengers": passengers.map((e) => e.toMap()),
+      "passengers": passengers.map((e) => e.toMap()).toList(),
       "origin": origin.toMap(),
       "destination": destination.toMap(),
       "departureDate": departureDate.toIso8601String(),
@@ -97,6 +100,7 @@ class Trip {
       "arrivalTime": arrivalTime,
       "tripPrice": tripPrice,
       "isCarSpecified": isCarSpecified,
+      "formattedDepartureDate": formattedDepartureDate,
       "car": car.toMap(),
     };
   }

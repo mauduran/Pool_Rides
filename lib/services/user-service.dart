@@ -38,6 +38,7 @@ class UserService {
   createUserFromGoogle(
       String uid, String email, String name, String image, String phone) async {
     User newUser = User(
+        uid: uid,
         email: email,
         joined: DateTime.now(),
         name: name,
@@ -50,8 +51,9 @@ class UserService {
   createUserFromEmail(String uid, String email, String name, DateTime birthdate,
       String phone, String title) async {
     DateTime now = DateTime.now();
-    int age = (now.difference(birthdate).inDays / 365).floor();
+    int age = (now.difference(birthdate).inDays / 365.25).floor();
     User newUser = User(
+      uid: uid,
       email: email,
       joined: DateTime.now(),
       name: name,

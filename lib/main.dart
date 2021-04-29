@@ -6,8 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:pool_rides/Pages/session-pages/sign_in.dart';
-import 'package:pool_rides/Pages/session-pages/sign_up.dart';
-import 'package:pool_rides/Pages/session-pages/sign_up_2.dart';
 import 'package:pool_rides/Pages/homepage/HomePage.dart';
 import 'package:pool_rides/Pages/reviews/ReviewsPage.dart';
 import 'package:pool_rides/SessionManager.dart';
@@ -67,8 +65,6 @@ class MyApp extends StatelessWidget {
         '/principal': (context) => Principal(),
         '/home': (context) => HomePage(title: 'Pool Rides'),
         '/principal-signin': (context) => PrincipalSignIn(),
-        '/signup': (context) => SignUp(),
-        '/signup2': (context) => SignUp2(),
         '/signin': (context) => SignIn(),
         '/reviews': (context) => ReviewsPage(),
         '/make-review': (context) => CreateReviewPage(),

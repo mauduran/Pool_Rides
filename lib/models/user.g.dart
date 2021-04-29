@@ -17,24 +17,27 @@ class UserAdapter extends TypeAdapter<User> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return User(
-      name: fields[0] as String,
       biography: fields[1] as String,
       image: fields[2] as String,
-      email: fields[3] as String,
       phoneNumber: fields[5] as String,
       age: fields[6] as int,
       tripNumber: fields[7] as String,
-      joined: fields[8] as DateTime,
       reviews: (fields[9] as List)?.cast<Review>(),
       car: fields[10] as Car,
       birthdate: fields[4] as DateTime,
+      totalStars: fields[12] as int,
+      totalReviews: fields[13] as int,
+      uid: fields[11] as String,
+      name: fields[0] as String,
+      email: fields[3] as String,
+      joined: fields[8] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -56,7 +59,13 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(9)
       ..write(obj.reviews)
       ..writeByte(10)
-      ..write(obj.car);
+      ..write(obj.car)
+      ..writeByte(11)
+      ..write(obj.uid)
+      ..writeByte(12)
+      ..write(obj.totalStars)
+      ..writeByte(13)
+      ..write(obj.totalReviews);
   }
 
   @override
