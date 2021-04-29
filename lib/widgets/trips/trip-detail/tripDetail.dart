@@ -99,7 +99,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                 children: [
                   Text("Importe total para 1 pasajero: "),
                   Text(
-                    "\$${widget.tripDetail.tripPrice.toString().substring(0, 6)}",
+                    "\$${widget.tripDetail.tripPrice.floor().toString()}",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
