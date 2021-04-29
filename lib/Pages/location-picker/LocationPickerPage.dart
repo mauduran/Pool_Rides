@@ -41,8 +41,6 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
       _mapController.animateCamera(CameraUpdate.newLatLng(
           LatLng(placeDetails.coordinates.lat, placeDetails.coordinates.long)));
 
-      // _mapController
-      //     .animateCamera(CameraUpdate.newLatLngBounds(placeDetails.bounds, 0));
       _textController.text = result.description;
 
       setState(() {
