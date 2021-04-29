@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pool_rides/Pages/add-vehicle/addVehicle.dart';
 import 'package:pool_rides/Pages/change-description/ChangeDescription.dart';
+import 'package:pool_rides/Pages/change-phone-number/ChangePhoneNumber.dart';
 import 'package:pool_rides/bloc/auth-bloc/auth_bloc.dart';
 import 'package:pool_rides/bloc/user-bloc/user_bloc.dart';
 import 'package:pool_rides/models/car.dart';
@@ -202,6 +203,34 @@ class _UserProfileState extends State<UserProfile> {
                 textAlign: TextAlign.justify,
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 30,
+                right: 30,
+                bottom: 10,
+              ),
+              child: Text(
+                "${user.biography}",
+                style: TextStyle(
+                  fontSize: 17.5,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 30,
+                right: 30,
+              ),
+              child: Text(
+                "${user.phoneNumber ?? "Sin número"}",
+                style: TextStyle(
+                  fontSize: 17.5,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
             GestureDetector(
               onTap: () {
                 showDialog(
@@ -341,7 +370,7 @@ class _UserProfileState extends State<UserProfile> {
                     Text(
                       "Editar foto de perfil",
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 17.5,
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
@@ -350,16 +379,51 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 10.0,
-                horizontal: 30,
-              ),
-              child: Text(
-                "${user.biography}",
-                style: TextStyle(
-                  fontSize: 17.5,
-                  fontWeight: FontWeight.w400,
+            GestureDetector(
+              onTap: () async {
+                Map<String, dynamic> result = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ChangePhoneNumber(user: user),
+                  ),
+                );
+
+                print(result);
+
+                if (result != null) {
+                  _userBloc.add(
+                    ChangePhoneNumberEvent(
+                      phoneNumber: result["newPhoneNumber"],
+                    ),
+                  );
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 30.0,
+                  top: 5,
+                  bottom: 5,
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.phone,
+                      size: 25,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      user.phoneNumber != null
+                          ? "Editar telefono"
+                          : "Agregar telefono",
+                      style: TextStyle(
+                        fontSize: 17.5,
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
