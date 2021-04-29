@@ -36,7 +36,9 @@ class CreateTripBloc extends Bloc<CreateTripEvent, CreateTripState> {
       } catch (e) {
         print(e);
         yield CreatedTripErrorState(
-            error: "No se pudo crear viaje", code: "Temp Code");
+          error: "No se pudo crear viaje",
+          code: "Temp Code",
+        );
       }
     }
   }
