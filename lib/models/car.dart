@@ -48,4 +48,22 @@ class Car {
       "year": year
     };
   }
+
+  Car copyWith({
+    String brand,
+    String model,
+    String plates,
+    String color,
+    int year,
+    String image,
+  }) {
+    return Car(
+      color: color ?? this.color,
+      image: image ?? this.image,
+      model: model ?? this.model,
+      brand: brand ?? this.brand,
+      plates: plates ?? this.plates,
+      year: year ?? this.year,
+    );
+  }
 }

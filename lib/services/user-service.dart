@@ -14,7 +14,7 @@ class UserService {
   }
 
   Future<User> getCurrentUser(String uid, {bool update = false}) async {
-    if (_currentUser == null && !update)
+    if (_currentUser == null || update)
       _currentUser = await fetchCurrentUser(uid);
     return _currentUser;
   }

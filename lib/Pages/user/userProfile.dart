@@ -10,11 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pool_rides/Pages/reviews/ReviewsPage.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:pool_rides/services/auth-service.dart';
 
 class UserProfile extends StatefulWidget {
-  final User user;
-  const UserProfile({Key key, @required this.user}) : super(key: key);
+  const UserProfile({Key key}) : super(key: key);
 
   @override
   _UserProfileState createState() => _UserProfileState();
@@ -22,7 +20,7 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   UserBloc _userBloc;
-  File selectedImage;
+  File userImage;
   bool existCar;
   Car userCar;
 
@@ -31,16 +29,8 @@ class _UserProfileState extends State<UserProfile> {
   @override
   void initState() {
     super.initState();
-    numOfReviews = widget.user.reviews.length;
-    averageRating = widget.user.reviews.fold(
-            0, (previousValue, element) => previousValue + element.rating) /
-        numOfReviews;
+
     initializeDateFormatting();
-    if (widget.user.car != null) {
-      existCar = true;
-      userCar = widget.user.car;
-    } else
-      existCar = false;
   }
 
   @override
@@ -49,32 +39,27 @@ class _UserProfileState extends State<UserProfile> {
       appBar: AppBar(),
       body: BlocProvider(
         create: (context) {
-          _userBloc = UserBloc();
+          _userBloc = UserBloc()..add(GetUserEvent());
           return _userBloc;
         },
         child: BlocConsumer<UserBloc, UserState>(
           listener: (context, state) {
             if (state is ErrorState) {
               showErrorDialog(context, state);
-            } else if (state is AccountNewImageState)
-              selectedImage = state.image;
-            else if (state is CarInformationState) {
-              existCar = state.newCar;
-              userCar = state.userCar;
             }
           },
           builder: (context, state) {
-            return _userWidget(
-              userBloc: _userBloc,
-              selectedImage: selectedImage,
-              user: widget.user,
-              existCar: existCar,
-              userCar: userCar,
-            );
-
-            // return Center(
-            //   child: CircularProgressIndicator(),
-            // );
+            if (state is UserFoundState) {
+              return _userWidget(
+                userBloc: _userBloc,
+                userImage: state.currentUser.image,
+                user: state.currentUser,
+                userCar: state.currentUser.car,
+              );
+            } else
+              return Center(
+                child: CircularProgressIndicator(),
+              );
           },
         ),
       ),
@@ -122,7 +107,7 @@ class _UserProfileState extends State<UserProfile> {
                     height: 5,
                   ),
                   Text(
-                    car.model,
+                    car.model ?? "Modelo no especificado",
                     style: TextStyle(
                       fontSize: 17.5,
                     ),
@@ -134,7 +119,7 @@ class _UserProfileState extends State<UserProfile> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        "${car.color}", // To Do: agregar el atributo "No. de reseñas en conductor"
+                        "${car.color ?? 'Color no especificado'}", // To Do: agregar el atributo "No. de reseñas en conductor"
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,
@@ -176,11 +161,14 @@ class _UserProfileState extends State<UserProfile> {
 
   Widget _userWidget({
     @required UserBloc userBloc,
-    @required selectedImage,
-    @required user,
-    @required existCar,
-    @required userCar,
+    @required String userImage,
+    @required User user,
+    @required Car userCar,
   }) {
+    numOfReviews = user.reviews.length;
+    averageRating = (user.reviews.fold(
+            0, (previousValue, element) => previousValue + element.rating) /
+        numOfReviews);
     return SingleChildScrollView(
       child: Center(
         child: Column(
@@ -189,11 +177,9 @@ class _UserProfileState extends State<UserProfile> {
               height: 25,
             ),
             CircleAvatar(
-              backgroundImage: selectedImage != null
-                  ? FileImage(selectedImage)
-                  : NetworkImage(
-                      UserAuthProvider().getPhotoUrl(),
-                    ),
+              backgroundImage: NetworkImage(
+                userImage,
+              ),
               maxRadius: 60.0,
               backgroundColor: Colors.grey[300],
             ),
@@ -207,7 +193,7 @@ class _UserProfileState extends State<UserProfile> {
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                "${user.age} años",
+                "${user.age ?? 18} años",
                 style: TextStyle(
                   fontSize: 20,
                   color: Theme.of(context).primaryColor,
@@ -372,18 +358,26 @@ class _UserProfileState extends State<UserProfile> {
               child: Text(
                 "${user.biography}",
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 17.5,
                   fontWeight: FontWeight.w400,
                 ),
               ),
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
+              onTap: () async {
+                Map<String, dynamic> result = await Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => ChangeDescription(user: user),
                   ),
                 );
+
+                print(result);
+
+                if (result != null) {
+                  _userBloc.add(
+                    ChangeBiographyEvent(newBiography: result["newBiography"]),
+                  );
+                }
               },
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -468,7 +462,7 @@ class _UserProfileState extends State<UserProfile> {
             SizedBox(
               height: 5,
             ),
-            if (existCar) carInformation(car: userCar),
+            if (userCar != null) carInformation(car: userCar),
             GestureDetector(
               onTap: () async {
                 var result = await Navigator.of(context).push(
@@ -477,10 +471,6 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                 );
                 if (result != null) {
-                  //
-                  print(result);
-                  print(result[0]);
-                  print(result[1]);
                   userBloc.add(LoadCarEvent());
                 }
               },
@@ -501,7 +491,7 @@ class _UserProfileState extends State<UserProfile> {
                       width: 5,
                     ),
                     Text(
-                      existCar ? "Cambiar auto" : "Añadir auto",
+                      userCar != null ? "Cambiar auto" : "Añadir auto",
                       style: TextStyle(
                         fontSize: 18,
                         color: Theme.of(context).primaryColor,

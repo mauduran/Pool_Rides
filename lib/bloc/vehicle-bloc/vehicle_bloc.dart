@@ -2,17 +2,23 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pool_rides/models/car.dart';
-import 'package:pool_rides/utils/lists.dart';
+import 'package:pool_rides/services/auth-service.dart';
 
 part 'vehicle_event.dart';
 part 'vehicle_state.dart';
 
 class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   VehicleBloc() : super(VehicleInitial());
+
+  UserAuthProvider _authProvider = UserAuthProvider();
+
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   @override
   Stream<VehicleState> mapEventToState(
@@ -63,20 +69,26 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
         );
       }
     } else if (event is UpdatedVehicleInformation) {
-      //TODO: GUARDAR EN BASE DE DATOS
-
       try {
-        // TODO: Primero subir la foto a Storage y luego obtener la url de la foto para colocarla en la siguiente interacción con la BD
+        String imageUrl = await _uploadFile(event.image);
 
-        // TODO: Subir la información el nuevo registro de coche a la BD y modificar el usuario (agregando el coche en el user)
-        cars.add(Car(
-          year: 2014,
-          model: (event.brand.toUpperCase() + " " + event.model.toUpperCase()),
-          color: event.color.toUpperCase(),
-          image: event.image.toString(),
-        ));
-        yield UpdatedSuccesfully(
-            msg: "Auto agregado con éxito!", newCar: cars[cars.length - 1]);
+        if (imageUrl != null) {
+          Car newCar = Car(
+            color: event.color,
+            model: event.model,
+            year: event.year,
+            brand: event.brand,
+            image: imageUrl,
+            plates: event.plates,
+          );
+          await updateField("car", newCar.toMap());
+          print("User car updated!");
+
+          yield UpdatedSuccesfully(
+              msg: "Auto agregado con éxito!", newCar: newCar);
+        } else {
+          throw "Error";
+        }
       } catch (e) {
         yield ErrorState(
           error: e.toString(),
@@ -85,35 +97,68 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
       }
     }
   }
-}
 
-Future<dynamic> _pickImageGallery() async {
-  final picker = ImagePicker();
-
-  final PickedFile choosenImage = await picker.getImage(
-    source: ImageSource.gallery,
-    maxHeight: 720,
-    maxWidth: 720,
-    imageQuality: 85,
-  );
-
-  if (choosenImage.path == null) {
-    return "Error";
+  Future<String> _uploadFile(File _selectedPicture) async {
+    try {
+      var stamp = DateTime.now();
+      if (_selectedPicture == null) return null;
+      // define upload task
+      UploadTask task = FirebaseStorage.instance
+          .ref("users/imagen_$stamp.png")
+          .putFile(_selectedPicture);
+      // execute task
+      await task;
+      // recuperar url del documento subido
+      return await task.storage.ref("users/imagen_$stamp.png").getDownloadURL();
+    } on FirebaseException catch (e) {
+      // e.g, e.code == 'canceled'
+      print("Error al subir la imagen: $e");
+      return null;
+    } catch (e) {
+      // error
+      print("Error al subir la imagen: $e");
+      return null;
+    }
   }
-  return File(choosenImage.path);
-}
 
-Future<dynamic> _pickImageCamera() async {
-  final picker = ImagePicker();
-  final PickedFile choosenImage = await picker.getImage(
-    source: ImageSource.camera,
-    maxHeight: 720,
-    maxWidth: 720,
-    imageQuality: 85,
-  );
-
-  if (choosenImage.path == null) {
-    return "Error";
+  Future<bool> updateField(String field, Map<String, dynamic> value) async {
+    try {
+      await users.doc(_authProvider.getUid()).update({"$field": value});
+      return true;
+    } catch (e) {
+      print("Error: $e");
+      return false;
+    }
   }
-  return File(choosenImage.path);
+
+  Future<dynamic> _pickImageGallery() async {
+    final picker = ImagePicker();
+
+    final PickedFile choosenImage = await picker.getImage(
+      source: ImageSource.gallery,
+      maxHeight: 720,
+      maxWidth: 720,
+      imageQuality: 85,
+    );
+
+    if (choosenImage.path == null) {
+      return "Error";
+    }
+    return File(choosenImage.path);
+  }
+
+  Future<dynamic> _pickImageCamera() async {
+    final picker = ImagePicker();
+    final PickedFile choosenImage = await picker.getImage(
+      source: ImageSource.camera,
+      maxHeight: 720,
+      maxWidth: 720,
+      imageQuality: 85,
+    );
+
+    if (choosenImage.path == null) {
+      return "Error";
+    }
+    return File(choosenImage.path);
+  }
 }

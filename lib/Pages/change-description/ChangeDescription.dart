@@ -22,7 +22,6 @@ class _ChangeDescriptionState extends State<ChangeDescription> {
     return Scaffold(
       appBar: AppBar(),
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
@@ -88,7 +87,34 @@ class _ChangeDescriptionState extends State<ChangeDescription> {
                           ),
                         ],
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        if (widget.user.biography !=
+                            _biographyController.text) {
+                          Navigator.of(context).pop({
+                            "changed": true,
+                            "newBiography": _biographyController.text,
+                          });
+                        } else {
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    "Por favor ingrese una biografía nueva"),
+                                duration: Duration(seconds: 3),
+                                behavior: SnackBarBehavior.floating,
+                                action: SnackBarAction(
+                                  label: "Aceptar",
+                                  textColor: Colors.blue,
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                  },
+                                ),
+                              ),
+                            );
+                        }
+                      },
                     ),
                   ),
                 ),

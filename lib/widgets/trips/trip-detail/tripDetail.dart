@@ -388,9 +388,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
         // To Do: Ir hacia perfil de usuario
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => UserProfile(
-              user: user,
-            ),
+            builder: (context) => UserProfile(),
           ),
         );
       },
