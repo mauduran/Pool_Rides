@@ -77,7 +77,8 @@ class TripService {
     return trips.where((element) {
       return (Trip.distanceBetweenTwoPlaces(origin, element.origin) < 20000 &&
           Trip.distanceBetweenTwoPlaces(destination, element.destination) <
-              20000);
+              20000 &&
+          element.passengerCapacity > element.passengers.length);
     }).toList();
   }
 }
