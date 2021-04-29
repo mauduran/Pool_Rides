@@ -13,8 +13,8 @@ class UserService {
     return _userRepository;
   }
 
-  getCurrentUser(String uid, {bool update = false}) async {
-    if (_currentUser == null && !update)
+  Future<User> getCurrentUser(String uid, {bool update = false}) async {
+    if (_currentUser == null || update)
       _currentUser = await fetchCurrentUser(uid);
     return _currentUser;
   }
