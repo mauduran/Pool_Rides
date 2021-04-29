@@ -61,7 +61,8 @@ class Trip {
   }
 
   factory Trip.fromJson(Map<String, dynamic> parsedJson) {
-    List<User> passenger = (!parsedJson.containsKey('passengers'))
+    List<User> passenger = (!parsedJson.containsKey('passengers') ||
+            parsedJson['passengers'].length == 0)
         ? []
         : (parsedJson['passengers'] as List<Map<String, dynamic>>)
             .map((e) => User.fromJson(e))
@@ -84,7 +85,9 @@ class Trip {
         arrivalTime: parsedJson['arrivalTime'],
         tripPrice: parsedJson['tripPrice'],
         isCarSpecified: parsedJson['isCarSpecified'],
-        car: parsedJson['car'],
+        car: (parsedJson.containsKey('car'))
+            ? Car.fromJson(parsedJson['car'])
+            : null,
         formattedDepartureDate: parsedJson['formattedDepartureDate']);
   }
 
