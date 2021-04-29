@@ -3,7 +3,6 @@ import 'package:pool_rides/Pages/create-trip/CreateTripPage.dart';
 import 'package:pool_rides/Pages/search-trip-page/SearchTripPage.dart';
 import 'package:pool_rides/Pages/trips/MyTrips.dart';
 import 'package:pool_rides/Pages/user/userProfile.dart';
-import 'package:pool_rides/utils/lists.dart';
 import 'package:pool_rides/widgets/messages-nav-icon/messagesNavigationIcon.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => UserProfile(user: users[0]),
+                  builder: (context) => UserProfile(),
                 ),
               );
             },
