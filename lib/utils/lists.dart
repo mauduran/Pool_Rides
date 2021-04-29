@@ -127,7 +127,7 @@ List<User> users = [
       name: "Edgar Medina Rifas",
       biography:
           "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.",
-      image: "",
+      image: "https://randomuser.me/portraits/men/2.jpg",
       age: 22,
       tripNumber: Random().nextInt(1000).toString(),
       joined: DateTime.now().subtract(Duration(days: Random().nextInt(1000))),
@@ -242,6 +242,7 @@ List<User> users = [
 
 List<Trip> tripList = [
   Trip(
+    formattedDepartureDate: '2/5/2021',
     startTime: "3:00",
     arrivalTime: "5:00",
     tripPrice: (Random().nextDouble() * 100 + 150),
@@ -255,6 +256,7 @@ List<Trip> tripList = [
     passengerCapacity: 4,
   ),
   Trip(
+    formattedDepartureDate: '2/5/2021',
     startTime: "4:00",
     arrivalTime: "6:00",
     tripPrice: (Random().nextDouble() * 100 + 150),
@@ -267,6 +269,7 @@ List<Trip> tripList = [
     passengerCapacity: 4,
   ),
   Trip(
+    formattedDepartureDate: '2/5/2021',
     startTime: "5:00",
     arrivalTime: "7:00",
     tripPrice: (Random().nextDouble() * 100 + 150),
@@ -280,6 +283,7 @@ List<Trip> tripList = [
     passengerCapacity: 2,
   ),
   Trip(
+    formattedDepartureDate: '2/5/2021',
     startTime: "6:00",
     arrivalTime: "8:00",
     tripPrice: (Random().nextDouble() * 100 + 150),
@@ -292,6 +296,7 @@ List<Trip> tripList = [
     passengerCapacity: 4,
   ),
   Trip(
+    formattedDepartureDate: '2/5/2021',
     startTime: "7:00",
     arrivalTime: "9:00",
     tripPrice: (Random().nextDouble() * 100 + 150),
@@ -305,6 +310,7 @@ List<Trip> tripList = [
     passengerCapacity: 4,
   ),
   Trip(
+    formattedDepartureDate: '2/5/2021',
     startTime: "8:00",
     arrivalTime: "10:00",
     tripPrice: (Random().nextDouble() * 100 + 150),
@@ -317,6 +323,7 @@ List<Trip> tripList = [
     passengerCapacity: 3,
   ),
   Trip(
+    formattedDepartureDate: '2/5/2021',
     startTime: "9:00",
     arrivalTime: "11:00",
     tripPrice: (Random().nextDouble() * 100 + 150),
@@ -330,6 +337,7 @@ List<Trip> tripList = [
     passengerCapacity: 3,
   ),
   Trip(
+    formattedDepartureDate: '2/5/2021',
     startTime: "10:00",
     arrivalTime: "12:00",
     tripPrice: (Random().nextDouble() * 100 + 150),
