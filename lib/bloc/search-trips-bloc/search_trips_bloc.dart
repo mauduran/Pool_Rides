@@ -5,7 +5,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pool_rides/models/trip-query.dart';
 import 'package:pool_rides/models/trip.dart';
+import 'package:pool_rides/services/auth-service.dart';
 import 'package:pool_rides/services/trip-service.dart';
+import 'package:pool_rides/services/user-service.dart';
+import 'package:pool_rides/models/user.dart';
 
 part 'search_trips_event.dart';
 part 'search_trips_state.dart';
@@ -26,7 +29,10 @@ class SearchTripsBloc extends Bloc<SearchTripsEvent, SearchTripsState> {
             origin: query.origin,
             destination: query.destination);
 
-        yield SearchTripResults(trips: trips);
+        User user =
+            await UserService().getCurrentUser(UserAuthProvider().getUid());
+
+        yield SearchTripResults(trips: trips, user: user);
       } catch (e) {
         yield TripsErrorState(
           error: "No se pudo realizar búsqueda",
