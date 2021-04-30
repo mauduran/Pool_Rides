@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pool_rides/Pages/create-review/CreateReviewPage.dart';
 import 'package:pool_rides/Pages/location-visualizer/location-visualizer.dart';
 import 'package:pool_rides/Pages/user/user-passenger/passenger.dart';
-import 'package:pool_rides/Pages/user/userProfile.dart';
 import 'package:pool_rides/bloc/trip-detail-bloc/bloc/trip_detail_bloc.dart';
 import 'package:pool_rides/models/car.dart';
 import 'package:pool_rides/models/place.dart';
@@ -451,7 +451,15 @@ class _TripDetailPageState extends State<TripDetailPage> {
                               ],
                             ),
                             onPressed: () {
-                              Navigator.of(context).pushNamed("/signin");
+                              // Navigator.of(context).push(
+                              //   MaterialPageRoute(
+                              //     builder: (context) => CreateReviewPage(
+                              //         trip: widget.tripDetail,
+                              //         user: widget.tripDetail.driver),
+                              //   ),
+                              // );
+                              _bloc.add(
+                                  AddUserToTripEvent(trip: widget.tripDetail));
                             },
                           ),
                         ),
@@ -536,7 +544,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                       ),
                       Text(
                         (numOfReviews > 0)
-                            ? "$averageRating/5 - $numOfReviews reseña(s)"
+                            ? "${averageRating.toStringAsFixed(1)}/5 - $numOfReviews reseña(s)"
                             : "No tiene reseñas", // To Do: agregar el atributo "No. de reseñas en conductor"
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
@@ -681,7 +689,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                     ),
                     Text(
                       (numOfReviews > 0)
-                          ? "$averageRating/5 - $numOfReviews reseña(s)"
+                          ? "${averageRating.toStringAsFixed(1)}/5 - $numOfReviews reseña(s)"
                           : "No tiene reseñas",
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
@@ -776,7 +784,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                     height: 5,
                   ),
                   Text(
-                    location.city,
+                    location.city ?? location.state,
                   ),
                   SizedBox(
                     height: 10,

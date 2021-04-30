@@ -49,8 +49,9 @@ class TripCard extends StatelessWidget {
                         Expanded(
                           child: places(
                             context: context,
-                            upText: trip.origin.city,
-                            downText: trip.destination.city,
+                            upText: trip.origin.city ?? trip.origin.state,
+                            downText:
+                                trip.destination.city ?? trip.origin.state,
                             colorDefault: false,
                             distanceOrigin: distanceOrigin,
                             distanceDestination: distanceDestination,

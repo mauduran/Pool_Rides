@@ -22,12 +22,11 @@ class UserAdapter extends TypeAdapter<User> {
       phoneNumber: fields[5] as String,
       age: fields[6] as int,
       tripNumber: fields[7] as String,
-      reviews: (fields[9] as List)?.cast<Review>(),
-      car: fields[10] as Car,
+      car: fields[9] as Car,
       birthdate: fields[4] as DateTime,
-      totalStars: fields[12] as int,
-      totalReviews: fields[13] as int,
-      uid: fields[11] as String,
+      totalStars: fields[11] as int,
+      totalReviews: fields[12] as int,
+      uid: fields[10] as String,
       name: fields[0] as String,
       email: fields[3] as String,
       joined: fields[8] as DateTime,
@@ -37,7 +36,7 @@ class UserAdapter extends TypeAdapter<User> {
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -57,14 +56,12 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(8)
       ..write(obj.joined)
       ..writeByte(9)
-      ..write(obj.reviews)
-      ..writeByte(10)
       ..write(obj.car)
-      ..writeByte(11)
+      ..writeByte(10)
       ..write(obj.uid)
-      ..writeByte(12)
+      ..writeByte(11)
       ..write(obj.totalStars)
-      ..writeByte(13)
+      ..writeByte(12)
       ..write(obj.totalReviews);
   }
 

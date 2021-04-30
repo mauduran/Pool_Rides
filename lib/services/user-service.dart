@@ -39,9 +39,9 @@ class UserService {
       String uid, String email, String name, String image, String phone) async {
     User newUser = User(
         uid: uid,
-        email: email,
+        email: email.trim(),
         joined: DateTime.now(),
-        name: name,
+        name: name.trim(),
         image: image,
         phoneNumber: phone);
 

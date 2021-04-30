@@ -51,11 +51,17 @@ class _UserProfileState extends State<UserProfile> {
           },
           builder: (context, state) {
             if (state is UserFoundState) {
-              return _userWidget(
-                userBloc: _userBloc,
-                userImage: state.currentUser.image,
-                user: state.currentUser,
-                userCar: state.currentUser.car,
+              return RefreshIndicator(
+                onRefresh: () async {
+                  _userBloc.add(GetUserEvent(update: true));
+                  return;
+                },
+                child: _userWidget(
+                  userBloc: _userBloc,
+                  userImage: state.currentUser.image,
+                  user: state.currentUser,
+                  userCar: state.currentUser.car,
+                ),
               );
             } else
               return Center(
@@ -166,10 +172,9 @@ class _UserProfileState extends State<UserProfile> {
     @required User user,
     @required Car userCar,
   }) {
-    numOfReviews = user.reviews.length;
-    averageRating = (user.reviews.fold(
-            0, (previousValue, element) => previousValue + element.rating) /
-        numOfReviews);
+    numOfReviews = user.totalReviews;
+    averageRating = user.totalStars / numOfReviews;
+
     return SingleChildScrollView(
       child: Center(
         child: Column(
@@ -387,8 +392,6 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                 );
 
-                print(result);
-
                 if (result != null) {
                   _userBloc.add(
                     ChangePhoneNumberEvent(
@@ -435,8 +438,6 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                 );
 
-                print(result);
-
                 if (result != null) {
                   _userBloc.add(
                     ChangeBiographyEvent(newBiography: result["newBiography"]),
@@ -473,11 +474,11 @@ class _UserProfileState extends State<UserProfile> {
             ),
             GestureDetector(
               onTap: () {
-                //TO DO: Ir hacia las reseñas de este usuario
-                print(user.name);
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => ReviewsPage(),
+                    builder: (context) => ReviewsPage(
+                      uid: user.uid,
+                    ),
                   ),
                 );
               },
@@ -499,7 +500,7 @@ class _UserProfileState extends State<UserProfile> {
                         Text(
                           numOfReviews == 0
                               ? "No hay reseñas aún"
-                              : "$averageRating/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                              : "${averageRating.toStringAsFixed(1)}/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
                           style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: 17.5,

@@ -66,8 +66,6 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomePage(title: 'Pool Rides'),
         '/principal-signin': (context) => PrincipalSignIn(),
         '/signin': (context) => SignIn(),
-        '/reviews': (context) => ReviewsPage(),
-        '/make-review': (context) => CreateReviewPage(),
         '/location-picker': (context) => LocationPickerPage(),
         '/search-trip': (conext) => SearchTripPage()
       },
