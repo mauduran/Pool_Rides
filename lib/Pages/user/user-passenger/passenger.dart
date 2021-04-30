@@ -85,7 +85,7 @@ class _PassengerDetailState extends State<PassengerDetail> {
                   print(widget.user.name);
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ReviewsPage(),
+                      builder: (context) => ReviewsPage(uid: widget.user.uid),
                     ),
                   );
                 },

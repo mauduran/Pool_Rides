@@ -65,4 +65,16 @@ class ReviewsService {
       return false;
     }
   }
+
+  Future<List<Review>> GetUserReviewsEvent(String uid) async {
+    final QuerySnapshot snapshot = await _cFirestore
+        .collection('users')
+        .doc(uid)
+        .collection('reviews')
+        .get();
+
+    if (snapshot.size == 0) return [];
+
+    return snapshot.docs.map((e) => Review.fromJson(e.data())).toList();
+  }
 }

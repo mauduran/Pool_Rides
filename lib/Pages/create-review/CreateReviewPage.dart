@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:pool_rides/bloc/create-review-bloc/create_review_bloc.dart';
+import 'package:pool_rides/bloc/create-review-bloc/reviews_bloc.dart';
 import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:pool_rides/widgets/route-locations/RouteLocations.dart';
@@ -25,7 +25,7 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
   TextEditingController _descriptionController = TextEditingController();
   User user;
   Trip trip;
-  CreateReviewBloc _bloc;
+  ReviewsBloc _bloc;
   @override
   void initState() {
     initializeDateFormatting();
@@ -46,10 +46,10 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
         ),
         body: BlocProvider(
           create: (context) {
-            _bloc = CreateReviewBloc();
+            _bloc = ReviewsBloc();
             return _bloc;
           },
-          child: BlocConsumer<CreateReviewBloc, CreateReviewState>(
+          child: BlocConsumer<ReviewsBloc, ReviewsState>(
             listener: (context, state) {
               if (state is CreatedReviewState) {
                 ScaffoldMessenger.of(context)
@@ -68,7 +68,7 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
                       ),
                     ),
                   );
-              } else if (state is CreatedReviewErrorState) {
+              } else if (state is ErrorState) {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(
@@ -187,7 +187,7 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
                           hintText: "Ingrese breve descripción",
                         ),
                         keyboardType: TextInputType.multiline,
-                        minLines: 10,
+                        minLines: 6,
                         maxLines: 10,
                         maxLength: 255,
                       ),
@@ -200,7 +200,7 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
                         onPressed: () {
                           if (rating != null &&
                               _descriptionController.text != "") {
-                            _bloc.add(CreateNewReviewEvent(
+                            _bloc.add(CreateReviewEvent(
                                 rating: rating,
                                 description: _descriptionController.text,
                                 trip: trip,

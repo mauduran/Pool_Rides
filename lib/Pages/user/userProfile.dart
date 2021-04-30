@@ -52,7 +52,7 @@ class _UserProfileState extends State<UserProfile> {
           builder: (context, state) {
             if (state is UserFoundState) {
               return RefreshIndicator(
-                onRefresh: () {
+                onRefresh: () async {
                   _userBloc.add(GetUserEvent(update: true));
                   return;
                 },
@@ -482,7 +482,9 @@ class _UserProfileState extends State<UserProfile> {
                 print(user.name);
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => ReviewsPage(),
+                    builder: (context) => ReviewsPage(
+                      uid: user.uid,
+                    ),
                   ),
                 );
               },
