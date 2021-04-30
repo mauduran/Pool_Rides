@@ -21,6 +21,14 @@ class ChangeBiographyEvent extends UserEvent {
   List<Object> get props => [newBiography];
 }
 
+class ChangePhoneNumberEvent extends UserEvent {
+  final String phoneNumber;
+  ChangePhoneNumberEvent({@required this.phoneNumber});
+
+  @override
+  List<Object> get props => [phoneNumber];
+}
+
 class LoadCarEvent extends UserEvent {}
 
 class GetUserEvent extends UserEvent {}

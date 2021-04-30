@@ -125,6 +125,18 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           errorEasy: "Algo salió mal al obtener la información del coche",
         );
       }
+    } else if (event is ChangePhoneNumberEvent) {
+      try {
+        print(event.phoneNumber);
+        yield LoadingState();
+        await updateField("phoneNumber", event.phoneNumber);
+        print("User phone number updated!");
+        _myUser = await _userService.getCurrentUser(_authProvider.getUid(),
+            update: true);
+        yield UserFoundState(
+            msg: "User phone number updated succesfully!",
+            currentUser: _myUser);
+      } catch (e) {}
     }
   }
 
