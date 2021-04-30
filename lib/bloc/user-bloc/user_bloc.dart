@@ -52,7 +52,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         if (imageUrl != null) {
           yield LoadingState();
           await updateField("image", imageUrl);
-          print("User image updated!");
           _myUser = await _userService.getCurrentUser(_authProvider.getUid(),
               update: true);
           yield UserFoundState(
@@ -74,7 +73,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         if (imageUrl != null) {
           yield LoadingState();
           await updateField("image", imageUrl);
-          print("User image updated!");
           _myUser = await _userService.getCurrentUser(_authProvider.getUid(),
               update: true);
           yield UserFoundState(
@@ -94,9 +92,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
         await users
             .doc(_authProvider.getUid())
-            .update({"biography": event.newBiography});
-
-        print("User biography updated!");
+            .update({"biography": event.newBiography.trim()});
 
         _myUser = await _userService.getCurrentUser(_authProvider.getUid(),
             update: true);
@@ -126,10 +122,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
     } else if (event is ChangePhoneNumberEvent) {
       try {
-        print(event.phoneNumber);
         yield LoadingState();
         await updateField("phoneNumber", event.phoneNumber);
-        print("User phone number updated!");
         _myUser = await _userService.getCurrentUser(_authProvider.getUid(),
             update: true);
         yield UserFoundState(

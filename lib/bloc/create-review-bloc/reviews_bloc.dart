@@ -38,7 +38,7 @@ class ReviewsBloc extends Bloc<ReviewsEvent, ReviewsState> {
           reviewedUser: event.reviewedUser,
           trip: event.trip,
           rating: event.rating,
-          description: event.description,
+          description: event.description.trim(),
         );
 
         //TODO: Change trip object to mytrip when ready
