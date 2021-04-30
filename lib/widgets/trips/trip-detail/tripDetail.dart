@@ -26,15 +26,14 @@ class TripDetailPage extends StatefulWidget {
 }
 
 class _TripDetailPageState extends State<TripDetailPage> {
-  double averageRating = 0;
   int numOfReviews = 0;
+  double averageRating = 0;
   @override
   void initState() {
     super.initState();
-    numOfReviews = widget.tripDetail.driver.reviews.length;
-    averageRating = widget.tripDetail.driver.reviews.fold(
-            0, (previousValue, element) => previousValue + element.rating) /
-        numOfReviews;
+    this.numOfReviews = widget.tripDetail.driver.totalReviews;
+    this.averageRating = widget.tripDetail.driver.totalStars / numOfReviews;
+
     initializeDateFormatting();
   }
 
@@ -61,7 +60,10 @@ class _TripDetailPageState extends State<TripDetailPage> {
                   ),
                   child: Text(
                     dateToString(widget.tripDetail.departureDate),
-                    style: Theme.of(context).textTheme.headline4.copyWith(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        .copyWith(fontSize: 16),
                   ),
                 ),
               ],
@@ -148,10 +150,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
                 onTap: () {},
               ),
             ),
-            if (widget.tripDetail.isCarSpecified)
-              carInformation(
-                car: widget.tripDetail.car,
-              ),
+            carInformation(
+              car: widget.tripDetail.driver.car,
+            ),
             SizedBox(
               height: 10,
             ),
@@ -282,7 +283,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
                         width: 5,
                       ),
                       Text(
-                        "$averageRating/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                        (numOfReviews > 0)
+                            ? "$averageRating/5 - $numOfReviews reseña(s)"
+                            : "No tiene reseñas", // To Do: agregar el atributo "No. de reseñas en conductor"
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                         ),
@@ -425,7 +428,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
                       width: 5,
                     ),
                     Text(
-                      "$averageRating/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                      (numOfReviews > 0)
+                          ? "$averageRating/5 - $numOfReviews reseña(s)"
+                          : "No tiene reseñas",
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                       ),
@@ -438,7 +443,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
               children: [
                 CircleAvatar(
                   backgroundImage: NetworkImage(
-                    user.image != ""
+                    user.image != "" && user.image != null
                         ? user.image
                         : "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
                   ),
@@ -525,6 +530,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                     height: 10,
                   ),
                   Row(
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Container(
                         width: 30,
@@ -541,10 +547,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
                           Icons.directions_walk,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
+                      Flexible(
                         child: Text(
-                          "A $distance km de tu punto de ${salida ? 'salida' : 'llegada'}",
+                          "A ${distance.toStringAsFixed(1)} km de tu punto de ${salida ? 'salida' : 'llegada'}",
                           style: TextStyle(
                             color: distance <= 5
                                 ? Colors.green[400]
@@ -555,7 +560,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ],

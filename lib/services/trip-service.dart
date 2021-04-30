@@ -43,8 +43,6 @@ class TripService {
           departureDate: departureDate,
           destination: destination,
           driver: user,
-          isCarSpecified: true,
-          car: cars[0],
           origin: origin,
           passengerCapacity: capacity,
           tripPrice: price,
@@ -72,7 +70,11 @@ class TripService {
 
     List<QueryDocumentSnapshot> docs = queryResult.docs;
 
-    List<Trip> trips = docs.map((e) => Trip.fromJson(e.data())).toList();
+    List<Trip> trips = docs.map((e) {
+      Trip trip = Trip.fromJson(e.data());
+      trip.tripId = e.id;
+      return trip;
+    }).toList();
 
     return trips.where((element) {
       return (Trip.distanceBetweenTwoPlaces(origin, element.origin) < 20000 &&

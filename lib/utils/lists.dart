@@ -251,8 +251,6 @@ List<Trip> tripList = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[0],
     passengers: users.getRange(3, 7).toList(),
-    isCarSpecified: true,
-    car: users[0].car,
     passengerCapacity: 4,
   ),
   Trip(
@@ -265,7 +263,6 @@ List<Trip> tripList = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[1],
     passengers: users.getRange(4, 6).toList(),
-    isCarSpecified: false,
     passengerCapacity: 4,
   ),
   Trip(
@@ -278,8 +275,6 @@ List<Trip> tripList = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[2],
     passengers: users.getRange(0, 2).toList(),
-    isCarSpecified: true,
-    car: users[2].car,
     passengerCapacity: 2,
   ),
   Trip(
@@ -292,7 +287,6 @@ List<Trip> tripList = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[3],
     passengers: users.getRange(0, 1).toList(),
-    isCarSpecified: false,
     passengerCapacity: 4,
   ),
   Trip(
@@ -305,8 +299,6 @@ List<Trip> tripList = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[4],
     passengers: users.getRange(2, 4).toList(),
-    isCarSpecified: true,
-    car: users[4].car,
     passengerCapacity: 4,
   ),
   Trip(
@@ -319,7 +311,6 @@ List<Trip> tripList = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[5],
     passengers: users.getRange(1, 2).toList(),
-    isCarSpecified: false,
     passengerCapacity: 3,
   ),
   Trip(
@@ -332,8 +323,6 @@ List<Trip> tripList = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[6],
     passengers: users.getRange(0, 2).toList(),
-    isCarSpecified: true,
-    car: users[6].car,
     passengerCapacity: 3,
   ),
   Trip(
@@ -346,7 +335,6 @@ List<Trip> tripList = [
     departureDate: DateTime.now().add(Duration(days: Random().nextInt(30))),
     driver: users[7],
     passengers: users.getRange(0, 1).toList(),
-    isCarSpecified: false,
     passengerCapacity: 4,
   ),
 ];
