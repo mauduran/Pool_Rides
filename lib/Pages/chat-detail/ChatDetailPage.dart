@@ -1,4 +1,5 @@
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:pool_rides/utils/lists.dart';
 import 'package:pool_rides/widgets/message/MessageWithSep.dart';
 import 'package:pool_rides/models/conversation.dart';
 import 'package:flutter/material.dart';
@@ -38,8 +39,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   void addMessage() {
     if (_messageInput.text.trim().length > 0) {
       setState(() {
-        widget.conversation
-            .addMessage(currentUserId, _messageInput.text.trim());
+        // widget.conversation
+        //     .addMessage(currentUserId, _messageInput.text.trim());
         _messageInput.text = "";
       });
     }
@@ -96,16 +97,15 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
           Expanded(
             child: ListView.builder(
               controller: _scrollController,
-              itemCount: widget.conversation.messages.length,
+              itemCount: messages.length,
               shrinkWrap: true,
               reverse: true,
               padding: EdgeInsets.only(top: 10, bottom: 10),
               itemBuilder: (context, index) {
-                var message =
-                    widget.conversation.messages.reversed.toList()[index];
+                var message = messages.reversed.toList()[index];
 
-                if (index == widget.conversation.messages.length - 1 ||
-                    (widget.conversation.messages.reversed
+                if (index == messages.length - 1 ||
+                    (messages.reversed
                             .toList()[index + 1]
                             .date
                             .difference(message.date)
