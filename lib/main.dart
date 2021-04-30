@@ -7,11 +7,9 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:pool_rides/Pages/session-pages/sign_in.dart';
 import 'package:pool_rides/Pages/homepage/HomePage.dart';
-import 'package:pool_rides/Pages/reviews/ReviewsPage.dart';
 import 'package:pool_rides/SessionManager.dart';
 import 'package:pool_rides/bloc/auth-bloc/auth_bloc.dart';
 import 'package:pool_rides/theme.dart';
-import 'Pages/create-review/CreateReviewPage.dart';
 import 'Pages/principal/principal.dart';
 import 'Pages/principal/principal_signin.dart';
 import 'Pages/search-trip-page/SearchTripPage.dart';

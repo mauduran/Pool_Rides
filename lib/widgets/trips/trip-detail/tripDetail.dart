@@ -62,6 +62,23 @@ class _TripDetailPageState extends State<TripDetailPage> {
             listener: (context, state) {
               if (state is ErrorState) {
                 showErrorDialog(context, state);
+              } else if (state is UserAddedSuccesfully) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text("Viaje registrado exitosamente"),
+                      duration: Duration(seconds: 3),
+                      behavior: SnackBarBehavior.floating,
+                      action: SnackBarAction(
+                        label: "Aceptar",
+                        textColor: Colors.blue,
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        },
+                      ),
+                    ),
+                  );
               }
             },
             builder: (context, state) {
@@ -70,9 +87,17 @@ class _TripDetailPageState extends State<TripDetailPage> {
                   child: CircularProgressIndicator(),
                 );
               } else if (state is UserAddedSuccesfully) {
-                return newTrip(state.trip);
+                return tripWidget(
+                  trip: state.trip,
+                  distDest: state.distanceDestination,
+                  distOrigin: state.distanceOrigin,
+                );
               }
-              return tripWidget();
+              return tripWidget(
+                trip: widget.tripDetail,
+                distDest: widget.distanceDestination,
+                distOrigin: widget.distanceOrigin,
+              );
             },
           ),
         ));
@@ -84,7 +109,11 @@ class _TripDetailPageState extends State<TripDetailPage> {
 // ---------------------------------------------------
 // ---------------------------------------------------
 
-  Widget tripWidget() {
+  Widget tripWidget({
+    Trip trip,
+    double distOrigin,
+    double distDest,
+  }) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +126,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                   top: 10,
                 ),
                 child: Text(
-                  dateToString(widget.tripDetail.departureDate),
+                  dateToString(trip.departureDate),
                   style: Theme.of(context)
                       .textTheme
                       .headline4
@@ -110,8 +139,8 @@ class _TripDetailPageState extends State<TripDetailPage> {
             height: 30,
           ),
           tripInformation(
-            startTime: widget.tripDetail.startTime,
-            location: widget.tripDetail.origin,
+            startTime: trip.startTime,
+            location: trip.origin,
             distance: widget.distanceOrigin,
             salida: true,
             icon: Icons.hail,
@@ -120,8 +149,8 @@ class _TripDetailPageState extends State<TripDetailPage> {
             height: 20,
           ),
           tripInformation(
-            startTime: widget.tripDetail.arrivalTime,
-            location: widget.tripDetail.destination,
+            startTime: trip.arrivalTime,
+            location: trip.destination,
             distance: widget.distanceDestination,
             icon: Icons.place,
           ),
@@ -139,7 +168,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
               children: [
                 Text("Importe total para 1 pasajero: "),
                 Text(
-                  "\$${widget.tripDetail.tripPrice.floor().toString()}",
+                  "\$${trip.tripPrice.floor().toString()}",
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -166,7 +195,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
             ),
           ),
           driverInformation(
-            user: widget.tripDetail.driver,
+            user: trip.driver,
           ),
           SizedBox(
             height: 20,
@@ -177,7 +206,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
             ),
             child: InkWell(
               child: new Text(
-                'Contactar a ${widget.tripDetail.driver.name}',
+                'Contactar a ${trip.driver.name}',
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   // color: Color(0xffe0e6eb),
@@ -189,7 +218,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
             ),
           ),
           carInformation(
-            car: widget.tripDetail.driver.car,
+            car: trip.driver.car,
           ),
           SizedBox(
             height: 10,
@@ -209,9 +238,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
               style: Theme.of(context).textTheme.headline6,
             ),
           ),
-          for (int i = 0; i < widget.tripDetail.passengers.length; i++)
+          for (int i = 0; i < trip.passengers.length; i++)
             passengerBuilder(
-              user: widget.tripDetail.passengers[i],
+              user: trip.passengers[i],
             ),
           SizedBox(
             height: 10,
@@ -220,10 +249,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
             thickness: 6,
             color: Colors.grey[500],
           ),
-          if ((widget.tripDetail.passengers.length <
-                  widget.tripDetail.passengerCapacity) &&
-              widget.user.uid != widget.tripDetail.driver.uid &&
-              widget.tripDetail.passengers.indexOf(widget.user) == -1)
+          if ((trip.passengers.length < trip.passengerCapacity) &&
+              widget.user.uid != trip.driver.uid &&
+              trip.passengers.indexOf(widget.user) == -1)
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -258,208 +286,11 @@ class _TripDetailPageState extends State<TripDetailPage> {
                               ],
                             ),
                             onPressed: () {
-                              _bloc.add(
-                                  AddUserToTripEvent(trip: widget.tripDetail));
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-        ],
-      ),
-    );
-  }
-
-  Widget newTrip(Trip newTrip) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 30.0,
-                  top: 10,
-                ),
-                child: Text(
-                  dateToString(widget.tripDetail.departureDate),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4
-                      .copyWith(fontSize: 16),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          tripInformation(
-            startTime: widget.tripDetail.startTime,
-            location: widget.tripDetail.origin,
-            distance: widget.distanceOrigin,
-            salida: true,
-            icon: Icons.hail,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          tripInformation(
-            startTime: widget.tripDetail.arrivalTime,
-            location: widget.tripDetail.destination,
-            distance: widget.distanceDestination,
-            icon: Icons.place,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Divider(
-            thickness: 6,
-            color: Colors.grey[500],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text("Importe total para 1 pasajero: "),
-                Text(
-                  "\$${widget.tripDetail.tripPrice.floor().toString()}",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            thickness: 6,
-            color: Colors.grey[500],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 30.0,
-              bottom: 10,
-            ),
-            child: Text(
-              "Conductor",
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-          driverInformation(
-            user: widget.tripDetail.driver,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 30.0,
-            ),
-            child: InkWell(
-              child: new Text(
-                'Contactar a ${widget.tripDetail.driver.name}',
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  // color: Color(0xffe0e6eb),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              onTap: () {},
-            ),
-          ),
-          carInformation(
-            car: widget.tripDetail.driver.car,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Divider(
-            thickness: 6,
-            color: Colors.grey[500],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 30.0,
-              top: 10,
-              bottom: 10,
-            ),
-            child: Text(
-              "Pasajeros",
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-          for (int i = 0; i < widget.tripDetail.passengers.length; i++)
-            passengerBuilder(
-              user: widget.tripDetail.passengers[i],
-            ),
-          SizedBox(
-            height: 10,
-          ),
-          Divider(
-            thickness: 6,
-            color: Colors.grey[500],
-          ),
-          if ((widget.tripDetail.passengers.length <
-                  widget.tripDetail.passengerCapacity) &&
-              widget.user.uid != widget.tripDetail.driver.uid &&
-              widget.tripDetail.passengers.indexOf(widget.user) == -1)
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 30,
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: MaterialButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100.0)),
-                            height: 40,
-                            color: Color.fromARGB(255, 51, 174, 250),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Reservar",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            onPressed: () {
-                              // Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //     builder: (context) => CreateReviewPage(
-                              //         trip: widget.tripDetail,
-                              //         user: widget.tripDetail.driver),
-                              //   ),
-                              // );
-                              _bloc.add(
-                                  AddUserToTripEvent(trip: widget.tripDetail));
+                              _bloc.add(AddUserToTripEvent(
+                                trip: trip,
+                                distanceOrigin: distOrigin,
+                                distanceDestination: distDest,
+                              ));
                             },
                           ),
                         ),
