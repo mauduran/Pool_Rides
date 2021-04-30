@@ -93,6 +93,7 @@ class _TripsState extends State<Trips> {
                                           tripDetail: trip,
                                           distanceDestination: distDestination,
                                           distanceOrigin: distOrigin,
+                                          user: state.user,
                                         ),
                                       ),
                                     );

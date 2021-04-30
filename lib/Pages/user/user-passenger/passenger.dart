@@ -81,11 +81,12 @@ class _PassengerDetailState extends State<PassengerDetail> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ReviewsPage(uid: widget.user.uid),
-                    ),
-                  );
+                  if (numOfReviews != 0.0)
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ReviewsPage(uid: widget.user.uid),
+                      ),
+                    );
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -103,7 +104,9 @@ class _PassengerDetailState extends State<PassengerDetail> {
                             width: 5,
                           ),
                           Text(
-                            "${averageRating.toStringAsFixed(1)}/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                            numOfReviews == 0
+                                ? "Sin reseñas aún"
+                                : "${averageRating.toStringAsFixed(1)}/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                               fontSize: 17.5,

@@ -11,8 +11,13 @@ class SearchTripsInitial extends SearchTripsState {}
 
 class SearchTripResults extends SearchTripsState {
   final List<Trip> trips;
-
-  SearchTripResults({@required this.trips});
+  final User user;
+  SearchTripResults({
+    @required this.trips,
+    @required this.user,
+  });
+  @override
+  List<Object> get props => [trips, user];
 }
 
 class TripsErrorState extends SearchTripsState {
