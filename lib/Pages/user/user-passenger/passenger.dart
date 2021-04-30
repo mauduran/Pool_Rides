@@ -18,10 +18,9 @@ class _PassengerDetailState extends State<PassengerDetail> {
   @override
   void initState() {
     super.initState();
-    numOfReviews = widget.user.reviews.length;
-    averageRating = widget.user.reviews.fold(
-            0, (previousValue, element) => previousValue + element.rating) /
-        numOfReviews;
+    numOfReviews = widget.user.totalReviews;
+    averageRating = widget.user.totalStars / widget.user.totalReviews;
+    print("HOLA");
     initializeDateFormatting();
   }
 
@@ -82,13 +81,30 @@ class _PassengerDetailState extends State<PassengerDetail> {
               ),
               GestureDetector(
                 onTap: () {
-                  //TO DO: Ir hacia las reseñas de este usuario
-                  print(widget.user.name);
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ReviewsPage(),
-                    ),
-                  );
+                  if (averageRating == 0.0)
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ReviewsPage(),
+                      ),
+                    );
+                  else
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(
+                        SnackBar(
+                          content: Text("El usuario no cuenta con reseñas."),
+                          duration: Duration(seconds: 3),
+                          behavior: SnackBarBehavior.floating,
+                          action: SnackBarAction(
+                            label: "Aceptar",
+                            textColor: Colors.blue,
+                            onPressed: () {
+                              ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar();
+                            },
+                          ),
+                        ),
+                      );
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -106,7 +122,9 @@ class _PassengerDetailState extends State<PassengerDetail> {
                             width: 5,
                           ),
                           Text(
-                            "$averageRating/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                            averageRating != 0.0
+                                ? "Sin reseñas aún"
+                                : "$averageRating/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                               fontSize: 17.5,
