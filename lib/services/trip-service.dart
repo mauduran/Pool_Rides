@@ -8,7 +8,6 @@ import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:pool_rides/services/place-service.dart';
 import 'package:pool_rides/utils/date.utils.dart';
-import 'package:pool_rides/utils/lists.dart';
 
 class TripService {
   final _cFirestore = FirebaseFirestore.instance;

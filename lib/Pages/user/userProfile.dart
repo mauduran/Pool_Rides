@@ -166,10 +166,9 @@ class _UserProfileState extends State<UserProfile> {
     @required User user,
     @required Car userCar,
   }) {
-    numOfReviews = user.reviews.length;
-    averageRating = (user.reviews.fold(
-            0, (previousValue, element) => previousValue + element.rating) /
-        numOfReviews);
+    numOfReviews = user.totalReviews;
+    averageRating = user.totalStars / numOfReviews;
+
     return SingleChildScrollView(
       child: Center(
         child: Column(
@@ -499,7 +498,7 @@ class _UserProfileState extends State<UserProfile> {
                         Text(
                           numOfReviews == 0
                               ? "No hay reseñas aún"
-                              : "$averageRating/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
+                              : "${averageRating.toStringAsFixed(1)}/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
                           style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: 17.5,

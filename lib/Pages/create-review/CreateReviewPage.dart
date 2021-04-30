@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:pool_rides/bloc/create-review-bloc/create_review_bloc.dart';
+import 'package:pool_rides/models/trip.dart';
+import 'package:pool_rides/models/user.dart';
 import 'package:pool_rides/widgets/route-locations/RouteLocations.dart';
 
 class CreateReviewPage extends StatefulWidget {
-  CreateReviewPage({Key key}) : super(key: key);
+  CreateReviewPage({Key key, @required this.trip, @required this.user})
+      : super(key: key);
+  final trip;
+  final user;
 
   @override
   _CreateReviewPageState createState() => _CreateReviewPageState();
@@ -14,136 +21,222 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
   final DateTime date = DateTime.now();
   DateFormat dateFormat;
   DateFormat timeFormat;
-  String value = "excelente";
-
+  String rating = "Excelente";
+  TextEditingController _descriptionController = TextEditingController();
+  User user;
+  Trip trip;
+  CreateReviewBloc _bloc;
   @override
   void initState() {
     initializeDateFormatting();
     dateFormat = new DateFormat.yMMMMd('es');
     timeFormat = new DateFormat.Hm('es');
+    this.trip = widget.trip as Trip;
+    this.user = widget.user as User;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text("Crear Reseña"),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(32, 20, 32, 20),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    "https://randomuser.me/api/portraits/men/5.jpg",
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: Text("Crear Reseña"),
+          centerTitle: true,
+        ),
+        body: BlocProvider(
+          create: (context) {
+            _bloc = CreateReviewBloc();
+            return _bloc;
+          },
+          child: BlocConsumer<CreateReviewBloc, CreateReviewState>(
+            listener: (context, state) {
+              if (state is CreatedReviewState) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text("reseña creada."),
+                      duration: Duration(seconds: 3),
+                      behavior: SnackBarBehavior.floating,
+                      action: SnackBarAction(
+                        label: "Aceptar",
+                        textColor: Colors.blue,
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        },
+                      ),
+                    ),
+                  );
+              } else if (state is CreatedReviewErrorState) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text(state.error),
+                      duration: Duration(seconds: 3),
+                      behavior: SnackBarBehavior.floating,
+                      action: SnackBarAction(
+                        label: "Aceptar",
+                        textColor: Colors.blue,
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        },
+                      ),
+                    ),
+                  );
+              }
+            },
+            builder: (context, state) {
+              if (state is LoadingState) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(32, 20, 32, 20),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            user.image,
+                          ),
+                          radius: 36,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Flexible(
+                          child: Text(
+                            user.name,
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  radius: 36,
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  "Edgar Rolas",
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
+                  Text(
+                    "${(dateFormat != null) ? dateFormat.format(trip.departureDate) : ''} - ${(timeFormat != null) ? timeFormat.format(trip.departureDate) : ''}",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 20.0, 40, 20),
+                    child: RouteLocations(
+                      origin: "${trip.origin.city}, ${trip.origin.state}",
+                      destination:
+                          "${trip.destination.city}, ${trip.destination.state}",
+                      spacing: 20,
+                    ),
+                  ),
+                  Text(
+                    "¿Cómo calificarías tu experiencia?",
+                    style: Theme.of(context).textTheme.headline6.copyWith(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
+                    child: DropdownButtonFormField(
+                      value: rating,
+                      items: [
+                        DropdownMenuItem(
+                          child: Text("Excelente"),
+                          value: "Excelente",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("Muy bien"),
+                          value: "Muy Bien",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("Bien"),
+                          value: "Bien",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("Mal"),
+                          value: "Mal",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("Muy mal"),
+                          value: "Muy mal",
+                        ),
+                      ],
+                      onChanged: (val) {
+                        setState(() {
+                          rating = val;
+                        });
+                      },
+                    ),
+                  ),
+                  Text(
+                    "Describe tu experiencia",
+                    style: Theme.of(context).textTheme.headline6.copyWith(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
+                    child: TextField(
+                      controller: _descriptionController,
+                      decoration: InputDecoration(
+                        hintText: "Ingrese breve descripción",
+                      ),
+                      keyboardType: TextInputType.multiline,
+                      minLines: 10,
+                      maxLines: 10,
+                      maxLength: 255,
+                    ),
+                  )),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 0, bottom: 25),
+                    child: MaterialButton(
+                      height: 50,
+                      minWidth: 330,
+                      onPressed: () {
+                        if (rating != null &&
+                            _descriptionController.text != "") {
+                          _bloc.add(CreateNewReviewEvent(
+                              rating: rating,
+                              description: _descriptionController.text,
+                              trip: trip,
+                              reviewedUser: user));
+                        } else {
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(
+                              SnackBar(
+                                content:
+                                    Text("Por favor llene todos los datos."),
+                                duration: Duration(seconds: 3),
+                                behavior: SnackBarBehavior.floating,
+                                action: SnackBarAction(
+                                  label: "Aceptar",
+                                  textColor: Colors.blue,
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                  },
+                                ),
+                              ),
+                            );
+                        }
+                      },
+                      color: Theme.of(context).primaryColor,
+                      child: Text(
+                        "Reseñar",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  )
+                ],
+              );
+            },
           ),
-          Text(
-            "${(dateFormat != null) ? dateFormat.format(date) : ''} - ${(timeFormat != null) ? timeFormat.format(date) : ''}",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(40, 20.0, 40, 20),
-            child: RouteLocations(
-              origin: "San Luis Potosí, S.L.P.",
-              destination: "Guadalajara, Jal.",
-              spacing: 20,
-            ),
-          ),
-          Text(
-            "¿Cómo calificarías tu experiencia?",
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
-            child: DropdownButtonFormField(
-              value: value,
-              items: [
-                DropdownMenuItem(
-                  child: Text("Excelente"),
-                  value: "excelente",
-                ),
-                DropdownMenuItem(
-                  child: Text("Muy bien"),
-                  value: "muy_bien",
-                ),
-                DropdownMenuItem(
-                  child: Text("Bien"),
-                  value: "bien",
-                ),
-                DropdownMenuItem(
-                  child: Text("Mal"),
-                  value: "mal",
-                ),
-                DropdownMenuItem(
-                  child: Text("Muy mal"),
-                  value: "muy_mal",
-                ),
-              ],
-              onChanged: (val) {
-                setState(() {
-                  value = val;
-                });
-              },
-            ),
-          ),
-          Text(
-            "Describe tu experiencia",
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: "Ingrese breve descripción",
-              ),
-              keyboardType: TextInputType.multiline,
-              minLines: 10,
-              maxLines: 10,
-              maxLength: 255,
-            ),
-          )),
-          Padding(
-            padding: const EdgeInsets.only(top: 0, bottom: 25),
-            child: MaterialButton(
-              height: 50,
-              minWidth: 330,
-              onPressed: () {},
-              color: Theme.of(context).primaryColor,
-              child: Text(
-                "Aceptar",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
+        ));
   }
 }

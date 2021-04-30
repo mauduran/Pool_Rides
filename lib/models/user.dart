@@ -26,14 +26,12 @@ class User {
   @HiveField(8)
   final DateTime joined;
   @HiveField(9)
-  List<Review> reviews;
-  @HiveField(10)
   Car car;
-  @HiveField(11)
+  @HiveField(10)
   String uid;
-  @HiveField(12)
+  @HiveField(11)
   int totalStars;
-  @HiveField(13)
+  @HiveField(12)
   int totalReviews;
 
   User({
@@ -43,7 +41,6 @@ class User {
     this.phoneNumber,
     this.age,
     this.tripNumber,
-    this.reviews = const [],
     this.car,
     this.birthdate,
     this.totalStars = 0,
@@ -80,14 +77,13 @@ class User {
         age: parsedJson['age'],
         tripNumber: parsedJson['tripNumber'],
         joined: DateTime.parse(parsedJson['joined']),
-        reviews: reviews,
         car: (parsedJson.containsKey('car'))
             ? Car.fromJson(parsedJson['car'])
             : null,
         birthdate: (parsedJson['birthdate'] != '')
             ? DateTime.parse(parsedJson['birthdate'])
             : null,
-        totalStars: parsedJson['totalStarts'] ?? 0,
+        totalStars: parsedJson['totalStars'] ?? 0,
         totalReviews: parsedJson['totalReviews'] ?? 0);
   }
 
@@ -106,10 +102,9 @@ class User {
       "age": age,
       "tripNumber": tripNumber,
       "joined": joined.toIso8601String(),
-      "reviews": reviews.map((e) => e.toMap()).toList(),
       "car": carMap,
       "birthdate": birthdateString,
-      "totalStarts": totalStars,
+      "totalStars": totalStars,
       "totalReviews": totalReviews
     };
   }

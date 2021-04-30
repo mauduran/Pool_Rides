@@ -1,3 +1,4 @@
+import 'package:pool_rides/Pages/create-review/CreateReviewPage.dart';
 import 'package:pool_rides/Pages/location-visualizer/location-visualizer.dart';
 import 'package:pool_rides/Pages/user/user-passenger/passenger.dart';
 import 'package:pool_rides/Pages/user/userProfile.dart';
@@ -213,7 +214,13 @@ class _TripDetailPageState extends State<TripDetailPage> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.of(context).pushNamed("/signin");
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => CreateReviewPage(
+                                  trip: widget.tripDetail,
+                                  user: widget.tripDetail.driver),
+                            ),
+                          );
                         },
                       ),
                     ),
@@ -284,7 +291,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                       ),
                       Text(
                         (numOfReviews > 0)
-                            ? "$averageRating/5 - $numOfReviews reseña(s)"
+                            ? "${averageRating.toStringAsFixed(1)}/5 - $numOfReviews reseña(s)"
                             : "No tiene reseñas", // To Do: agregar el atributo "No. de reseñas en conductor"
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
@@ -429,7 +436,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                     ),
                     Text(
                       (numOfReviews > 0)
-                          ? "$averageRating/5 - $numOfReviews reseña(s)"
+                          ? "${averageRating.toStringAsFixed(1)}/5 - $numOfReviews reseña(s)"
                           : "No tiene reseñas",
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
