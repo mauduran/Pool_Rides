@@ -65,7 +65,7 @@ class TripDetailBloc extends Bloc<TripDetailEvent, TripDetailState> {
           .doc(_authProvider.getUid())
           .collection("myTrips")
           .doc(trip.tripId)
-          .set(trip.toMap());
+          .set(trip.toMap()); // Modelo my trip
       print("despues de agregar el viaje a my trips");
       return true;
     } catch (e) {

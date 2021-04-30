@@ -66,11 +66,11 @@ class _TripDetailPageState extends State<TripDetailPage> {
             },
             builder: (context, state) {
               if (state is LoadingState) {
-                Center(
+                return Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (state is UserAddedSuccesfully) {
-                newTrip(state.trip);
+                return newTrip(state.trip);
               }
               return tripWidget();
             },
