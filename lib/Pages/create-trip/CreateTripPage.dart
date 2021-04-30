@@ -140,7 +140,7 @@ class _CreateTripPageState extends State<CreateTripPage> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text("Error, no se pudo crear viaje"),
+                  content: Text(state.error),
                   duration: Duration(seconds: 3),
                   behavior: SnackBarBehavior.floating,
                   action: SnackBarAction(

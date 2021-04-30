@@ -14,12 +14,13 @@ class CreateNewTripEvent extends CreateTripEvent {
   final int capacity;
   final double price;
 
-  CreateNewTripEvent(
-      {@required this.departureDate,
-      @required this.origin,
-      @required this.destination,
-      @required this.price,
-      @required this.capacity});
+  CreateNewTripEvent({
+    @required this.departureDate,
+    @required this.origin,
+    @required this.destination,
+    @required this.price,
+    @required this.capacity,
+  });
 
   List<Object> get props =>
       [departureDate, origin, destination, capacity, price];

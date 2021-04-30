@@ -24,6 +24,13 @@ class CreateTripBloc extends Bloc<CreateTripEvent, CreateTripState> {
         yield LoadingState();
         User user =
             await UserService().getCurrentUser(UserAuthProvider().getUid());
+        if (user.car == null || user.car.brand == null) {
+          yield CreatedTripErrorState(
+            error: "Por favor registra tu auto primero.",
+            code: "400",
+          );
+          return;
+        }
         bool createdTrip = await TripService().createTrip(
             user: user,
             departureDate: event.departureDate,
