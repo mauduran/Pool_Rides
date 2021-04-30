@@ -29,11 +29,10 @@ class Trip {
   @HiveField(8)
   List<User> passengers;
   @HiveField(10)
-  final bool isCarSpecified;
-  @HiveField(11)
-  final Car car;
-  @HiveField(12)
   final String formattedDepartureDate;
+  @HiveField(11)
+  String tripId;
+
   Trip({
     @required this.passengerCapacity,
     @required this.driver,
@@ -44,9 +43,8 @@ class Trip {
     @required this.startTime,
     @required this.arrivalTime,
     @required this.tripPrice,
-    @required this.isCarSpecified,
     @required this.formattedDepartureDate,
-    this.car, // To Do: hacerlo required
+    this.tripId,
   });
 
   static double distanceBetweenTwoPlaces(Place origin, Place destination) {
@@ -69,26 +67,23 @@ class Trip {
             .toList();
 
     return new Trip(
-        passengerCapacity: parsedJson['passengerCapacity'],
-        driver: (parsedJson.containsKey('driver'))
-            ? User.fromJson(parsedJson['driver'])
-            : null,
-        passengers: passenger,
-        origin: (parsedJson.containsKey('origin'))
-            ? Place.fromJson(parsedJson['origin'])
-            : null,
-        destination: (parsedJson.containsKey('destination'))
-            ? Place.fromJson(parsedJson['destination'])
-            : null,
-        departureDate: DateTime.parse(parsedJson['departureDate']),
-        startTime: parsedJson['startTime'],
-        arrivalTime: parsedJson['arrivalTime'],
-        tripPrice: parsedJson['tripPrice'],
-        isCarSpecified: parsedJson['isCarSpecified'],
-        car: (parsedJson.containsKey('car'))
-            ? Car.fromJson(parsedJson['car'])
-            : null,
-        formattedDepartureDate: parsedJson['formattedDepartureDate']);
+      passengerCapacity: parsedJson['passengerCapacity'],
+      driver: (parsedJson.containsKey('driver'))
+          ? User.fromJson(parsedJson['driver'])
+          : null,
+      passengers: passenger,
+      origin: (parsedJson.containsKey('origin'))
+          ? Place.fromJson(parsedJson['origin'])
+          : null,
+      destination: (parsedJson.containsKey('destination'))
+          ? Place.fromJson(parsedJson['destination'])
+          : null,
+      departureDate: DateTime.parse(parsedJson['departureDate']),
+      startTime: parsedJson['startTime'],
+      arrivalTime: parsedJson['arrivalTime'],
+      tripPrice: parsedJson['tripPrice'],
+      formattedDepartureDate: parsedJson['formattedDepartureDate'],
+    );
   }
 
   Map<String, dynamic> toMap() {
@@ -102,9 +97,7 @@ class Trip {
       "startTime": startTime,
       "arrivalTime": arrivalTime,
       "tripPrice": tripPrice,
-      "isCarSpecified": isCarSpecified,
       "formattedDepartureDate": formattedDepartureDate,
-      "car": car.toMap(),
     };
   }
 }
