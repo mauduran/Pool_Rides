@@ -9,10 +9,13 @@ abstract class TripDetailEvent extends Equatable {
 
 class AddUserToTripEvent extends TripDetailEvent {
   final Trip trip;
-
+  final double distanceOrigin;
+  final double distanceDestination;
   AddUserToTripEvent({
     @required this.trip,
+    @required this.distanceOrigin,
+    @required this.distanceDestination,
   });
 
-  List<Object> get props => [trip];
+  List<Object> get props => [trip, distanceOrigin, distanceDestination];
 }

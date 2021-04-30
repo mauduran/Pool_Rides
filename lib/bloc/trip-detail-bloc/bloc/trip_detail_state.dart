@@ -23,9 +23,14 @@ class ErrorState extends TripDetailState {
 
 class UserAddedSuccesfully extends TripDetailState {
   final Trip trip;
-
-  UserAddedSuccesfully({@required this.trip});
+  final double distanceOrigin;
+  final double distanceDestination;
+  UserAddedSuccesfully({
+    @required this.trip,
+    @required this.distanceOrigin,
+    @required this.distanceDestination,
+  });
 
   @override
-  List<Object> get props => [trip];
+  List<Object> get props => [trip, distanceOrigin, distanceDestination];
 }
