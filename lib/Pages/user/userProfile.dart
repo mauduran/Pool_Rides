@@ -392,8 +392,6 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                 );
 
-                print(result);
-
                 if (result != null) {
                   _userBloc.add(
                     ChangePhoneNumberEvent(
@@ -440,8 +438,6 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                 );
 
-                print(result);
-
                 if (result != null) {
                   _userBloc.add(
                     ChangeBiographyEvent(newBiography: result["newBiography"]),
@@ -478,8 +474,6 @@ class _UserProfileState extends State<UserProfile> {
             ),
             GestureDetector(
               onTap: () {
-                //TO DO: Ir hacia las reseñas de este usuario
-                print(user.name);
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => ReviewsPage(

@@ -81,8 +81,6 @@ class _PassengerDetailState extends State<PassengerDetail> {
               ),
               GestureDetector(
                 onTap: () {
-                  //TO DO: Ir hacia las reseñas de este usuario
-                  print(widget.user.name);
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => ReviewsPage(uid: widget.user.uid),
