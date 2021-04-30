@@ -547,6 +547,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
                           Icons.directions_walk,
                         ),
                       ),
+                      SizedBox(
+                        width: 8,
+                      ),
                       Flexible(
                         child: Text(
                           "A ${distance.toStringAsFixed(1)} km de tu punto de ${salida ? 'salida' : 'llegada'}",
