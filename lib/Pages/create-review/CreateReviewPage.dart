@@ -126,9 +126,10 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(40, 20.0, 40, 20),
                       child: RouteLocations(
-                        origin: "${trip.origin.city}, ${trip.origin.state}",
+                        origin:
+                            "${trip.origin.city ?? ''}, ${trip.origin.state}",
                         destination:
-                            "${trip.destination.city}, ${trip.destination.state}",
+                            "${trip.destination.city ?? ''}, ${trip.destination.state}",
                         spacing: 20,
                       ),
                     ),
@@ -150,7 +151,7 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
                           ),
                           DropdownMenuItem(
                             child: Text("Muy bien"),
-                            value: "Muy Bien",
+                            value: "Muy bien",
                           ),
                           DropdownMenuItem(
                             child: Text("Bien"),

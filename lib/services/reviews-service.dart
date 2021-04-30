@@ -66,11 +66,12 @@ class ReviewsService {
     }
   }
 
-  Future<List<Review>> GetUserReviewsEvent(String uid) async {
+  Future<List<Review>> getUserReviews(String uid) async {
     final QuerySnapshot snapshot = await _cFirestore
         .collection('users')
         .doc(uid)
         .collection('reviews')
+        .orderBy('date', descending: true)
         .get();
 
     if (snapshot.size == 0) return [];

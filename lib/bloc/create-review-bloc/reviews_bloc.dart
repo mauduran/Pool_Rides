@@ -55,8 +55,7 @@ class ReviewsBloc extends Bloc<ReviewsEvent, ReviewsState> {
     } else if (event is GetUserReviewsEvent) {
       try {
         User user = await UserService().getCurrentUser(event.uid);
-        List<Review> reviews =
-            await ReviewsService().GetUserReviewsEvent(event.uid);
+        List<Review> reviews = await ReviewsService().getUserReviews(event.uid);
 
         yield ReviewsFoundState(reviews: reviews, user: user);
       } catch (e) {

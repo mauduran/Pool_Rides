@@ -531,7 +531,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                     height: 5,
                   ),
                   Text(
-                    location.city,
+                    location.city ?? location.state,
                   ),
                   SizedBox(
                     height: 10,
