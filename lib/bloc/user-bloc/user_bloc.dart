@@ -28,13 +28,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Stream<UserState> mapEventToState(
     UserEvent event,
   ) async* {
-    // implement mapEventToState
-    //
     if (event is GetUserEvent) {
       try {
         yield LoadingState();
 
-        _myUser = await _userService.getCurrentUser(_authProvider.getUid());
+        _myUser = await _userService.getCurrentUser(_authProvider.getUid(),
+            update: event.update);
 
         yield UserFoundState(
           msg: "User found succesfully!",

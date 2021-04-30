@@ -31,4 +31,11 @@ class ChangePhoneNumberEvent extends UserEvent {
 
 class LoadCarEvent extends UserEvent {}
 
-class GetUserEvent extends UserEvent {}
+class GetUserEvent extends UserEvent {
+  final bool update;
+
+  GetUserEvent({this.update = false});
+
+  @override
+  List<Object> get props => [update];
+}

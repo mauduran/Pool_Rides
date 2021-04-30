@@ -51,11 +51,17 @@ class _UserProfileState extends State<UserProfile> {
           },
           builder: (context, state) {
             if (state is UserFoundState) {
-              return _userWidget(
-                userBloc: _userBloc,
-                userImage: state.currentUser.image,
-                user: state.currentUser,
-                userCar: state.currentUser.car,
+              return RefreshIndicator(
+                onRefresh: () {
+                  _userBloc.add(GetUserEvent(update: true));
+                  return;
+                },
+                child: _userWidget(
+                  userBloc: _userBloc,
+                  userImage: state.currentUser.image,
+                  user: state.currentUser,
+                  userCar: state.currentUser.car,
+                ),
               );
             } else
               return Center(
