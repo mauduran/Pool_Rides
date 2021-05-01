@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pool_rides/Pages/create-review/CreateReviewPage.dart';
 import 'package:pool_rides/Pages/location-visualizer/location-visualizer.dart';
 import 'package:pool_rides/Pages/user/user-passenger/passenger.dart';
 import 'package:pool_rides/bloc/trip-detail-bloc/bloc/trip_detail_bloc.dart';
@@ -285,7 +286,35 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                                 ),
                               ],
                             ),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final bool successfulReview =
+                                  await Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => CreateReviewPage(
+                                      trip: widget.tripDetail.trip,
+                                      user: widget.tripDetail.trip.driver),
+                                ),
+                              );
+                              if (successfulReview) {
+                                ScaffoldMessenger.of(context)
+                                  ..hideCurrentSnackBar()
+                                  ..showSnackBar(
+                                    SnackBar(
+                                      content: Text("Reseña creada."),
+                                      duration: Duration(seconds: 3),
+                                      behavior: SnackBarBehavior.floating,
+                                      action: SnackBarAction(
+                                        label: "Aceptar",
+                                        textColor: Colors.blue,
+                                        onPressed: () {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                        },
+                                      ),
+                                    ),
+                                  );
+                              }
+                            },
                           ),
                         ),
                       ),

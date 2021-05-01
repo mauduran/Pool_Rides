@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pool_rides/bloc/create-review-bloc/reviews_bloc.dart';
+import 'package:pool_rides/bloc/reviews-bloc/reviews_bloc.dart';
 import 'package:pool_rides/models/review.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';

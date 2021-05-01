@@ -14,12 +14,11 @@ class UserService {
   }
 
   Future<User> getCurrentUser(String uid, {bool update = false}) async {
-    if (_currentUser == null || update)
-      _currentUser = await fetchCurrentUser(uid);
+    if (_currentUser == null || update) _currentUser = await fetchUser(uid);
     return _currentUser;
   }
 
-  fetchCurrentUser(String uid) async {
+  fetchUser(String uid) async {
     DocumentReference ref = _cFirestore.collection("users").doc(uid);
 
     DocumentSnapshot snapshot = await ref.get();

@@ -45,8 +45,6 @@ class ReviewsService {
         stars: stars,
       );
 
-      //TODO: add reviewedUser.uid to reviewer's mytrip reviewed users
-
       DocumentReference ref =
           _cFirestore.collection('users').doc(reviewedUser.uid);
       await ref.update({

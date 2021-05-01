@@ -51,6 +51,17 @@ class MyTripService {
     }
   }
 
+  Future<void> addReviewedToMyTrip(
+    String tripId,
+    String reviewedUserUid,
+  ) async {
+    final String uid = _authProvider.getUid();
+
+    await users.doc(uid).collection("myTrips").doc(tripId).update({
+      'reviewedUsers': FieldValue.arrayUnion([reviewedUserUid])
+    });
+  }
+
   Future<List<MyTrip>> getMyTrips(User user) async {
     try {
       QuerySnapshot queryResult =
@@ -59,14 +70,7 @@ class MyTripService {
       List<QueryDocumentSnapshot> docs = queryResult.docs;
 
       List<Future<MyTrip>> myTripsFuture = docs.map((e) async {
-        Map<String, dynamic> element = e.data();
-
-        DocumentSnapshot tripSnapshot =
-            await (element['tripRef'] as DocumentReference).get();
-        element['trip'] =
-            await _tripService.parseTripFromFirebase(tripSnapshot);
-
-        return MyTrip.fromJson(element);
+        return await parseMyTripFromFirebase(e);
       }).toList();
 
       List<MyTrip> myTrips = await Future.wait(myTripsFuture);
@@ -77,5 +81,15 @@ class MyTripService {
     } catch (e) {
       return null;
     }
+  }
+
+  Future<MyTrip> parseMyTripFromFirebase(DocumentSnapshot e) async {
+    Map<String, dynamic> element = e.data();
+
+    DocumentSnapshot tripSnapshot =
+        await (element['tripRef'] as DocumentReference).get();
+    element['trip'] = await _tripService.parseTripFromFirebase(tripSnapshot);
+
+    return MyTrip.fromJson(element);
   }
 }
