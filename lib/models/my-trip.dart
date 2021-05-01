@@ -7,12 +7,13 @@ class MyTrip {
   double distanceOrigin;
   double distanceDestination;
   List<String> reviewedUsers;
-
+  String userUid;
   MyTrip({
     @required this.trip,
     @required this.distanceOrigin,
     @required this.distanceDestination,
     @required this.reviewedUsers,
+    @required this.userUid,
   });
 
   factory MyTrip.fromJson(Map<String, dynamic> parsedJson) {
@@ -29,6 +30,7 @@ class MyTrip {
       distanceOrigin: parsedJson["distanceOrigin"],
       trip: Trip.fromJson(parsedJson["trip"]),
       reviewedUsers: reviewedUsers,
+      userUid: parsedJson["userUid"],
     );
   }
 
@@ -38,6 +40,7 @@ class MyTrip {
       "distanceDestination": distanceDestination,
       "distanceOrigin": distanceOrigin,
       "reviewedUsers": reviewedUsers,
+      "userUid": userUid,
     };
   }
 }

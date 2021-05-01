@@ -250,7 +250,10 @@ class _TripDetailPageState extends State<TripDetailPage> {
           ),
           if ((trip.passengers.length < trip.passengerCapacity) &&
               widget.user.uid != trip.driver.uid &&
-              trip.passengers.indexOf(widget.user) == -1)
+              trip.passengers.firstWhere(
+                      (element) => element.uid == widget.user.uid,
+                      orElse: () => null) !=
+                  null)
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
