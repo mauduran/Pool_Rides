@@ -37,18 +37,19 @@ class TripService {
       DateTime arrivalDateTime =
           departureDate.copyWith().add(Duration(seconds: tripDuration));
       Trip newTrip = Trip(
-          startTime: timeFormat.format(departureDate),
-          arrivalTime: timeFormat.format(arrivalDateTime),
-          departureDate: departureDate,
-          destination: destination,
-          origin: origin,
-          passengerCapacity: capacity,
-          tripPrice: price,
-          passengers: [],
-          formattedDepartureDate: dateFormatPretty.format(departureDate));
+        startTime: timeFormat.format(departureDate),
+        arrivalTime: timeFormat.format(arrivalDateTime),
+        departureDate: departureDate,
+        destination: destination,
+        origin: origin,
+        passengerCapacity: capacity,
+        tripPrice: price,
+        passengers: [],
+        formattedDepartureDate: dateFormatPretty.format(departureDate),
+      );
 
       Map<String, dynamic> tripMap = newTrip.toMap();
-      tripMap['userRef'] = _cFirestore.collection('users').doc(user.uid);
+      tripMap['driverRef'] = _cFirestore.collection('users').doc(user.uid);
 
       await _cFirestore.collection('trips').add(tripMap);
       return true;
@@ -74,7 +75,7 @@ class TripService {
     List<Future<Trip>> tripsFuture = docs.map((e) async {
       Map<String, dynamic> element = e.data();
       DocumentSnapshot usrSnapshot =
-          await (element['userRef'] as DocumentReference).get();
+          await (element['driverRef'] as DocumentReference).get();
       Map<String, dynamic> usr = usrSnapshot.data();
       element['driver'] = usr;
       Trip trip = Trip.fromJson(element);
