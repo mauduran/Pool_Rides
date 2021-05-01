@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pool_rides/models/user.dart' as UserModel;
 import 'package:pool_rides/services/auth-service.dart';
+import 'package:pool_rides/services/user-service.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -31,6 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       else
         yield UnAuthState();
     } else if (event is SignOutAuthEvent) {
+      UserService().removeCurrentUser();
       _authProvider
         ..signOutFirebase()
         ..signOutGoogle()
