@@ -6,3 +6,5 @@ abstract class MyTripsEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class SearchMyTrips extends MyTripsEvent {}
