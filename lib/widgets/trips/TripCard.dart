@@ -69,11 +69,13 @@ class TripCard extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            trip.driver.image != ""
-                                ? trip.driver.image
-                                : "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
-                          ),
+                          backgroundImage: (trip.driver.image != "" &&
+                                  trip.driver.image != null)
+                              ? NetworkImage(
+                                  trip.driver.image,
+                                )
+                              : AssetImage(
+                                  'assets/images/avatar_placeholder.png'),
                           maxRadius: 22.5,
                           backgroundColor: Colors.grey[300],
                         ),

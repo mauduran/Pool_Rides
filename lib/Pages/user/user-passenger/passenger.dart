@@ -36,11 +36,12 @@ class _PassengerDetailState extends State<PassengerDetail> {
                 height: 40,
               ),
               CircleAvatar(
-                backgroundImage: NetworkImage(
-                  widget.user.image != ""
-                      ? widget.user.image
-                      : "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
-                ),
+                backgroundImage:
+                    (widget.user.image != "" && widget.user.image != null)
+                        ? NetworkImage(
+                            widget.user.image,
+                          )
+                        : AssetImage('assets/images/avatar_placeholder.png'),
                 maxRadius: 60.0,
                 backgroundColor: Colors.grey[300],
               ),
