@@ -28,7 +28,7 @@ class MyTrip {
     return new MyTrip(
       distanceDestination: parsedJson["distanceDestination"],
       distanceOrigin: parsedJson["distanceOrigin"],
-      trip: Trip.fromJson(parsedJson["trip"]),
+      trip: parsedJson["trip"],
       reviewedUsers: reviewedUsers,
       userUid: parsedJson["userUid"],
     );

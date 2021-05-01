@@ -54,11 +54,8 @@ class MyTripService {
 
   Future<List<MyTrip>> getMyTrips(User user) async {
     try {
-      QuerySnapshot queryResult = await users
-          .doc(_authProvider.getUid())
-          .collection("myTrips")
-          .orderBy('trip.departureDate', descending: true)
-          .get();
+      QuerySnapshot queryResult =
+          await users.doc(_authProvider.getUid()).collection("myTrips").get();
 
       List<QueryDocumentSnapshot> docs = queryResult.docs;
 
