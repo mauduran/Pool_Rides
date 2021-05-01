@@ -55,9 +55,12 @@ class ReviewDetail extends StatelessWidget {
               Align(
                 alignment: Alignment.topRight,
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    review.reviewerImage,
-                  ),
+                  backgroundImage: (review.reviewerImage != null &&
+                          review.reviewerImage != '')
+                      ? NetworkImage(
+                          review.reviewerImage,
+                        )
+                      : AssetImage('assets/images/avatar_placeholder.png'),
                 ),
               )
             ],

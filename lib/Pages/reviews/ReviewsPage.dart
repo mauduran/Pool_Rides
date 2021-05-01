@@ -99,9 +99,11 @@ class _ReviewsList extends StatelessWidget {
             child: Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    user.image,
-                  ),
+                  backgroundImage: (user.image != null && user.image != '')
+                      ? NetworkImage(
+                          user.image,
+                        )
+                      : AssetImage('assets/images/avatar_placeholder.png'),
                   radius: 36,
                 ),
                 SizedBox(

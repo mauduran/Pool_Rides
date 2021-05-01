@@ -509,11 +509,11 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    car.image != ""
-                        ? car.image
-                        : "https://i.pinimg.com/originals/c0/0b/69/c00b692e9820c3970e907eae9bf2be25.png",
-                  ),
+                  backgroundImage: (car.image != "" && car.image != null)
+                      ? NetworkImage(
+                          car.image,
+                        )
+                      : AssetImage('assets/images/car_placeholder.jpeg'),
                   maxRadius: 22.5,
                   backgroundColor: Colors.grey[300],
                 ),
@@ -587,11 +587,11 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    user.image != "" && user.image != null
-                        ? user.image
-                        : "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
-                  ),
+                  backgroundImage: (user.image != "" && user.image != null)
+                      ? NetworkImage(
+                          user.image,
+                        )
+                      : AssetImage('assets/images/avatar_placeholder.png'),
                   maxRadius: 22.5,
                   backgroundColor: Colors.grey[300],
                 ),
