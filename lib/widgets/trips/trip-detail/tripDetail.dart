@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pool_rides/Pages/create-review/CreateReviewPage.dart';
 import 'package:pool_rides/Pages/location-visualizer/location-visualizer.dart';
 import 'package:pool_rides/Pages/user/user-passenger/passenger.dart';
 import 'package:pool_rides/bloc/trip-detail-bloc/bloc/trip_detail_bloc.dart';

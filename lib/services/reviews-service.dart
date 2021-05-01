@@ -2,13 +2,9 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:intl/intl.dart';
-import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/review.dart';
 import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
-import 'package:pool_rides/services/place-service.dart';
-import 'package:pool_rides/utils/date.utils.dart';
 
 class ReviewsService {
   final _cFirestore = FirebaseFirestore.instance;

@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
-import 'package:pool_rides/models/review.dart';
 import 'car.dart';
 
 part 'user.g.dart';
@@ -62,11 +61,6 @@ class User {
   }
 
   factory User.fromJson(Map<String, dynamic> parsedJson) {
-    List<Review> reviews = (!parsedJson.containsKey('reviews'))
-        ? []
-        : (parsedJson['reviews'] as List)
-            .map((e) => Review.fromJson(e as Map<String, dynamic>))
-            .toList();
     return new User(
         name: parsedJson['name'],
         uid: parsedJson['uid'],

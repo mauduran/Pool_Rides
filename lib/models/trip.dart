@@ -4,8 +4,6 @@ import 'package:hive/hive.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/user.dart';
 
-import 'car.dart';
-
 part 'trip.g.dart';
 
 @HiveType(typeId: 9, adapterName: "TripAdapter")
