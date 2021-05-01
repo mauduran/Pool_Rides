@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pool_rides/Pages/my-trip-detail/MyTripDetail.dart';
 import 'package:pool_rides/bloc/my-trips-bloc/bloc/my_trips_bloc.dart';
-import 'package:pool_rides/utils/lists.dart';
 import 'package:pool_rides/widgets/trips/TripCard.dart';
-import 'package:pool_rides/widgets/trips/trip-detail/tripDetail.dart';
 
 import '../../theme.dart';
 
@@ -63,15 +62,14 @@ class _MyTripsState extends State<MyTrips> {
                               for (int i = 0; i < state.myTrips.length; i++)
                                 GestureDetector(
                                   onTap: () {
-                                    // Navigator.of(context).push(
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) => TripDetailPage(
-                                    //       tripDetail: tripList[i],
-                                    //       distanceOrigin: (i % 4) * 5.0,
-                                    //       distanceDestination: (i + 1 % 4) * 5.0,
-                                    //     ),
-                                    //   ),
-                                    // );
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => MyTripDetailPage(
+                                          tripDetail: state.myTrips[i],
+                                          user: state.user,
+                                        ),
+                                      ),
+                                    );
                                   },
                                   child: TripCard(
                                     trip: state.myTrips[i].trip,

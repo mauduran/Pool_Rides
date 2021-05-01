@@ -37,8 +37,6 @@ class _TripDetailPageState extends State<TripDetailPage> {
     super.initState();
     this.numOfReviews = widget.tripDetail.driver.totalReviews;
     this.averageRating = widget.tripDetail.driver.totalStars / numOfReviews;
-    print("User:");
-    print(widget.user);
     initializeDateFormatting();
   }
 
@@ -252,7 +250,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
               widget.user.uid != trip.driver.uid &&
               trip.passengers.firstWhere(
                       (element) => element.uid == widget.user.uid,
-                      orElse: () => null) !=
+                      orElse: () => null) ==
                   null)
             Column(
               mainAxisSize: MainAxisSize.min,
