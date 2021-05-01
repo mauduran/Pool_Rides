@@ -1,4 +1,5 @@
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:pool_rides/models/conversation-user.dart';
 import 'package:pool_rides/utils/lists.dart';
 import 'package:pool_rides/widgets/message/MessageWithSep.dart';
 import 'package:pool_rides/models/conversation.dart';
@@ -18,6 +19,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   var destination = "";
   var conversationName = "";
   final currentUserId = 'mau4duran';
+  ConversationUser member;
 
   DateTime currentDate;
 
@@ -27,11 +29,14 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   void initState() {
     initializeDateFormatting();
     final conversation = widget.conversation;
-    origin = conversation.originCity;
-    destination = conversation.destinationCity;
-    conversationName = conversation.members
-        .firstWhere((element) => element.userId != currentUserId)
-        .name;
+
+    setState(() {
+      origin = conversation.originCity;
+      destination = conversation.destinationCity;
+      member = conversation.members
+          .firstWhere((element) => element.userId != currentUserId);
+      conversationName = member.name;
+    });
 
     super.initState();
   }
@@ -56,8 +61,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             CircleAvatar(
-              backgroundImage:
-                  NetworkImage("https://randomuser.me/api/portraits/men/5.jpg"),
+              backgroundImage: (member.image != null && member.image != '')
+                  ? NetworkImage(member.image)
+                  : AssetImage('assets/images/avatar_placeholder.png'),
               maxRadius: 20,
             ),
             SizedBox(

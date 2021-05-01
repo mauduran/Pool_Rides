@@ -141,11 +141,11 @@ class _UserProfileState extends State<UserProfile> {
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
                     child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        car.image != ""
-                            ? car.image
-                            : "https://i.pinimg.com/originals/c0/0b/69/c00b692e9820c3970e907eae9bf2be25.png",
-                      ),
+                      backgroundImage: (car.image != "" && car.image != null)
+                          ? NetworkImage(
+                              car.image,
+                            )
+                          : AssetImage('assets/images/car_placeholder.jpeg'),
                       maxRadius: 22.5,
                       backgroundColor: Colors.grey[300],
                     ),
@@ -183,9 +183,11 @@ class _UserProfileState extends State<UserProfile> {
               height: 25,
             ),
             CircleAvatar(
-              backgroundImage: NetworkImage(
-                userImage,
-              ),
+              backgroundImage: (userImage != null && userImage != '')
+                  ? NetworkImage(
+                      userImage,
+                    )
+                  : AssetImage('assets/images/avatar_placeholder.png'),
               maxRadius: 60.0,
               backgroundColor: Colors.grey[300],
             ),
