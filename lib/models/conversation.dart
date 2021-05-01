@@ -11,7 +11,7 @@ class Conversation {
   @HiveField(0)
   final String conversationId;
   @HiveField(1)
-  final List<ConversationUser> members;
+  Map<String, ConversationUser> members;
   @HiveField(2)
   final String originCity;
   @HiveField(3)
@@ -24,8 +24,8 @@ class Conversation {
   final String tripId;
 
   Conversation({
-    @required this.conversationId,
-    @required this.members,
+    this.conversationId,
+    this.members = const {},
     @required this.originCity,
     @required this.destinationCity,
     @required this.dateOfCreation,
@@ -42,10 +42,14 @@ class Conversation {
   // }
 
   factory Conversation.fromJson(Map<String, dynamic> parsedJson) {
-    List<ConversationUser> members = (!parsedJson.containsKey('members'))
-        ? []
-        : (parsedJson['members'] as List<Map<String, dynamic>>)
-            .map((e) => ConversationUser.fromJson(e));
+    Map<String, ConversationUser> members = {};
+
+    if (parsedJson.containsKey('members')) {
+      (parsedJson['members'] as List<Map<String, dynamic>>).forEach((e) {
+        ConversationUser convoUsr = ConversationUser.fromJson(e);
+        members[convoUsr.userId] = convoUsr;
+      });
+    }
 
     return new Conversation(
         conversationId: parsedJson['conversationId'],
@@ -66,7 +70,7 @@ class Conversation {
       "originCity": originCity,
       "destinationCity": destinationCity,
       "tripId": tripId,
-      "members": members.map((member) => member.toMap())
+      "members": members.values.map((member) => member.toMap()).toList()
     };
 
     if (lastMessage != null) {

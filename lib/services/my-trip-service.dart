@@ -70,7 +70,8 @@ class MyTripService {
       List<QueryDocumentSnapshot> docs = queryResult.docs;
 
       List<Future<MyTrip>> myTripsFuture = docs.map((e) async {
-        return await parseMyTripFromFirebase(e);
+        MyTrip tempMyTrip = await parseMyTripFromFirebase(e);
+        return tempMyTrip;
       }).toList();
 
       List<MyTrip> myTrips = await Future.wait(myTripsFuture);
@@ -90,6 +91,7 @@ class MyTripService {
         await (element['tripRef'] as DocumentReference).get();
     element['trip'] = await _tripService.parseTripFromFirebase(tripSnapshot);
 
-    return MyTrip.fromJson(element);
+    MyTrip mytrip = MyTrip.fromJson(element);
+    return mytrip;
   }
 }

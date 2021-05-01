@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pool_rides/Pages/conversations/ConversationsPage.dart';
 import 'package:pool_rides/Pages/create-review/CreateReviewPage.dart';
 import 'package:pool_rides/Pages/location-visualizer/location-visualizer.dart';
 import 'package:pool_rides/Pages/user/user-passenger/passenger.dart';
 import 'package:pool_rides/bloc/trip-detail-bloc/bloc/trip_detail_bloc.dart';
 import 'package:pool_rides/models/car.dart';
+import 'package:pool_rides/models/conversation.dart';
 import 'package:pool_rides/models/my-trip.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/trip.dart';
@@ -11,6 +13,7 @@ import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:pool_rides/services/conversations-service.dart';
 
 class MyTripDetailPage extends StatefulWidget {
   final MyTrip tripDetail;
@@ -212,7 +215,36 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                   fontSize: 20,
                 ),
               ),
-              onTap: () {},
+              onTap: () async {
+                Conversation conversation = await ConversationsService()
+                    .createConversationIfNotExists(trip, trip.driver);
+
+                if (conversation != null)
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ConversationsPage(
+                        conversation: conversation,
+                      ),
+                    ),
+                  );
+                else
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      SnackBar(
+                        content: Text("No se puede contactar al usuario"),
+                        duration: Duration(seconds: 3),
+                        behavior: SnackBarBehavior.floating,
+                        action: SnackBarAction(
+                          label: "Aceptar",
+                          textColor: Colors.blue,
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          },
+                        ),
+                      ),
+                    );
+              },
             ),
           ),
           carInformation(

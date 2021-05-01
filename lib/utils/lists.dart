@@ -402,7 +402,7 @@ List<Conversation> conversations = [
   Conversation(
     conversationId: "1",
     tripId: "1",
-    members: [mau4duran, ipanchomx],
+    // members: {mau4duran, ipanchomx},
     originCity: 'Guadalajara',
     destinationCity: 'San Luis Potosí',
     dateOfCreation: DateTime.now(),
@@ -410,7 +410,7 @@ List<Conversation> conversations = [
   Conversation(
     conversationId: "2",
     tripId: "2",
-    members: [mau4duran, jprr44],
+    members: {mau4duran.userId: mau4duran, jprr44.userId: jprr44},
     originCity: 'Guadalajara',
     destinationCity: 'San Luis Potosí',
     dateOfCreation: DateTime.now().subtract(Duration(days: 10)),
@@ -418,36 +418,11 @@ List<Conversation> conversations = [
   Conversation(
     conversationId: "2",
     tripId: "2",
-    members: [mau4duran, cdaG],
+    members: {mau4duran.userId: mau4duran, cdaG.userId: cdaG},
     originCity: 'Guadalajara',
     destinationCity: 'San Luis Potosí',
     lastMessage: messages[messages.length - 1],
     dateOfCreation: DateTime.now().subtract(Duration(days: 7)),
-  ),
-  Conversation(
-    conversationId: "1",
-    tripId: "2",
-    members: [mau4duran, ipanchomx],
-    originCity: 'Guadalajara',
-    destinationCity: 'Toluca',
-    dateOfCreation: DateTime.now().subtract(Duration(days: 12)),
-  ),
-  Conversation(
-    conversationId: "2",
-    tripId: "2",
-    members: [mau4duran, jprr44],
-    originCity: 'Ciudad de Mexico',
-    destinationCity: 'San Luis Potosí',
-    dateOfCreation: DateTime.now().subtract(Duration(days: 5)),
-  ),
-  Conversation(
-    conversationId: "2",
-    tripId: "2",
-    members: [mau4duran, cdaG],
-    originCity: 'Monterrey',
-    destinationCity: 'San Luis Potosí',
-    lastMessage: messages[messages.length - 1],
-    dateOfCreation: DateTime.now().subtract(Duration(days: 2)),
   ),
 ];
 
