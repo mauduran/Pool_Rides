@@ -94,6 +94,8 @@ Widget places({
                       ? Colors.green[400]
                       : Color(0xFFEFF2F6),
                 ),
+                height: 30,
+                width: 30,
                 child: Icon(Icons.directions_walk),
               ),
             ),
