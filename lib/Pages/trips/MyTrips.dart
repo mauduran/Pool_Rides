@@ -36,23 +36,6 @@ class _MyTripsState extends State<MyTrips> {
                       padding: EdgeInsets.only(top: 16, left: 16, right: 16),
                       child: Column(
                         children: [
-                          TextField(
-                            decoration: InputDecoration(
-                                hintText: "Search...",
-                                hintStyle:
-                                    TextStyle(color: Colors.grey.shade600),
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: Colors.grey.shade600,
-                                  size: 20,
-                                ),
-                                filled: true,
-                                fillColor: Colors.grey.shade300,
-                                contentPadding: EdgeInsets.all(8),
-                                focusedBorder: roundedInputBorder,
-                                border: roundedInputBorder,
-                                enabledBorder: roundedInputBorder),
-                          ),
                           if (state.myTrips.length == 0)
                             Text("No se encontraron viajes"),
                           Column(
