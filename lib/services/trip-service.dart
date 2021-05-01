@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -23,7 +22,7 @@ class TripService {
     return _tripService;
   }
 
-  Future<bool> createTrip({
+  Future<String> createTrip({
     @required User user,
     @required DateTime departureDate,
     @required Place origin,
@@ -53,10 +52,11 @@ class TripService {
       tripMap['driverRef'] = _cFirestore.collection('users').doc(user.uid);
       tripMap['passengerRefs'] = [];
 
-      await _cFirestore.collection('trips').add(tripMap);
-      return true;
+      DocumentReference tripRef =
+          await _cFirestore.collection('trips').add(tripMap);
+      return tripRef.id;
     } catch (e) {
-      return false;
+      return null;
     }
   }
 
