@@ -1,12 +1,21 @@
 import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
 
 import 'trip.dart';
 
+part 'my-trip.g.dart';
+
+@HiveType(typeId: 10, adapterName: "MyTripAdapter")
 class MyTrip {
+  @HiveField(0)
   Trip trip;
+  @HiveField(1)
   double distanceOrigin;
+  @HiveField(2)
   double distanceDestination;
+  @HiveField(3)
   List<String> reviewedUsers;
+  @HiveField(4)
   String userUid;
   MyTrip({
     this.trip,
@@ -41,6 +50,21 @@ class MyTrip {
       "distanceOrigin": distanceOrigin,
       "reviewedUsers": reviewedUsers,
       "userUid": userUid,
+      "trip": trip
     };
+  }
+
+  MyTrip copyWith({
+    distanceOrigin,
+    distanceDestination,
+    reviewedUsers,
+    userUid,
+  }) {
+    return MyTrip(
+      distanceOrigin: distanceOrigin ?? this.distanceOrigin,
+      distanceDestination: distanceDestination ?? this.distanceDestination,
+      reviewedUsers: reviewedUsers ?? this.reviewedUsers,
+      userUid: userUid ?? this.userUid,
+    );
   }
 }

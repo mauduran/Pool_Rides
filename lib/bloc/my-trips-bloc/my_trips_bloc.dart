@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pool_rides/models/my-trip.dart';
@@ -27,11 +28,20 @@ class MyTripsBloc extends Bloc<MyTripsEvent, MyTripsState> {
     if (event is SearchMyTrips) {
       try {
         yield LoadingState();
-        _myUser = await _userService.getCurrentUser(
-          _authProvider.getUid(),
-        );
+        List<MyTrip> myTrips;
+        var connectivityResult = await (Connectivity().checkConnectivity());
+        if (connectivityResult == ConnectivityResult.mobile ||
+            connectivityResult == ConnectivityResult.wifi) {
+          _myUser = await _userService.getCurrentUser(
+            _authProvider.getUid(),
+          );
 
-        List<MyTrip> myTrips = await _myTripService.getMyTrips(_myUser);
+          myTrips = await _myTripService.getMyTrips(_myUser);
+
+          List<MyTrip> offlineMyTripList =
+              myTrips.map((MyTrip e) => e.copyWith()).toList();
+        }
+
         yield MyTripsFound(myTrips: myTrips, user: _myUser);
       } catch (e) {
         yield ErrorState(error: e.toString());

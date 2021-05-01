@@ -42,8 +42,7 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
   }
 
   String dateToString(DateTime dt) {
-    String result = "${DateFormat.MMMMEEEEd().format(dt)}";
-
+    String result = "${DateFormat.yMd().format(dt)}";
     return result;
   }
 
@@ -117,24 +116,25 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                  left: 30.0,
-                  top: 10,
+                  right: 20.0,
+                  top: 20,
                 ),
                 child: Text(
                   dateToString(trip.departureDate),
                   style: Theme.of(context)
                       .textTheme
-                      .headline4
-                      .copyWith(fontSize: 16),
+                      .headline5
+                      .copyWith(fontSize: 20),
                 ),
               ),
             ],
           ),
           SizedBox(
-            height: 30,
+            height: 20,
           ),
           tripInformation(
             startTime: trip.startTime,
