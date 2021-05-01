@@ -42,8 +42,6 @@ class _SignUp2State extends State<SignUp2> {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, Object> receiveData =
-        ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

@@ -16,6 +16,8 @@ class TripCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int numOfReviews = this.trip.driver.totalReviews;
+    final double averageRating = this.trip.driver.totalStars / numOfReviews;
     return Padding(
       padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
       child: Material(
@@ -99,7 +101,10 @@ class TripCard extends StatelessWidget {
                               children: [
                                 Icon(Icons.star),
                                 SizedBox(width: 6),
-                                Text("4.0",
+                                Text(
+                                    (numOfReviews > 0)
+                                        ? averageRating.toStringAsFixed(1)
+                                        : 'No hay reseñas aún',
                                     style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.w600,

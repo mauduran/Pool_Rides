@@ -82,7 +82,6 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
             plates: event.plates,
           );
           await updateField("car", newCar.toMap());
-          print("User car updated!");
 
           yield UpdatedSuccesfully(
               msg: "Auto agregado con éxito!", newCar: newCar);

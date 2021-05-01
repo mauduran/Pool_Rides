@@ -4,8 +4,6 @@ import 'package:hive/hive.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/user.dart';
 
-import 'car.dart';
-
 part 'trip.g.dart';
 
 @HiveType(typeId: 9, adapterName: "TripAdapter")
@@ -35,7 +33,7 @@ class Trip {
 
   Trip({
     @required this.passengerCapacity,
-    @required this.driver,
+    this.driver,
     this.passengers = const [],
     @required this.origin,
     @required this.destination,
@@ -91,7 +89,6 @@ class Trip {
   Map<String, dynamic> toMap() {
     return {
       "passengerCapacity": passengerCapacity,
-      "driver": driver.toMap(),
       "passengers": passengers.map((e) => e.toMap()).toList(),
       "origin": origin.toMap(),
       "destination": destination.toMap(),
