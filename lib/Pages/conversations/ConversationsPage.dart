@@ -8,8 +8,9 @@ import 'package:pool_rides/utils/lists.dart';
 
 class ConversationsPage extends StatefulWidget {
   final List<Conversation> conversationList = conversations;
+  final Conversation conversation;
 
-  ConversationsPage({Key key}) : super(key: key);
+  ConversationsPage({Key key, this.conversation}) : super(key: key);
 
   @override
   _ConversationsPageState createState() => _ConversationsPageState();
@@ -21,6 +22,14 @@ class _ConversationsPageState extends State<ConversationsPage> {
   @override
   void initState() {
     initializeDateFormatting();
+    if (widget.conversation != null) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) =>
+              ChatDetailPage(conversation: widget.conversation),
+        ),
+      );
+    }
     super.initState();
   }
 
@@ -52,7 +61,7 @@ class _ConversationsPageState extends State<ConversationsPage> {
       ),
       itemBuilder: (BuildContext context, int idx) {
         final conversation = widget.conversationList[idx];
-        final otherUser = conversation.members
+        final otherUser = conversation.members.values
             .firstWhere((element) => element.userId != 'mau4duran');
         return ConversationItem(
             conversation: conversation, otherUser: otherUser, widget: widget);

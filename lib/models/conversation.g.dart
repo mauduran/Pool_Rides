@@ -18,7 +18,7 @@ class ConversationAdapter extends TypeAdapter<Conversation> {
     };
     return Conversation(
       conversationId: fields[0] as String,
-      members: (fields[1] as List)?.cast<ConversationUser>(),
+      members: (fields[1] as Map)?.cast<String, ConversationUser>(),
       originCity: fields[2] as String,
       destinationCity: fields[3] as String,
       dateOfCreation: fields[4] as DateTime,

@@ -33,7 +33,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     setState(() {
       origin = conversation.originCity;
       destination = conversation.destinationCity;
-      member = conversation.members
+      member = conversation.members.values
           .firstWhere((element) => element.userId != currentUserId);
       conversationName = member.name;
     });
