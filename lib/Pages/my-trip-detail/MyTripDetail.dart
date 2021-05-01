@@ -276,7 +276,7 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Reservar",
+                                  "Reseñar",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -285,13 +285,7 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                                 ),
                               ],
                             ),
-                            onPressed: () {
-                              _bloc.add(AddUserToTripEvent(
-                                trip: trip,
-                                distanceOrigin: distOrigin,
-                                distanceDestination: distDest,
-                              ));
-                            },
+                            onPressed: () {},
                           ),
                         ),
                       ),
