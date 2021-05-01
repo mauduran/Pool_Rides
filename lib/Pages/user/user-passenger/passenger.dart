@@ -51,18 +51,19 @@ class _PassengerDetailState extends State<PassengerDetail> {
                   style: Theme.of(context).textTheme.headline5,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Text(
-                  "${widget.user.age} años",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.bold,
+              if (widget.user.birthdate != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Text(
+                    "${(DateTime.now().difference(widget.user.birthdate).inDays / 365.25).floor()} años",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.justify,
                   ),
-                  textAlign: TextAlign.justify,
                 ),
-              ),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 10.0,
