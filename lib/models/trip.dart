@@ -33,7 +33,7 @@ class Trip {
 
   Trip({
     @required this.passengerCapacity,
-    @required this.driver,
+    this.driver,
     this.passengers = const [],
     @required this.origin,
     @required this.destination,
@@ -89,7 +89,6 @@ class Trip {
   Map<String, dynamic> toMap() {
     return {
       "passengerCapacity": passengerCapacity,
-      "driver": driver.toMap(),
       "passengers": passengers.map((e) => e.toMap()).toList(),
       "origin": origin.toMap(),
       "destination": destination.toMap(),

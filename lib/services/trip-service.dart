@@ -41,13 +41,16 @@ class TripService {
           arrivalTime: timeFormat.format(arrivalDateTime),
           departureDate: departureDate,
           destination: destination,
-          driver: user,
           origin: origin,
           passengerCapacity: capacity,
           tripPrice: price,
           passengers: [],
           formattedDepartureDate: dateFormatPretty.format(departureDate));
-      await _cFirestore.collection('trips').add(newTrip.toMap());
+
+      Map<String, dynamic> tripMap = newTrip.toMap();
+      tripMap['userRef'] = _cFirestore.collection('users').doc(user.uid);
+
+      await _cFirestore.collection('trips').add(tripMap);
       return true;
     } catch (e) {
       return false;
@@ -68,12 +71,18 @@ class TripService {
         .get();
 
     List<QueryDocumentSnapshot> docs = queryResult.docs;
-
-    List<Trip> trips = docs.map((e) {
-      Trip trip = Trip.fromJson(e.data());
+    List<Future<Trip>> tripsFuture = docs.map((e) async {
+      Map<String, dynamic> element = e.data();
+      DocumentSnapshot usrSnapshot =
+          await (element['userRef'] as DocumentReference).get();
+      Map<String, dynamic> usr = usrSnapshot.data();
+      element['driver'] = usr;
+      Trip trip = Trip.fromJson(element);
       trip.tripId = e.id;
       return trip;
     }).toList();
+
+    List<Trip> trips = await Future.wait(tripsFuture);
 
     return trips.where((element) {
       return (Trip.distanceBetweenTwoPlaces(origin, element.origin) < 20000 &&
