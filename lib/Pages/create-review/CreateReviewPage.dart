@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:pool_rides/bloc/create-review-bloc/reviews_bloc.dart';
+import 'package:pool_rides/bloc/reviews-bloc/reviews_bloc.dart';
 import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:pool_rides/widgets/route-locations/RouteLocations.dart';
@@ -52,22 +52,7 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
           child: BlocConsumer<ReviewsBloc, ReviewsState>(
             listener: (context, state) {
               if (state is CreatedReviewState) {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(
-                      content: Text("reseña creada."),
-                      duration: Duration(seconds: 3),
-                      behavior: SnackBarBehavior.floating,
-                      action: SnackBarAction(
-                        label: "Aceptar",
-                        textColor: Colors.blue,
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        },
-                      ),
-                    ),
-                  );
+                Navigator.of(context).pop(true);
               } else if (state is ErrorState) {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
