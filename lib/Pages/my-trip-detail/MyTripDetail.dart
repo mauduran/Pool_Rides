@@ -3,6 +3,7 @@ import 'package:pool_rides/Pages/location-visualizer/location-visualizer.dart';
 import 'package:pool_rides/Pages/user/user-passenger/passenger.dart';
 import 'package:pool_rides/bloc/trip-detail-bloc/bloc/trip_detail_bloc.dart';
 import 'package:pool_rides/models/car.dart';
+import 'package:pool_rides/models/my-trip.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
@@ -10,24 +11,21 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-class TripDetailPage extends StatefulWidget {
-  final Trip tripDetail;
-  final double distanceOrigin;
-  final double distanceDestination;
+class MyTripDetailPage extends StatefulWidget {
+  final MyTrip tripDetail;
+
   final User user;
-  TripDetailPage({
+  MyTripDetailPage({
     Key key,
     @required this.tripDetail,
-    @required this.distanceOrigin,
-    @required this.distanceDestination,
     @required this.user,
   }) : super(key: key);
 
   @override
-  _TripDetailPageState createState() => _TripDetailPageState();
+  _MyTripDetailPageState createState() => _MyTripDetailPageState();
 }
 
-class _TripDetailPageState extends State<TripDetailPage> {
+class _MyTripDetailPageState extends State<MyTripDetailPage> {
   int numOfReviews = 0;
   double averageRating = 0;
 
@@ -35,8 +33,10 @@ class _TripDetailPageState extends State<TripDetailPage> {
   @override
   void initState() {
     super.initState();
-    this.numOfReviews = widget.tripDetail.driver.totalReviews;
-    this.averageRating = widget.tripDetail.driver.totalStars / numOfReviews;
+    this.numOfReviews = widget.tripDetail.trip.driver.totalReviews;
+    this.averageRating =
+        widget.tripDetail.trip.driver.totalStars / numOfReviews;
+
     initializeDateFormatting();
   }
 
@@ -91,9 +91,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
                 );
               }
               return tripWidget(
-                trip: widget.tripDetail,
-                distDest: widget.distanceDestination,
-                distOrigin: widget.distanceOrigin,
+                trip: widget.tripDetail.trip,
+                distDest: widget.tripDetail.distanceDestination,
+                distOrigin: widget.tripDetail.distanceOrigin,
               );
             },
           ),
@@ -138,7 +138,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
           tripInformation(
             startTime: trip.startTime,
             location: trip.origin,
-            distance: widget.distanceOrigin,
+            distance: widget.tripDetail.distanceOrigin,
             salida: true,
             icon: Icons.hail,
           ),
@@ -148,7 +148,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
           tripInformation(
             startTime: trip.arrivalTime,
             location: trip.destination,
-            distance: widget.distanceDestination,
+            distance: widget.tripDetail.distanceDestination,
             icon: Icons.place,
           ),
           SizedBox(
@@ -250,7 +250,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
               widget.user.uid != trip.driver.uid &&
               trip.passengers.firstWhere(
                       (element) => element.uid == widget.user.uid,
-                      orElse: () => null) ==
+                      orElse: () => null) !=
                   null)
             Column(
               mainAxisSize: MainAxisSize.min,

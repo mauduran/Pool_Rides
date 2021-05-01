@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -77,11 +78,15 @@ class TripDetailBloc extends Bloc<TripDetailEvent, TripDetailState> {
           distanceOrigin: distOrigin,
           distanceDestination: distDest);
 
+      Map<String, dynamic> tripMap = newTrip.toMap();
+
+      tripMap["Ref"] = trips.doc((trip.tripId));
+
       await users
           .doc(_authProvider.getUid())
           .collection("myTrips")
           .doc(trip.tripId)
-          .set(newTrip.toMap());
+          .set(tripMap);
       return true;
     } catch (e) {
       print("Error: $e");
