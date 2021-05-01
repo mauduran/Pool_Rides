@@ -376,7 +376,7 @@ ConversationUser mau4duran = ConversationUser(
 ConversationUser ipanchomx = ConversationUser(
     userId: 'ipanchomx',
     name: 'Edgar Rolas',
-    image: 'https://randomuser.me/api/portraits/men/5.jpg',
+    // image: 'https://randomuser.me/api/portraits/men/5.jpg',
     email: 'ipanchomx@hotmail.com',
     phoneNumber: '3341606214');
 
