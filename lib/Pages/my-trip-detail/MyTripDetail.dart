@@ -195,26 +195,31 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
           driverInformation(
             user: trip.driver,
           ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 30.0,
-            ),
-            child: InkWell(
-              child: new Text(
-                'Contactar a ${trip.driver.name}',
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  // color: Color(0xffe0e6eb),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+          if ((widget.user.email != trip.driver.email))
+            Column(
+              children: [
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-              onTap: () {},
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 30.0,
+                  ),
+                  child: InkWell(
+                    child: new Text(
+                      'Contactar a ${trip.driver.name}',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        // color: Color(0xffe0e6eb),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    onTap: () {},
+                  ),
+                ),
+              ],
             ),
-          ),
           carInformation(
             car: trip.driver.car,
           ),
@@ -237,9 +242,7 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
             ),
           ),
           for (int i = 0; i < trip.passengers.length; i++)
-            passengerBuilder(
-              user: trip.passengers[i],
-            ),
+            passengerBuilder(user: trip.passengers[i], trip: trip),
           SizedBox(
             height: 10,
           ),
@@ -247,12 +250,8 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
             thickness: 6,
             color: Colors.grey[500],
           ),
-          if ((trip.passengers.length < trip.passengerCapacity) &&
-              widget.user.uid != trip.driver.uid &&
-              trip.passengers.firstWhere(
-                      (element) => element.uid == widget.user.uid,
-                      orElse: () => null) !=
-                  null)
+          if (DateTime.parse(trip.departureDate.toString())
+              .isBefore(DateTime.now()))
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -352,6 +351,7 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
 
   Widget passengerBuilder({
     @required User user,
+    @required Trip trip,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -370,61 +370,92 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
             left: 30.0,
             right: 20,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    user.name,
-                    style: TextStyle(
-                      fontSize: 17.5,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Row(
+                  Column(
                     mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
-                        Icons.star,
-                        color: Theme.of(context).primaryColor,
+                      Text(
+                        user.name,
+                        style: TextStyle(
+                          fontSize: 17.5,
+                        ),
                       ),
                       SizedBox(
-                        width: 5,
+                        height: 5,
                       ),
-                      Text(
-                        (numOfReviews > 0)
-                            ? "${averageRating.toStringAsFixed(1)}/5 - $numOfReviews reseña(s)"
-                            : "No tiene reseñas", // To Do: agregar el atributo "No. de reseñas en conductor"
-                        style: TextStyle(
-                          color: Theme.of(context).primaryColor,
-                        ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            (numOfReviews > 0)
+                                ? "${averageRating.toStringAsFixed(1)}/5 - $numOfReviews reseña(s)"
+                                : "No tiene reseñas", // To Do: agregar el atributo "No. de reseñas en conductor"
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          )
+                        ],
                       )
                     ],
-                  )
+                  ),
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          user.image != ""
+                              ? user.image
+                              : "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
+                        ),
+                        maxRadius: 22.5,
+                        backgroundColor: Colors.grey[300],
+                      ),
+                      Icon(
+                        Icons.keyboard_arrow_right,
+                        size: 27.5,
+                      ),
+                    ],
+                  ),
                 ],
               ),
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(
-                      user.image != ""
-                          ? user.image
-                          : "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
+              if (widget.user.email == trip.driver.email)
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: 20,
                     ),
-                    maxRadius: 22.5,
-                    backgroundColor: Colors.grey[300],
-                  ),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    size: 27.5,
-                  ),
-                ],
-              ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          child: new Text(
+                            'Contactar a ${user.name}',
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              // color: Color(0xffe0e6eb),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
             ],
           ),
         ),
