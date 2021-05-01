@@ -627,9 +627,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
                         height: 30,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: distance == 0
+                          color: distance <= 5
                               ? Colors.green[400]
-                              : widget.distanceOrigin == 1
+                              : distance > 5 && distance <= 10
                                   ? Colors.yellow[700]
                                   : Color(0xFFff6257),
                         ),
