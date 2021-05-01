@@ -22,7 +22,7 @@ class ConversationAdapter extends TypeAdapter<Conversation> {
       originCity: fields[2] as String,
       destinationCity: fields[3] as String,
       dateOfCreation: fields[4] as DateTime,
-      messages: (fields[6] as List)?.cast<ChatMessage>(),
+      tripId: fields[6] as String,
       lastMessage: fields[5] as ChatMessage,
     );
   }
@@ -44,7 +44,7 @@ class ConversationAdapter extends TypeAdapter<Conversation> {
       ..writeByte(5)
       ..write(obj.lastMessage)
       ..writeByte(6)
-      ..write(obj.messages);
+      ..write(obj.tripId);
   }
 
   @override

@@ -21,9 +21,7 @@ class Conversation {
   @HiveField(5)
   ChatMessage lastMessage;
   @HiveField(6)
-  List<ChatMessage> messages;
-
-  List<ChatMessage> get messageList => messages.reversed.toList();
+  final String tripId;
 
   Conversation({
     @required this.conversationId,
@@ -31,33 +29,29 @@ class Conversation {
     @required this.originCity,
     @required this.destinationCity,
     @required this.dateOfCreation,
-    this.messages = const [],
+    @required this.tripId,
     this.lastMessage,
   });
+  //Messages
 
-  void addMessage(String sender, String content) {
-    ChatMessage message = ChatMessage(
-        messageContent: content, messageSender: sender, date: DateTime.now());
+  // void addMessage(String sender, String content) {
+  //   ChatMessage message = ChatMessage(
+  //       messageContent: content, messageSender: sender, date: DateTime.now());
 
-    messages.add(message);
-    lastMessage = message;
-  }
+  //   lastMessage = message;
+  // }
 
   factory Conversation.fromJson(Map<String, dynamic> parsedJson) {
-    List<ChatMessage> messages = (!parsedJson.containsKey('messages'))
-        ? []
-        : (parsedJson['messages'] as List<Map<String, dynamic>>)
-            .map((e) => ChatMessage.fromJson(e));
     List<ConversationUser> members = (!parsedJson.containsKey('members'))
         ? []
         : (parsedJson['members'] as List<Map<String, dynamic>>)
             .map((e) => ConversationUser.fromJson(e));
 
     return new Conversation(
-        messages: messages,
         conversationId: parsedJson['conversationId'],
         dateOfCreation: DateTime.parse(parsedJson['dateOfCreation']),
         originCity: parsedJson['originCity'],
+        tripId: parsedJson['tripId'],
         destinationCity: parsedJson['destinationCity'],
         lastMessage: (parsedJson.containsKey('lastMessage'))
             ? ChatMessage.fromJson(parsedJson['lastMessage'])
@@ -71,16 +65,12 @@ class Conversation {
       "dateOfCreation": dateOfCreation.toIso8601String(),
       "originCity": originCity,
       "destinationCity": destinationCity,
+      "tripId": tripId,
       "members": members.map((member) => member.toMap())
     };
 
     if (lastMessage != null) {
       json.putIfAbsent('lastMessage', () => lastMessage.toMap());
-    }
-
-    if (messages != null) {
-      json.putIfAbsent(
-          'lastMessage', () => messages.map((message) => message.toMap()));
     }
 
     return json;
