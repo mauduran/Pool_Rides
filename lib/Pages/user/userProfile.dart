@@ -499,7 +499,7 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                         Text(
                           numOfReviews == 0
-                              ? "No hay reseñas aún"
+                              ? "0 reseñas"
                               : "${averageRating.toStringAsFixed(1)}/5 - $numOfReviews reseña(s)", // To Do: agregar el atributo "No. de reseñas en conductor"
                           style: TextStyle(
                             color: Theme.of(context).primaryColor,

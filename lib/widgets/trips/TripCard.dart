@@ -104,7 +104,7 @@ class TripCard extends StatelessWidget {
                                 Text(
                                     (numOfReviews > 0)
                                         ? averageRating.toStringAsFixed(1)
-                                        : 'No hay reseñas aún',
+                                        : '0 reseñas',
                                     style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.w600,

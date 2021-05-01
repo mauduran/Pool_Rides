@@ -124,7 +124,7 @@ class _ReviewsList extends StatelessWidget {
                         Text(
                           (user.totalReviews > 0)
                               ? "${user.totalStars / user.totalReviews}/5 - ${user.totalReviews} reseñas"
-                              : "No hay reseñas aún",
+                              : "0 reseñas",
                           style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.bold,
