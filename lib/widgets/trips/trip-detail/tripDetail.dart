@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pool_rides/Pages/create-review/CreateReviewPage.dart';
 import 'package:pool_rides/Pages/location-visualizer/location-visualizer.dart';
 import 'package:pool_rides/Pages/user/user-passenger/passenger.dart';
 import 'package:pool_rides/bloc/trip-detail-bloc/bloc/trip_detail_bloc.dart';
@@ -251,7 +250,10 @@ class _TripDetailPageState extends State<TripDetailPage> {
           ),
           if ((trip.passengers.length < trip.passengerCapacity) &&
               widget.user.uid != trip.driver.uid &&
-              trip.passengers.indexOf(widget.user) == -1)
+              trip.passengers.firstWhere(
+                      (element) => element.uid == widget.user.uid,
+                      orElse: () => null) !=
+                  null)
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -628,9 +630,9 @@ class _TripDetailPageState extends State<TripDetailPage> {
                         height: 30,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: distance == 0
+                          color: distance <= 5
                               ? Colors.green[400]
-                              : widget.distanceOrigin == 1
+                              : distance > 5 && distance <= 10
                                   ? Colors.yellow[700]
                                   : Color(0xFFff6257),
                         ),
