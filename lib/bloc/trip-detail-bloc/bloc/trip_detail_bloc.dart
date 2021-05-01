@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:collection';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,6 +9,7 @@ import 'package:pool_rides/models/my-trip.dart';
 import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:pool_rides/services/auth-service.dart';
+import 'package:pool_rides/services/trip-service.dart';
 import 'package:pool_rides/services/user-service.dart';
 import 'package:pool_rides/services/my-trip-service.dart';
 
@@ -21,6 +21,7 @@ class TripDetailBloc extends Bloc<TripDetailEvent, TripDetailState> {
   UserAuthProvider _authProvider = UserAuthProvider();
   static final UserService _userService = UserService();
   static final MyTripService _myTripService = MyTripService();
+  static final TripService _tripService = TripService();
 
   CollectionReference trips = FirebaseFirestore.instance.collection('trips');
   CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -35,23 +36,26 @@ class TripDetailBloc extends Bloc<TripDetailEvent, TripDetailState> {
         var connectivityResult = await (Connectivity().checkConnectivity());
         if (connectivityResult == ConnectivityResult.mobile ||
             connectivityResult == ConnectivityResult.wifi) {
-          bool isAdded = await addUserToTripBloc(
+          final addedUser = await addUserToTripBloc(
             trip: event.trip,
             distOrigin: event.distanceOrigin,
             distDest: event.distanceDestination,
           );
 
-          if (isAdded) {
-            DocumentSnapshot updatedTrip =
-                await trips.doc(event.trip.tripId).get();
-            Trip newTrip = Trip.fromJson(updatedTrip.data());
-            yield UserAddedSuccesfully(
-              trip: newTrip,
-              distanceOrigin: event.distanceOrigin,
-              distanceDestination: event.distanceDestination,
-            );
-            return;
+          if (addedUser == null) {
+            throw Exception('No se pudo agregar pasajero a viaje');
           }
+
+          DocumentSnapshot updatedTrip =
+              await trips.doc(event.trip.tripId).get();
+
+          Trip newTrip = await _tripService.parseTripFromFirebase(updatedTrip);
+          yield UserAddedSuccesfully(
+            trip: newTrip,
+            distanceOrigin: event.distanceOrigin,
+            distanceDestination: event.distanceDestination,
+          );
+          return;
         }
         throw "Error";
       } catch (e) {
@@ -68,29 +72,25 @@ class TripDetailBloc extends Bloc<TripDetailEvent, TripDetailState> {
     double distOrigin,
     double distDest,
   }) async {
-    try {
-      User currentUser =
-          await _userService.getCurrentUser(_authProvider.getUid());
+    User currentUser =
+        await _userService.getCurrentUser(_authProvider.getUid());
 
-      MyTrip newTrip = await _myTripService.addUserToTrip(
-          user: currentUser,
-          trip: trip,
-          distanceOrigin: distOrigin,
-          distanceDestination: distDest);
+    User usr = trip.passengers.firstWhere(
+        (element) => element.uid == currentUser.uid,
+        orElse: () => null);
 
-      Map<String, dynamic> tripMap = newTrip.toMap();
+    if (usr != null)
+      throw Exception('El usuario ya está registrado para el viaje');
 
-      tripMap["Ref"] = trips.doc((trip.tripId));
+    bool addedUser = await _tripService.addUserToTrip(trip: trip);
 
-      await users
-          .doc(_authProvider.getUid())
-          .collection("myTrips")
-          .doc(trip.tripId)
-          .set(tripMap);
-      return true;
-    } catch (e) {
-      print("Error: $e");
-      return false;
-    }
+    if (!addedUser) throw Exception('No se pudo agregar el usuario al viaje');
+
+    await _myTripService.createMyTrip(
+      tripId: trip.tripId,
+      distanceOrigin: distOrigin,
+      distanceDestination: distDest,
+    );
+    return true;
   }
 }

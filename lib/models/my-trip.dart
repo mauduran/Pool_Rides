@@ -9,7 +9,7 @@ class MyTrip {
   List<String> reviewedUsers;
   String userUid;
   MyTrip({
-    @required this.trip,
+    this.trip,
     @required this.distanceOrigin,
     @required this.distanceDestination,
     @required this.reviewedUsers,
@@ -36,7 +36,7 @@ class MyTrip {
 
   Map<String, dynamic> toMap() {
     return {
-      "trip": trip.toMap(),
+      "trip": trip?.toMap(),
       "distanceDestination": distanceDestination,
       "distanceOrigin": distanceOrigin,
       "reviewedUsers": reviewedUsers,

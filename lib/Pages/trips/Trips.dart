@@ -113,8 +113,10 @@ class _TripsState extends State<Trips> {
                   );
                 }
                 return Container(
+                  padding: EdgeInsets.only(top: 60),
                   child: Text(
                     "Error. No se pudieron encontrar viajes",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,

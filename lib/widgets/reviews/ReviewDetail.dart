@@ -56,7 +56,7 @@ class ReviewDetail extends StatelessWidget {
                 alignment: Alignment.topRight,
                 child: CircleAvatar(
                   backgroundImage: NetworkImage(
-                    "https://randomuser.me/api/portraits/men/5.jpg",
+                    review.reviewerImage,
                   ),
                 ),
               )

@@ -8,6 +8,7 @@ import 'package:pool_rides/models/my-trip.dart';
 import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:pool_rides/services/auth-service.dart';
+import 'package:pool_rides/services/trip-service.dart';
 
 class MyTripService {
   DateFormat dateFormat = DateFormat.yMMMd('es');
@@ -15,7 +16,7 @@ class MyTripService {
   DateFormat timeFormat = DateFormat("hh:mm aaa");
 
   static final MyTripService _myTripService = new MyTripService._internal();
-
+  static final TripService _tripService = TripService();
   UserAuthProvider _authProvider = UserAuthProvider();
   CollectionReference trips = FirebaseFirestore.instance.collection('trips');
   CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -25,24 +26,25 @@ class MyTripService {
     return _myTripService;
   }
 
-  Future<MyTrip> addUserToTrip({
-    @required User user,
-    @required Trip trip,
+  Future<MyTrip> createMyTrip({
+    @required String tripId,
     @required double distanceOrigin,
     @required double distanceDestination,
   }) async {
     try {
+      final String uid = _authProvider.getUid();
       MyTrip myNewTrip = MyTrip(
         distanceDestination: distanceDestination,
         distanceOrigin: distanceOrigin,
-        trip: trip,
         reviewedUsers: [],
-        userUid: user.uid,
+        userUid: uid,
       );
 
-      await trips.doc(trip.tripId).update({
-        "passengers": FieldValue.arrayUnion([user.toMap()])
-      });
+      Map<String, dynamic> myTripMap = myNewTrip.toMap();
+
+      myTripMap['tripRef'] = trips.doc(tripId);
+
+      await users.doc(uid).collection("myTrips").doc(tripId).set(myTripMap);
 
       return myNewTrip;
     } catch (e) {
@@ -60,10 +62,18 @@ class MyTripService {
 
       List<QueryDocumentSnapshot> docs = queryResult.docs;
 
-      List<MyTrip> myTrips = docs.map((e) {
-        MyTrip trip = MyTrip.fromJson(e.data());
-        return trip;
+      List<Future<MyTrip>> myTripsFuture = docs.map((e) async {
+        Map<String, dynamic> element = e.data();
+
+        DocumentSnapshot tripSnapshot =
+            await (element['tripRef'] as DocumentReference).get();
+        element['trip'] =
+            await _tripService.parseTripFromFirebase(tripSnapshot);
+
+        return MyTrip.fromJson(element);
       }).toList();
+
+      List<MyTrip> myTrips = await Future.wait(myTripsFuture);
 
       return myTrips;
     } catch (e) {

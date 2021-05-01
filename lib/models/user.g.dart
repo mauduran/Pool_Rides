@@ -21,22 +21,21 @@ class UserAdapter extends TypeAdapter<User> {
       image: fields[2] as String,
       phoneNumber: fields[5] as String,
       age: fields[6] as int,
-      tripNumber: fields[7] as String,
-      car: fields[9] as Car,
+      car: fields[8] as Car,
       birthdate: fields[4] as DateTime,
-      totalStars: fields[11] as int,
-      totalReviews: fields[12] as int,
-      uid: fields[10] as String,
+      totalStars: fields[10] as int,
+      totalReviews: fields[11] as int,
+      uid: fields[9] as String,
       name: fields[0] as String,
       email: fields[3] as String,
-      joined: fields[8] as DateTime,
+      joined: fields[7] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(13)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -52,16 +51,14 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(6)
       ..write(obj.age)
       ..writeByte(7)
-      ..write(obj.tripNumber)
-      ..writeByte(8)
       ..write(obj.joined)
-      ..writeByte(9)
+      ..writeByte(8)
       ..write(obj.car)
-      ..writeByte(10)
+      ..writeByte(9)
       ..write(obj.uid)
-      ..writeByte(11)
+      ..writeByte(10)
       ..write(obj.totalStars)
-      ..writeByte(12)
+      ..writeByte(11)
       ..write(obj.totalReviews);
   }
 

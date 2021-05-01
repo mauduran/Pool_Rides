@@ -21,16 +21,14 @@ class User {
   @HiveField(6)
   int age;
   @HiveField(7)
-  String tripNumber;
-  @HiveField(8)
   final DateTime joined;
-  @HiveField(9)
+  @HiveField(8)
   Car car;
-  @HiveField(10)
+  @HiveField(9)
   String uid;
-  @HiveField(11)
+  @HiveField(10)
   int totalStars;
-  @HiveField(12)
+  @HiveField(11)
   int totalReviews;
 
   User({
@@ -39,7 +37,6 @@ class User {
         "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
     this.phoneNumber,
     this.age,
-    this.tripNumber,
     this.car,
     this.birthdate,
     this.totalStars = 0,
@@ -69,7 +66,6 @@ class User {
         email: parsedJson['email'],
         phoneNumber: parsedJson['phoneNumber'],
         age: parsedJson['age'],
-        tripNumber: parsedJson['tripNumber'],
         joined: DateTime.parse(parsedJson['joined']),
         car: (parsedJson.containsKey('car'))
             ? Car.fromJson(parsedJson['car'])
@@ -94,7 +90,6 @@ class User {
       "email": email,
       "phoneNumber": phoneNumber,
       "age": age,
-      "tripNumber": tripNumber,
       "joined": joined.toIso8601String(),
       "car": carMap,
       "birthdate": birthdateString,
