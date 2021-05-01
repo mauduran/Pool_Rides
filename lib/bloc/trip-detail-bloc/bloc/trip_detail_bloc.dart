@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:pool_rides/models/my-trip.dart';
 import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:pool_rides/services/auth-service.dart';

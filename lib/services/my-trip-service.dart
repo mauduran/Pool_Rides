@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:pool_rides/models/my-trip.dart';
 
-import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:pool_rides/services/auth-service.dart';
 import 'package:pool_rides/services/trip-service.dart';
@@ -72,6 +71,8 @@ class MyTripService {
 
       List<MyTrip> myTrips = await Future.wait(myTripsFuture);
 
+      myTrips.sort((a, b) =>
+          a.trip.departureDate.difference(b.trip.departureDate).inHours);
       return myTrips;
     } catch (e) {
       return null;

@@ -4,8 +4,6 @@ import 'package:pool_rides/Pages/my-trip-detail/MyTripDetail.dart';
 import 'package:pool_rides/bloc/my-trips-bloc/my_trips_bloc.dart';
 import 'package:pool_rides/widgets/trips/TripCard.dart';
 
-import '../../theme.dart';
-
 class MyTrips extends StatefulWidget {
   MyTrips({Key key}) : super(key: key);
 
