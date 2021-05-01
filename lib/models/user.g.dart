@@ -18,47 +18,44 @@ class UserAdapter extends TypeAdapter<User> {
     };
     return User(
       biography: fields[1] as String,
-      image: fields[2] as String,
-      phoneNumber: fields[5] as String,
-      age: fields[6] as int,
-      car: fields[8] as Car,
-      birthdate: fields[4] as DateTime,
-      totalStars: fields[10] as int,
-      totalReviews: fields[11] as int,
-      uid: fields[9] as String,
+      phoneNumber: fields[4] as String,
+      age: fields[5] as int,
+      car: fields[7] as Car,
+      birthdate: fields[3] as DateTime,
+      totalStars: fields[9] as int,
+      totalReviews: fields[10] as int,
+      uid: fields[8] as String,
       name: fields[0] as String,
-      email: fields[3] as String,
-      joined: fields[7] as DateTime,
+      email: fields[2] as String,
+      joined: fields[6] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
       ..write(obj.biography)
       ..writeByte(2)
-      ..write(obj.image)
-      ..writeByte(3)
       ..write(obj.email)
-      ..writeByte(4)
+      ..writeByte(3)
       ..write(obj.birthdate)
-      ..writeByte(5)
+      ..writeByte(4)
       ..write(obj.phoneNumber)
-      ..writeByte(6)
+      ..writeByte(5)
       ..write(obj.age)
-      ..writeByte(7)
+      ..writeByte(6)
       ..write(obj.joined)
-      ..writeByte(8)
+      ..writeByte(7)
       ..write(obj.car)
-      ..writeByte(9)
+      ..writeByte(8)
       ..write(obj.uid)
-      ..writeByte(10)
+      ..writeByte(9)
       ..write(obj.totalStars)
-      ..writeByte(11)
+      ..writeByte(10)
       ..write(obj.totalReviews);
   }
 

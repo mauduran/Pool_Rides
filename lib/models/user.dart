@@ -10,31 +10,29 @@ class User {
   String name;
   @HiveField(1)
   String biography;
-  @HiveField(2)
   String image;
-  @HiveField(3)
+  @HiveField(2)
   String email;
-  @HiveField(4)
+  @HiveField(3)
   DateTime birthdate;
-  @HiveField(5)
+  @HiveField(4)
   String phoneNumber;
-  @HiveField(6)
+  @HiveField(5)
   int age;
-  @HiveField(7)
+  @HiveField(6)
   final DateTime joined;
-  @HiveField(8)
+  @HiveField(7)
   Car car;
-  @HiveField(9)
+  @HiveField(8)
   String uid;
-  @HiveField(10)
+  @HiveField(9)
   int totalStars;
-  @HiveField(11)
+  @HiveField(10)
   int totalReviews;
 
   User({
     this.biography = "",
-    this.image =
-        "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
+    this.image,
     this.phoneNumber,
     this.age,
     this.car,

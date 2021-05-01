@@ -19,8 +19,7 @@ class ConversationUserAdapter extends TypeAdapter<ConversationUser> {
     return ConversationUser(
       userId: fields[0] as String,
       name: fields[1] as String,
-      image: fields[2] as String,
-      email: fields[3] as String,
+      email: fields[2] as String,
       phoneNumber: fields[4] as String,
     );
   }
@@ -28,14 +27,12 @@ class ConversationUserAdapter extends TypeAdapter<ConversationUser> {
   @override
   void write(BinaryWriter writer, ConversationUser obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.userId)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.image)
-      ..writeByte(3)
       ..write(obj.email)
       ..writeByte(4)
       ..write(obj.phoneNumber);

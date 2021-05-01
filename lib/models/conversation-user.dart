@@ -9,9 +9,8 @@ class ConversationUser {
   final String userId;
   @HiveField(1)
   final String name;
-  @HiveField(2)
   final String image;
-  @HiveField(3)
+  @HiveField(2)
   final String email;
   @HiveField(4)
   final String phoneNumber;
@@ -19,7 +18,7 @@ class ConversationUser {
   ConversationUser({
     @required this.userId,
     @required this.name,
-    @required this.image,
+    this.image,
     @required this.email,
     @required this.phoneNumber,
   });
