@@ -7,10 +7,8 @@ import 'package:pool_rides/Pages/chat-detail/ChatDetailPage.dart';
 import 'package:pool_rides/bloc/conversations-bloc/conversations_bloc.dart';
 import 'package:pool_rides/models/conversation-user.dart';
 import 'package:pool_rides/models/conversation.dart';
-import 'package:pool_rides/utils/lists.dart';
 
 class ConversationsPage extends StatefulWidget {
-  final List<Conversation> conversationList = conversations;
   final Conversation conversation;
 
   ConversationsPage({Key key, this.conversation}) : super(key: key);

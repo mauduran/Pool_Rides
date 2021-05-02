@@ -39,7 +39,7 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: Text("Crear Reseña"),
           centerTitle: true,
