@@ -254,7 +254,10 @@ class MessagesList extends StatelessWidget {
                         .abs()) !=
                     0) {
               currentDate = message.date;
-              return MessageWithSep(message: message);
+              return MessageWithSep(
+                message: message,
+                uid: uid,
+              );
             }
             return Message(
               message: message,
