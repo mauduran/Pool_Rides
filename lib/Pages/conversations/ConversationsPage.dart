@@ -156,6 +156,9 @@ class ConversationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime lastDateOfInterest = (conversation.lastMessage != null)
+        ? conversation.lastMessage.date
+        : conversation.dateOfCreation;
     return GestureDetector(
       child: ListTile(
         title: Column(
@@ -200,14 +203,9 @@ class ConversationItem extends StatelessWidget {
           ],
         ),
         subtitle: Text(
-          (conversation.lastMessage == null)
-              ? DateFormat.yMMMEd().format(conversation.dateOfCreation)
-              : (DateTime.now()
-                          .difference(conversation.lastMessage.date)
-                          .inDays ==
-                      0)
-                  ? "Hoy"
-                  : DateFormat.yMMMEd().format(conversation.lastMessage.date),
+          (DateTime.now().difference(lastDateOfInterest).inDays == 0)
+              ? "Hoy"
+              : DateFormat.yMMMEd().format(lastDateOfInterest),
           overflow: TextOverflow.fade,
           style: TextStyle(
             fontSize: 12,
