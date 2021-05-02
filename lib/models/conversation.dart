@@ -45,22 +45,23 @@ class Conversation {
     Map<String, ConversationUser> members = {};
 
     if (parsedJson.containsKey('members')) {
-      (parsedJson['members'] as List<Map<String, dynamic>>).forEach((e) {
+      (parsedJson['members']).values.forEach((e) {
         ConversationUser convoUsr = ConversationUser.fromJson(e);
         members[convoUsr.userId] = convoUsr;
       });
     }
 
     return new Conversation(
-        conversationId: parsedJson['conversationId'],
-        dateOfCreation: DateTime.parse(parsedJson['dateOfCreation']),
-        originCity: parsedJson['originCity'],
-        tripId: parsedJson['tripId'],
-        destinationCity: parsedJson['destinationCity'],
-        lastMessage: (parsedJson.containsKey('lastMessage'))
-            ? ChatMessage.fromJson(parsedJson['lastMessage'])
-            : null,
-        members: members);
+      conversationId: parsedJson['conversationId'],
+      dateOfCreation: DateTime.parse(parsedJson['dateOfCreation']),
+      originCity: parsedJson['originCity'],
+      tripId: parsedJson['tripId'],
+      destinationCity: parsedJson['destinationCity'],
+      lastMessage: (parsedJson.containsKey('lastMessage'))
+          ? ChatMessage.fromJson(parsedJson['lastMessage'])
+          : null,
+      members: members,
+    );
   }
 
   Map<String, dynamic> toMap() {
@@ -70,7 +71,8 @@ class Conversation {
       "originCity": originCity,
       "destinationCity": destinationCity,
       "tripId": tripId,
-      "members": members.values.map((member) => member.toMap()).toList()
+      "members": members.map((key, member) =>
+          MapEntry<String, Map<String, dynamic>>(member.userId, member.toMap()))
     };
 
     if (lastMessage != null) {

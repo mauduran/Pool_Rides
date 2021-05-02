@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:pool_rides/Pages/chat-detail/ChatDetailPage.dart';
+import 'package:pool_rides/bloc/conversations-bloc/conversations_bloc.dart';
 import 'package:pool_rides/models/conversation-user.dart';
 import 'package:pool_rides/models/conversation.dart';
 import 'package:pool_rides/utils/lists.dart';
@@ -17,19 +20,11 @@ class ConversationsPage extends StatefulWidget {
 }
 
 class _ConversationsPageState extends State<ConversationsPage> {
-  bool isLoading = false;
+  ConversationsBloc _bloc;
 
   @override
   void initState() {
     initializeDateFormatting();
-    if (widget.conversation != null) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) =>
-              ChatDetailPage(conversation: widget.conversation),
-        ),
-      );
-    }
     super.initState();
   }
 
@@ -40,33 +35,97 @@ class _ConversationsPageState extends State<ConversationsPage> {
         centerTitle: true,
         title: Text("Conversaciones"),
       ),
-      body: showConversations(),
-    );
-  }
+      body: BlocProvider(
+        create: (context) {
+          _bloc = ConversationsBloc()..add(GetUserConversationsEvent());
+          return _bloc;
+        },
+        child: BlocConsumer<ConversationsBloc, ConversationsState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state is ErrorState) {
+              return Container(
+                child: Center(
+                  child: Text("No se pudieron obtener las conversaciones."),
+                ),
+              );
+            } else if (state is OfflineConversationsState) {
+              return Container(
+                child: Center(
+                  child:
+                      Text("Aqui se deben mostrar las conversaciones offline"),
+                ),
+              );
+            } else if (state is ConversationSnapshotsState) {
+              return StreamBuilder(
+                stream: state.conversationsQuery,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Container(
+                      child: Center(
+                        child: Text(snapshot.error.toString()),
+                      ),
+                    );
+                  }
+                  QuerySnapshot query = snapshot.data;
 
-  showConversations() {
-    if (isLoading)
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+                  List<DocumentSnapshot> items = query.docs;
 
-    return ListView.separated(
-      padding: EdgeInsets.only(top: 15),
-      separatorBuilder: (BuildContext context, int idx) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25),
-        child: Divider(
-          thickness: 1,
-          color: Theme.of(context).primaryColor,
+                  List<Conversation> convos =
+                      items.map((e) => Conversation.fromJson(e.data())).toList()
+                        ..sort((a, b) {
+                          if (a.lastMessage == null && b.lastMessage == null) {
+                            return a.dateOfCreation
+                                .difference(b.dateOfCreation)
+                                .inHours;
+                          } else if (a.lastMessage == null) {
+                            return a.dateOfCreation
+                                .difference(b.lastMessage.date)
+                                .inHours;
+                          } else if (b.lastMessage == null) {
+                            a.lastMessage.date
+                                .difference(b.dateOfCreation)
+                                .inHours;
+                          }
+                          return a.lastMessage.date
+                              .difference(b.lastMessage.date)
+                              .inHours;
+                        });
+
+                  return ListView.separated(
+                    padding: EdgeInsets.only(top: 15),
+                    itemCount: items.length,
+                    separatorBuilder: (BuildContext context, int idx) =>
+                        Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: Divider(
+                        thickness: 1,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                    itemBuilder: (BuildContext context, int idx) {
+                      final conversation = convos[idx];
+                      final otherUser = conversation.members.values.firstWhere(
+                          (element) => element.userId != state.user.uid);
+                      return ConversationItem(
+                          conversation: conversation,
+                          otherUser: otherUser,
+                          widget: widget);
+                    },
+                  );
+                },
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
         ),
       ),
-      itemBuilder: (BuildContext context, int idx) {
-        final conversation = widget.conversationList[idx];
-        final otherUser = conversation.members.values
-            .firstWhere((element) => element.userId != 'mau4duran');
-        return ConversationItem(
-            conversation: conversation, otherUser: otherUser, widget: widget);
-      },
-      itemCount: widget.conversationList.length,
     );
   }
 }

@@ -6,3 +6,9 @@ abstract class ConversationsEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetUserConversationsEvent extends ConversationsEvent {
+  List<Object> get props => [];
+
+  get uid => null;
+}
