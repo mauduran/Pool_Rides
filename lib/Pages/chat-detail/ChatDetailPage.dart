@@ -58,20 +58,20 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        _bloc = MessagesBloc()
-          ..add(GetMessagesEvent(
-              conversationId: widget.conversation.conversationId));
-        return _bloc;
-      },
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          title: ChatDetailBar(
-              member: member, origin: origin, destination: destination),
-        ),
-        body: BlocConsumer<MessagesBloc, MessagesState>(
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        title: ChatDetailBar(
+            member: member, origin: origin, destination: destination),
+      ),
+      body: BlocProvider(
+        create: (context) {
+          _bloc = MessagesBloc()
+            ..add(GetMessagesEvent(
+                conversationId: widget.conversation.conversationId));
+          return _bloc;
+        },
+        child: BlocConsumer<MessagesBloc, MessagesState>(
           listener: (context, state) {},
           builder: (context, state) {
             if (state is ErrorState) {
@@ -155,10 +155,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 },
               );
             }
-            return Expanded(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
+            return Center(
+              child: CircularProgressIndicator(),
             );
           },
         ),
@@ -234,7 +232,6 @@ class MessagesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime currentDate;
     return Container(
       child: Expanded(
         child: ListView.builder(
@@ -243,6 +240,7 @@ class MessagesList extends StatelessWidget {
           reverse: true,
           padding: EdgeInsets.only(top: 10, bottom: 10),
           itemBuilder: (context, index) {
+            DateTime currentDate;
             var message = messages.reversed.toList()[index];
 
             if (index == messages.length - 1 ||
