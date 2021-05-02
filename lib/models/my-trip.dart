@@ -50,17 +50,18 @@ class MyTrip {
       "distanceOrigin": distanceOrigin,
       "reviewedUsers": reviewedUsers,
       "userUid": userUid,
-      "trip": trip
     };
   }
 
   MyTrip copyWith({
+    trip,
     distanceOrigin,
     distanceDestination,
     reviewedUsers,
     userUid,
   }) {
     return MyTrip(
+      trip: trip ?? this.trip,
       distanceOrigin: distanceOrigin ?? this.distanceOrigin,
       distanceDestination: distanceDestination ?? this.distanceDestination,
       reviewedUsers: reviewedUsers ?? this.reviewedUsers,

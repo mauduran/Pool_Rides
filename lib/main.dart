@@ -23,6 +23,7 @@ import 'models/place.dart';
 import 'models/review.dart';
 import 'models/trip.dart';
 import 'models/user.dart';
+import 'models/my-trip.dart';
 
 void main() async {
   Intl.defaultLocale = 'es_MX';
@@ -40,7 +41,8 @@ void main() async {
     ..registerAdapter(ConversationAdapter())
     ..registerAdapter(LatiLongAdapter())
     ..registerAdapter(PlaceAdapter())
-    ..registerAdapter(TripAdapter());
+    ..registerAdapter(TripAdapter())
+    ..registerAdapter(MyTripAdapter());
   Hive.openBox("MyTrips");
   Hive.openBox("User");
   Hive.openBox("Conversations");

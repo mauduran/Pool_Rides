@@ -9,6 +9,7 @@ import 'package:pool_rides/models/user.dart';
 import 'package:pool_rides/services/auth-service.dart';
 import 'package:pool_rides/services/my-trip-service.dart';
 import 'package:pool_rides/services/user-service.dart';
+import 'package:hive/hive.dart';
 
 part 'my_trips_event.dart';
 part 'my_trips_state.dart';
@@ -20,6 +21,8 @@ class MyTripsBloc extends Bloc<MyTripsEvent, MyTripsState> {
   static final UserService _userService = UserService();
   static final MyTripService _myTripService = MyTripService();
   User _myUser;
+
+  Box _myTripsBox = Hive.box("MyTrips");
 
   @override
   Stream<MyTripsState> mapEventToState(
@@ -37,12 +40,21 @@ class MyTripsBloc extends Bloc<MyTripsEvent, MyTripsState> {
           );
 
           myTrips = await _myTripService.getMyTrips(_myUser);
+          print(myTrips);
 
-          List<MyTrip> offlineMyTripList =
-              myTrips.map((MyTrip e) => e.copyWith()).toList();
+          List<MyTrip> offlineMyTripList = myTrips;
+          await _myTripsBox.put('trips', offlineMyTripList);
+          yield MyTripsFound(myTrips: myTrips, user: _myUser);
+        } else {
+          myTrips = List<MyTrip>.from(
+            _myTripsBox.get("trips", defaultValue: []),
+          );
+          print(myTrips);
+          yield MyTripsFound(myTrips: myTrips, user: _myUser);
         }
+        // print(myTrips);
 
-        yield MyTripsFound(myTrips: myTrips, user: _myUser);
+        // yield MyTripsFound(myTrips: myTrips, user: _myUser);
       } catch (e) {
         yield ErrorState(error: e.toString());
       }
