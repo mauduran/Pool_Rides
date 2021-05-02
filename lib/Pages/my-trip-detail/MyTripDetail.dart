@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pool_rides/Pages/chat-detail/ChatDetailPage.dart';
 import 'package:pool_rides/Pages/conversations/ConversationsPage.dart';
 import 'package:pool_rides/Pages/create-review/CreateReviewPage.dart';
 import 'package:pool_rides/Pages/location-visualizer/location-visualizer.dart';
@@ -222,7 +223,7 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                 if (conversation != null)
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ConversationsPage(
+                      builder: (context) => ChatDetailPage(
                         conversation: conversation,
                       ),
                     ),
@@ -279,8 +280,7 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
             thickness: 6,
             color: Colors.grey[500],
           ),
-          if ((trip.passengers.length < trip.passengerCapacity) &&
-              widget.user.uid != trip.driver.uid &&
+          if (widget.user.uid != trip.driver.uid &&
               trip.passengers.firstWhere(
                       (element) => element.uid == widget.user.uid,
                       orElse: () => null) !=
@@ -327,7 +327,8 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                                       user: widget.tripDetail.trip.driver),
                                 ),
                               );
-                              if (successfulReview) {
+                              if (successfulReview != null &&
+                                  successfulReview) {
                                 ScaffoldMessenger.of(context)
                                   ..hideCurrentSnackBar()
                                   ..showSnackBar(
