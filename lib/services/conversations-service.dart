@@ -48,47 +48,43 @@ class ConversationsService {
         tripId: trip.tripId,
       );
 
-      Map<String, dynamic> conversationMap = conversation.toMap();
-
       final convoUser = ConversationUser(
-          userId: user.uid,
-          name: user.name,
-          email: user.email,
-          phoneNumber: user.phoneNumber);
+        userId: user.uid,
+        name: user.name,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+      );
 
       final convoCurrentUser = ConversationUser(
-          userId: currentUser.uid,
-          name: currentUser.name,
-          email: currentUser.email,
-          phoneNumber: currentUser.phoneNumber);
-
-      conversationMap['members'] = {
-        convoUser.userId: convoUser.toMap(),
-        convoUser.userId: convoCurrentUser.toMap()
-      };
-
-      await ref.set(conversationMap);
+        userId: currentUser.uid,
+        name: currentUser.name,
+        email: currentUser.email,
+        phoneNumber: currentUser.phoneNumber,
+      );
 
       conversation.members = {
         convoCurrentUser.userId: convoCurrentUser,
         convoUser.userId: convoUser
       };
+
+      Map<String, dynamic> conversationMap = conversation.toMap();
+
+      await ref.set(conversationMap);
+
       return conversation;
     } catch (e) {
       return null;
     }
   }
 
-  Future<QuerySnapshot> getConversations() async {
+  Stream<QuerySnapshot> getConversations() {
     try {
       String uid = UserAuthProvider().getUid();
-
-      DocumentReference userRef = _cFirestore.collection('users').doc(uid);
 
       return _cFirestore
           .collection('conversations')
           .where('members.$uid.userId', isEqualTo: uid)
-          .get();
+          .snapshots();
     } catch (e) {
       return null;
     }

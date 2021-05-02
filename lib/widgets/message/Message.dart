@@ -4,10 +4,9 @@ import 'package:intl/intl.dart';
 
 class Message extends StatelessWidget {
   final ChatMessage message;
-  const Message({
-    Key key,
-    @required this.message,
-  }) : super(key: key);
+  final userUid;
+  const Message({Key key, @required this.message, @required this.userUid})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +15,11 @@ class Message extends StatelessWidget {
       padding: EdgeInsets.only(left: 14, right: 14, top: 5, bottom: 5),
       child: Align(
         widthFactor: 1,
-        alignment: (message.messageSender == "mau4duran"
+        alignment: (message.messageSender == userUid
             ? Alignment.topRight
             : Alignment.topLeft),
         child: Column(
-          crossAxisAlignment: (message.messageSender == "mau4duran"
+          crossAxisAlignment: (message.messageSender == userUid
               ? CrossAxisAlignment.end
               : CrossAxisAlignment.start),
           children: [
@@ -29,14 +28,14 @@ class Message extends StatelessWidget {
                   maxWidth: MediaQuery.of(context).size.width * .6),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: (message.messageSender == "mau4duran"
+                color: (message.messageSender == userUid
                     ? Theme.of(context).primaryColor
                     : Colors.grey.shade200),
               ),
               padding: EdgeInsets.all(16),
               child: Text(
                 message.messageContent,
-                style: (message.messageSender == "mau4duran"
+                style: (message.messageSender == userUid
                     ? Theme.of(context).accentTextTheme.bodyText1
                     : Theme.of(context).textTheme.bodyText1),
               ),

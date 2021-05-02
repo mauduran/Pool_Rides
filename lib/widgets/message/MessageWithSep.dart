@@ -5,10 +5,9 @@ import 'package:intl/intl.dart';
 
 class MessageWithSep extends StatelessWidget {
   final ChatMessage message;
-  const MessageWithSep({
-    Key key,
-    @required this.message,
-  }) : super(key: key);
+  final String uid;
+  const MessageWithSep({Key key, @required this.message, @required this.uid})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +49,10 @@ class MessageWithSep extends StatelessWidget {
                     )),
               ),
             ])),
-        Message(message: message)
+        Message(
+          message: message,
+          userUid: uid,
+        )
       ],
     );
   }
