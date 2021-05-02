@@ -9,6 +9,4 @@ abstract class ConversationsEvent extends Equatable {
 
 class GetUserConversationsEvent extends ConversationsEvent {
   List<Object> get props => [];
-
-  get uid => null;
 }

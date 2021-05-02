@@ -96,26 +96,9 @@ class _ConversationsPageState extends State<ConversationsPage> {
                               .inHours;
                         });
 
-                  return ListView.separated(
-                    padding: EdgeInsets.only(top: 15),
-                    itemCount: items.length,
-                    separatorBuilder: (BuildContext context, int idx) =>
-                        Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: Divider(
-                        thickness: 1,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    itemBuilder: (BuildContext context, int idx) {
-                      final conversation = convos[idx];
-                      final otherUser = conversation.members.values.firstWhere(
-                          (element) => element.userId != state.user.uid);
-                      return ConversationItem(
-                          conversation: conversation,
-                          otherUser: otherUser,
-                          widget: widget);
-                    },
+                  return ConversationsList(
+                    convos: convos,
+                    userUid: state.user.uid,
                   );
                 },
               );
@@ -130,17 +113,48 @@ class _ConversationsPageState extends State<ConversationsPage> {
   }
 }
 
+class ConversationsList extends StatelessWidget {
+  const ConversationsList({
+    Key key,
+    @required this.convos,
+    @required this.userUid,
+  }) : super(key: key);
+
+  final List<Conversation> convos;
+  final String userUid;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      padding: EdgeInsets.only(top: 15),
+      itemCount: convos.length,
+      separatorBuilder: (BuildContext context, int idx) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25),
+        child: Divider(
+          thickness: 1,
+          color: Theme.of(context).primaryColor,
+        ),
+      ),
+      itemBuilder: (BuildContext context, int idx) {
+        final conversation = convos[idx];
+        final otherUser = conversation.members.values
+            .firstWhere((element) => element.userId != userUid);
+        return ConversationItem(
+            conversation: conversation, otherUser: otherUser);
+      },
+    );
+  }
+}
+
 class ConversationItem extends StatelessWidget {
   const ConversationItem({
     Key key,
     @required this.conversation,
     @required this.otherUser,
-    @required this.widget,
   }) : super(key: key);
 
   final Conversation conversation;
   final ConversationUser otherUser;
-  final ConversationsPage widget;
 
   @override
   Widget build(BuildContext context) {
