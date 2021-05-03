@@ -86,18 +86,12 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (state is UserAddedSuccesfully) {
-                return tripWidget(
-                  trip: state.trip,
-                  distDest: state.distanceDestination,
-                  distOrigin: state.distanceOrigin,
-                );
               }
               return tripWidget(
-                trip: widget.tripDetail.trip,
-                distDest: widget.tripDetail.distanceDestination,
-                distOrigin: widget.tripDetail.distanceOrigin,
-              );
+                  trip: widget.tripDetail.trip,
+                  distDest: widget.tripDetail.distanceDestination,
+                  distOrigin: widget.tripDetail.distanceOrigin,
+                  reviewedUsers: widget.tripDetail.reviewedUsers);
             },
           ),
         ));
@@ -109,11 +103,11 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
 // ---------------------------------------------------
 // ---------------------------------------------------
 
-  Widget tripWidget({
-    Trip trip,
-    double distOrigin,
-    double distDest,
-  }) {
+  Widget tripWidget(
+      {Trip trip,
+      double distOrigin,
+      double distDest,
+      List<String> reviewedUsers}) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -275,7 +269,10 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
             ),
           ),
           for (int i = 0; i < trip.passengers.length; i++)
-            passengerBuilder(user: trip.passengers[i], trip: trip),
+            passengerBuilder(
+                user: trip.passengers[i],
+                trip: trip,
+                reviewedUsers: reviewedUsers),
           SizedBox(
             height: 10,
           ),
@@ -288,7 +285,10 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                       (element) => element.uid == widget.user.uid,
                       orElse: () => null) !=
                   null &&
-              trip.departureDate.isAfter(DateTime.now()))
+              trip.departureDate.isBefore(DateTime.now()) &&
+              reviewedUsers.firstWhere((element) => element == trip.driver.uid,
+                      orElse: () => null) ==
+                  null)
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -390,6 +390,7 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
   Widget passengerBuilder({
     @required User user,
     @required Trip trip,
+    @required List<String> reviewedUsers,
   }) {
     int numOfReviews = user.totalReviews;
     double averageRating = user.totalStars / numOfReviews;
@@ -527,6 +528,92 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                         ),
                       ],
                     ),
+                    if (widget.user.uid == trip.driver.uid &&
+                        trip.departureDate.isBefore(DateTime.now()) &&
+                        reviewedUsers.firstWhere(
+                                (element) => element == trip.driver.uid,
+                                orElse: () => null) ==
+                            null)
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 30,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: MaterialButton(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(100.0)),
+                                      height: 40,
+                                      color: Color.fromARGB(255, 51, 174, 250),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Reseñar",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      onPressed: () async {
+                                        final bool successfulReview =
+                                            await Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                CreateReviewPage(
+                                                    trip:
+                                                        widget.tripDetail.trip,
+                                                    user: user),
+                                          ),
+                                        );
+                                        if (successfulReview != null &&
+                                            successfulReview) {
+                                          ScaffoldMessenger.of(context)
+                                            ..hideCurrentSnackBar()
+                                            ..showSnackBar(
+                                              SnackBar(
+                                                content: Text("Reseña creada."),
+                                                duration: Duration(seconds: 3),
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                                action: SnackBarAction(
+                                                  label: "Aceptar",
+                                                  textColor: Colors.blue,
+                                                  onPressed: () {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .hideCurrentSnackBar();
+                                                  },
+                                                ),
+                                              ),
+                                            );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
                   ],
                 ),
             ],
