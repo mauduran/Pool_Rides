@@ -3,9 +3,11 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pool_rides/models/car.dart';
 import 'package:pool_rides/models/user.dart';
@@ -20,6 +22,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   UserAuthProvider _authProvider = UserAuthProvider();
   static final UserService _userService = UserService();
+  Box _myUserBox = Hive.box("User");
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
@@ -32,8 +35,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       try {
         yield LoadingState();
 
-        _myUser = await _userService.getCurrentUser(_authProvider.getUid(),
-            update: event.update);
+        var connectivityResult = await (Connectivity().checkConnectivity());
+        if (connectivityResult == ConnectivityResult.mobile ||
+            connectivityResult == ConnectivityResult.wifi) {
+          _myUser = await _userService.getCurrentUser(_authProvider.getUid(),
+              update: event.update);
+        } else {
+          _myUser = _myUserBox.get("current_user");
+        }
 
         yield UserFoundState(
           msg: "User found succesfully!",
