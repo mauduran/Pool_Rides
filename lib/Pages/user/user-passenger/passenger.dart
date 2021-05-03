@@ -78,8 +78,23 @@ class _PassengerDetailState extends State<PassengerDetail> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
+              // SizedBox(
+              //   height: 10,
+              // ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 20,
+                  left: 30,
+                  right: 30,
+                  bottom: 10,
+                ),
+                child: Text(
+                  "${widget.user.biography ?? "Sin biografia"}",
+                  style: TextStyle(
+                    fontSize: 17.5,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
               ),
               GestureDetector(
                 onTap: () {
@@ -122,6 +137,22 @@ class _PassengerDetailState extends State<PassengerDetail> {
                         size: 25,
                       ),
                     ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 30,
+                  right: 30,
+                ),
+                child: Text(
+                  "${widget.user.phoneNumber ?? "Sin número"}",
+                  style: TextStyle(
+                    fontSize: 17.5,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),

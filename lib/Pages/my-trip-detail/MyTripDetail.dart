@@ -453,11 +453,13 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                   Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          user.image != ""
-                              ? user.image
-                              : "https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png",
-                        ),
+                        backgroundImage:
+                            (user.image != null && user.image != '')
+                                ? NetworkImage(
+                                    user.image,
+                                  )
+                                : AssetImage(
+                                    'assets/images/avatar_placeholder.png'),
                         maxRadius: 22.5,
                         backgroundColor: Colors.grey[300],
                       ),

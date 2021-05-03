@@ -13,6 +13,7 @@ class MyTrips extends StatefulWidget {
 
 class _MyTripsState extends State<MyTrips> {
   MyTripsBloc _bloc;
+  bool isNotConnected = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +23,28 @@ class _MyTripsState extends State<MyTrips> {
               return _bloc;
             },
             child: BlocConsumer<MyTripsBloc, MyTripsState>(
-              listener: (context, state) {},
+              listener: (context, state) {
+                if (state is OfflineMode) {
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      SnackBar(
+                        content: Text("Modo offline: viajes guardados"),
+                        duration: Duration(seconds: 3),
+                        behavior: SnackBarBehavior.floating,
+                        action: SnackBarAction(
+                          label: "Aceptar",
+                          textColor: Colors.blue,
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          },
+                        ),
+                      ),
+                    );
+                } else if (state is OfflineMode) {
+                  isNotConnected = true;
+                }
+              },
               builder: (context, state) {
                 if (state is LoadingState) {
                   return Center(
