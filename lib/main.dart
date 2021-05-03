@@ -43,9 +43,10 @@ void main() async {
     ..registerAdapter(PlaceAdapter())
     ..registerAdapter(TripAdapter())
     ..registerAdapter(MyTripAdapter());
-  Hive.openBox("MyTrips");
-  Hive.openBox("User");
-  Hive.openBox("Conversations");
+  await Hive.openBox("MyTrips");
+  await Hive.openBox("User");
+  await Hive.openBox("Conversations");
+  await Hive.openBox("Messages");
 
   runApp(BlocProvider(
     create: (context) => AuthBloc()..add(VerifyAuthEvent()),
