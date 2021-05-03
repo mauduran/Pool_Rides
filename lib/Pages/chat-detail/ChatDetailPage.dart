@@ -72,7 +72,26 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
           return _bloc;
         },
         child: BlocConsumer<MessagesBloc, MessagesState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is OfflineMessagesState) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text("Modo offline: mensajes guardados"),
+                    duration: Duration(seconds: 3),
+                    behavior: SnackBarBehavior.floating,
+                    action: SnackBarAction(
+                      label: "Aceptar",
+                      textColor: Colors.blue,
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      },
+                    ),
+                  ),
+                );
+            }
+          },
           builder: (context, state) {
             if (state is ErrorState) {
               return Container(
@@ -81,11 +100,47 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 ),
               );
             } else if (state is OfflineMessagesState) {
-              return Container(
-                child: Center(
-                  child:
-                      Text("Aqui se deben mostrar las conversaciones offline"),
-                ),
+              return Column(
+                children: [
+                  MessagesList(
+                    messages: state.messages,
+                    uid: state.user.uid,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: 10, bottom: 10, top: 10, right: 10),
+                    constraints: BoxConstraints(minHeight: 60, maxHeight: 300),
+                    width: double.infinity,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            controller: _messageInput,
+                            onSubmitted: (e) => addMessage(),
+                            decoration: InputDecoration(
+                                hintText: "Write message...",
+                                hintStyle: TextStyle(color: Colors.black54),
+                                border: InputBorder.none),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        FloatingActionButton(
+                          onPressed: () {
+                            addMessage();
+                          },
+                          child: Icon(
+                            Icons.send,
+                          ),
+                          elevation: 0,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               );
             } else if (state is MessagesSnapshotsState) {
               return StreamBuilder(
@@ -109,6 +164,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   List<ChatMessage> messages =
                       items.map((e) => ChatMessage.fromJson(e.data())).toList();
 
+                  MessagesService().saveMessages(
+                      messages, widget.conversation.conversationId);
                   return Column(
                     children: [
                       MessagesList(

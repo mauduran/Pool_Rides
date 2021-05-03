@@ -7,6 +7,7 @@ import 'package:pool_rides/Pages/chat-detail/ChatDetailPage.dart';
 import 'package:pool_rides/bloc/conversations-bloc/conversations_bloc.dart';
 import 'package:pool_rides/models/conversation-user.dart';
 import 'package:pool_rides/models/conversation.dart';
+import 'package:pool_rides/services/conversations-service.dart';
 
 class ConversationsPage extends StatefulWidget {
   final Conversation conversation;
@@ -39,7 +40,26 @@ class _ConversationsPageState extends State<ConversationsPage> {
           return _bloc;
         },
         child: BlocConsumer<ConversationsBloc, ConversationsState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is OfflineConversationsState) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text("Modo offline: conversaciones guardadas"),
+                    duration: Duration(seconds: 3),
+                    behavior: SnackBarBehavior.floating,
+                    action: SnackBarAction(
+                      label: "Aceptar",
+                      textColor: Colors.blue,
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      },
+                    ),
+                  ),
+                );
+            }
+          },
           builder: (context, state) {
             if (state is ErrorState) {
               return Container(
@@ -48,11 +68,11 @@ class _ConversationsPageState extends State<ConversationsPage> {
                 ),
               );
             } else if (state is OfflineConversationsState) {
-              return Container(
-                child: Center(
-                  child:
-                      Text("Aqui se deben mostrar las conversaciones offline"),
-                ),
+              print("Hola mundo");
+
+              return ConversationsList(
+                convos: state.conversations,
+                userUid: state.user.uid,
               );
             } else if (state is ConversationSnapshotsState) {
               return StreamBuilder(
@@ -93,7 +113,7 @@ class _ConversationsPageState extends State<ConversationsPage> {
                               .difference(b.lastMessage.date)
                               .inHours;
                         });
-
+                  ConversationsService.saveConversations(convos);
                   return ConversationsList(
                     convos: convos,
                     userUid: state.user.uid,
