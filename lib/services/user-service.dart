@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hive/hive.dart';
 import 'package:pool_rides/models/user.dart';
 
 class UserService {
@@ -14,7 +15,12 @@ class UserService {
   }
 
   Future<User> getCurrentUser(String uid, {bool update = false}) async {
+    Box _myUserBox = Hive.box("User");
+
     if (_currentUser == null || update) _currentUser = await fetchUser(uid);
+
+    await _myUserBox.put('current_user', _currentUser);
+
     return _currentUser;
   }
 
