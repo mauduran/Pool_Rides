@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hive/hive.dart';
 import 'package:pool_rides/models/conversation-user.dart';
 import 'package:pool_rides/models/conversation.dart';
 import 'package:pool_rides/models/trip.dart';
@@ -13,7 +14,7 @@ class ConversationsService {
 
   static final ConversationsService _conversationService =
       new ConversationsService._internal();
-
+  static Box _myConversationsBox = Hive.box("Conversations");
   ConversationsService._internal();
   factory ConversationsService() {
     return _conversationService;
@@ -88,5 +89,9 @@ class ConversationsService {
     } catch (e) {
       return null;
     }
+  }
+
+  static void saveConversations(List<Conversation> convs) {
+    _myConversationsBox.put("conversations", convs);
   }
 }
