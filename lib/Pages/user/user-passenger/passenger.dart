@@ -3,6 +3,7 @@ import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PassengerDetail extends StatefulWidget {
   final User user;
@@ -66,22 +67,6 @@ class _PassengerDetailState extends State<PassengerDetail> {
                   ),
                 ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10.0,
-                  horizontal: 30,
-                ),
-                child: Text(
-                  "${widget.user.biography}",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-              // SizedBox(
-              //   height: 10,
-              // ),
-              Padding(
                 padding: const EdgeInsets.only(
                   top: 20,
                   left: 30,
@@ -92,9 +77,32 @@ class _PassengerDetailState extends State<PassengerDetail> {
                   "${widget.user.biography ?? "Sin biografia"}",
                   style: TextStyle(
                     fontSize: 17.5,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
+              ),
+              GestureDetector(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 30,
+                    right: 30,
+                  ),
+                  child: Text(
+                    "${widget.user.phoneNumber ?? "Sin número"}",
+                    style: TextStyle(
+                      fontSize: 17.5,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                onTap: () async {
+                  if (widget.user.phoneNumber != "")
+                    await launch(("tel://${widget.user.phoneNumber}"));
+                  print(await canLaunch("tel://${widget.user.phoneNumber}"));
+                },
+              ),
+              SizedBox(
+                height: 5,
               ),
               GestureDetector(
                 onTap: () {
@@ -137,22 +145,6 @@ class _PassengerDetailState extends State<PassengerDetail> {
                         size: 25,
                       ),
                     ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 30,
-                  right: 30,
-                ),
-                child: Text(
-                  "${widget.user.phoneNumber ?? "Sin número"}",
-                  style: TextStyle(
-                    fontSize: 17.5,
-                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),
