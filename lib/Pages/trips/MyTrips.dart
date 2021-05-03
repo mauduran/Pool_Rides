@@ -64,8 +64,9 @@ class _MyTripsState extends State<MyTrips> {
                               SizedBox(height: 20),
                               for (int i = 0; i < state.myTrips.length; i++)
                                 GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).push(
+                                  onTap: () async {
+                                    var madeChanges =
+                                        await Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) => MyTripDetailPage(
                                           tripDetail: state.myTrips[i],
@@ -73,6 +74,27 @@ class _MyTripsState extends State<MyTrips> {
                                         ),
                                       ),
                                     );
+                                    if (madeChanges != null && madeChanges) {
+                                      _bloc.add(SearchMyTrips());
+                                      ScaffoldMessenger.of(context)
+                                        ..hideCurrentSnackBar()
+                                        ..showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                "Viaje registrado exitosamente"),
+                                            duration: Duration(seconds: 3),
+                                            behavior: SnackBarBehavior.floating,
+                                            action: SnackBarAction(
+                                              label: "Aceptar",
+                                              textColor: Colors.blue,
+                                              onPressed: () {
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentSnackBar();
+                                              },
+                                            ),
+                                          ),
+                                        );
+                                    }
                                   },
                                   child: TripCard(
                                     trip: state.myTrips[i].trip,

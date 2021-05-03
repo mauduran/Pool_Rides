@@ -62,23 +62,6 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
             listener: (context, state) {
               if (state is ErrorState) {
                 showErrorDialog(context, state);
-              } else if (state is UserAddedSuccesfully) {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(
-                      content: Text("Viaje registrado exitosamente"),
-                      duration: Duration(seconds: 3),
-                      behavior: SnackBarBehavior.floating,
-                      action: SnackBarAction(
-                        label: "Aceptar",
-                        textColor: Colors.blue,
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        },
-                      ),
-                    ),
-                  );
               }
             },
             builder: (context, state) {
@@ -333,23 +316,7 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                               );
                               if (successfulReview != null &&
                                   successfulReview) {
-                                ScaffoldMessenger.of(context)
-                                  ..hideCurrentSnackBar()
-                                  ..showSnackBar(
-                                    SnackBar(
-                                      content: Text("Reseña creada."),
-                                      duration: Duration(seconds: 3),
-                                      behavior: SnackBarBehavior.floating,
-                                      action: SnackBarAction(
-                                        label: "Aceptar",
-                                        textColor: Colors.blue,
-                                        onPressed: () {
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                        },
-                                      ),
-                                    ),
-                                  );
+                                Navigator.of(context).pop(true);
                               }
                             },
                           ),
@@ -531,8 +498,8 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                     if (widget.user.uid == trip.driver.uid &&
                         trip.departureDate.isBefore(DateTime.now()) &&
                         reviewedUsers.firstWhere(
-                                (element) => element == trip.driver.uid,
-                                orElse: () => null) ==
+                                (element) => element == user.uid,
+                                orElse: () => null) !=
                             null)
                       Column(
                         mainAxisSize: MainAxisSize.min,
@@ -575,32 +542,14 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 CreateReviewPage(
-                                                    trip:
-                                                        widget.tripDetail.trip,
-                                                    user: user),
+                                              trip: widget.tripDetail.trip,
+                                              user: user,
+                                            ),
                                           ),
                                         );
                                         if (successfulReview != null &&
                                             successfulReview) {
-                                          ScaffoldMessenger.of(context)
-                                            ..hideCurrentSnackBar()
-                                            ..showSnackBar(
-                                              SnackBar(
-                                                content: Text("Reseña creada."),
-                                                duration: Duration(seconds: 3),
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                action: SnackBarAction(
-                                                  label: "Aceptar",
-                                                  textColor: Colors.blue,
-                                                  onPressed: () {
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .hideCurrentSnackBar();
-                                                  },
-                                                ),
-                                              ),
-                                            );
+                                          Navigator.of(context).pop(true);
                                         }
                                       },
                                     ),
