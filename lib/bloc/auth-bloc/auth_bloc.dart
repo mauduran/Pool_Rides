@@ -3,9 +3,11 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
 import 'package:pool_rides/models/user.dart' as UserModel;
 import 'package:pool_rides/services/auth-service.dart';
 import 'package:pool_rides/services/user-service.dart';
+import 'package:pool_rides/services/messages-service.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -17,6 +19,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   String registerName;
   String registerEmail;
   String registerPassword;
+
+  Box _myTripsBox = Hive.box("MyTrips");
+  Box _userBox = Hive.box("User");
+  Box _myConversationsBox = Hive.box("Conversations");
 
   @override
   Stream<AuthState> mapEventToState(
@@ -32,6 +38,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       else
         yield UnAuthState();
     } else if (event is SignOutAuthEvent) {
+      _myTripsBox.delete("trips");
+      _userBox.delete("current_user");
+      _myConversationsBox.delete("conversations");
+      MessagesService().removeMessages();
+      print("\n");
+      print("trips:");
+
+      print(_myTripsBox.containsKey('trips'));
+      print("current_user:");
+
+      print(_userBox.containsKey('current_user'));
+      print("conversations:");
+
+      print(_myConversationsBox.containsKey('conversations'));
+
       UserService().removeCurrentUser();
       _authProvider
         ..signOutFirebase()
