@@ -27,11 +27,6 @@ class ConversationsBloc extends Bloc<ConversationsEvent, ConversationsState> {
   ) async* {
     if (event is GetUserConversationsEvent) {
       try {
-        // TODO: Check connectivity. If offline then get Hive conversations.
-        // Yield OfflineConversationsState
-        // yield OfflineConversationsState(
-        //     conversations: conversations, user: user);
-
         var connectivityResult = await (Connectivity().checkConnectivity());
         if (connectivityResult == ConnectivityResult.mobile ||
             connectivityResult == ConnectivityResult.wifi) {

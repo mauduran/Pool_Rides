@@ -27,8 +27,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   MessagesBloc _bloc;
   ConversationUser member;
 
-  DateTime currentDate;
-
   final _messageInput = TextEditingController();
   @override
   void initState() {
@@ -297,7 +295,6 @@ class MessagesList extends StatelessWidget {
           reverse: true,
           padding: EdgeInsets.only(top: 10, bottom: 10),
           itemBuilder: (context, index) {
-            DateTime currentDate;
             var message = messages.reversed.toList()[index];
 
             if (index == messages.length - 1 ||
@@ -308,7 +305,6 @@ class MessagesList extends StatelessWidget {
                         .inDays
                         .abs()) !=
                     0) {
-              currentDate = message.date;
               return MessageWithSep(
                 message: message,
                 uid: uid,

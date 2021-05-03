@@ -40,18 +40,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else if (event is SignOutAuthEvent) {
       _myTripsBox.delete("trips");
       _userBox.delete("current_user");
-      _myConversationsBox.delete("conversations");
       MessagesService().removeMessages();
-      print("\n");
-      print("trips:");
-
-      print(_myTripsBox.containsKey('trips'));
-      print("current_user:");
-
-      print(_userBox.containsKey('current_user'));
-      print("conversations:");
-
-      print(_myConversationsBox.containsKey('conversations'));
+      _myConversationsBox.delete("conversations");
 
       UserService().removeCurrentUser();
       _authProvider

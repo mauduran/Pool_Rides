@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import 'package:pool_rides/models/message.dart';
+import 'package:pool_rides/models/conversation.dart';
 import 'package:pool_rides/services/auth-service.dart';
 
 class MessagesService {
@@ -11,8 +12,7 @@ class MessagesService {
   static final MessagesService _messagesService =
       new MessagesService._internal();
   Box _myMessagesBox = Hive.box("Messages");
-
-  List<String> conversationNums = [];
+  Box _myConversationsBox = Hive.box("Conversations");
 
   MessagesService._internal();
   factory MessagesService() {
@@ -55,15 +55,14 @@ class MessagesService {
   }
 
   void saveMessages(List<ChatMessage> messages, String conversationId) {
-    conversationNums.add(conversationId);
     _myMessagesBox.put("$conversationId", messages);
   }
 
   void removeMessages() {
-    print("Messages");
-    for (int i = 0; i < conversationNums.length; i++) {
-      _myMessagesBox.delete("${conversationNums[i]}");
-      print(_myMessagesBox.containsKey('${conversationNums[i]}'));
+    List<Conversation> convs = _myConversationsBox.get("conversations");
+
+    for (int i = 0; i < convs.length; i++) {
+      _myMessagesBox.delete("${convs[i].conversationId}");
     }
   }
 }

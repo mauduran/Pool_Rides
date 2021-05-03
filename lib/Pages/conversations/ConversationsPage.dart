@@ -68,8 +68,6 @@ class _ConversationsPageState extends State<ConversationsPage> {
                 ),
               );
             } else if (state is OfflineConversationsState) {
-              print("Hola mundo");
-
               return ConversationsList(
                 convos: state.conversations,
                 userUid: state.user.uid,
