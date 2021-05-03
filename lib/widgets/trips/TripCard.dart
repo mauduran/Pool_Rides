@@ -31,7 +31,7 @@ class TripCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         child: Container(
           padding: EdgeInsets.fromLTRB(20, 10, 15, 10),
-          height: 250,
+          height: 240,
           decoration: BoxDecoration(
             color: Color(0xFFEFF2F6),
             borderRadius: BorderRadius.circular(10),
