@@ -22,6 +22,8 @@ class MyTripsFound extends MyTripsState {
 
 class LoadingState extends MyTripsState {}
 
+class OfflineMode extends MyTripsInitial {}
+
 class ErrorState extends MyTripsState {
   final String error;
   final String code;

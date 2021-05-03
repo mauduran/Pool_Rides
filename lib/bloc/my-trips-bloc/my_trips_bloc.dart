@@ -23,6 +23,7 @@ class MyTripsBloc extends Bloc<MyTripsEvent, MyTripsState> {
   User _myUser;
 
   Box _myTripsBox = Hive.box("MyTrips");
+  Box _myUserBox = Hive.box("User");
 
   @override
   Stream<MyTripsState> mapEventToState(
@@ -40,21 +41,19 @@ class MyTripsBloc extends Bloc<MyTripsEvent, MyTripsState> {
           );
 
           myTrips = await _myTripService.getMyTrips(_myUser);
-          print(myTrips);
 
           List<MyTrip> offlineMyTripList = myTrips;
           await _myTripsBox.put('trips', offlineMyTripList);
+
           yield MyTripsFound(myTrips: myTrips, user: _myUser);
         } else {
           myTrips = List<MyTrip>.from(
             _myTripsBox.get("trips", defaultValue: []),
           );
-          print(myTrips);
+          _myUser = _myUserBox.get("current_user");
+
           yield MyTripsFound(myTrips: myTrips, user: _myUser);
         }
-        // print(myTrips);
-
-        // yield MyTripsFound(myTrips: myTrips, user: _myUser);
       } catch (e) {
         yield ErrorState(error: e.toString());
       }
