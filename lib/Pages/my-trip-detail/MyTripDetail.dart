@@ -288,8 +288,7 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                       (element) => element.uid == widget.user.uid,
                       orElse: () => null) !=
                   null &&
-              DateTime.parse(trip.departureDate.toString())
-                  .isBefore(DateTime.now()))
+              trip.departureDate.isAfter(DateTime.now()))
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -392,6 +391,8 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
     @required User user,
     @required Trip trip,
   }) {
+    int numOfReviews = user.totalReviews;
+    double averageRating = user.totalStars / numOfReviews;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: GestureDetector(
@@ -491,7 +492,38 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                               fontSize: 20,
                             ),
                           ),
-                          onTap: () {},
+                          onTap: () async {
+                            Conversation conversation =
+                                await ConversationsService()
+                                    .createConversationIfNotExists(trip, user);
+                            if (conversation != null)
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => ChatDetailPage(
+                                    conversation: conversation,
+                                  ),
+                                ),
+                              );
+                            else
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        "No se puede contactar al usuario"),
+                                    duration: Duration(seconds: 3),
+                                    behavior: SnackBarBehavior.floating,
+                                    action: SnackBarAction(
+                                      label: "Aceptar",
+                                      textColor: Colors.blue,
+                                      onPressed: () {
+                                        ScaffoldMessenger.of(context)
+                                            .hideCurrentSnackBar();
+                                      },
+                                    ),
+                                  ),
+                                );
+                          },
                         ),
                       ],
                     ),
