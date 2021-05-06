@@ -88,7 +88,10 @@ class _PassengerDetailState extends State<PassengerDetail> {
                     right: 30,
                   ),
                   child: Text(
-                    "Llamar",
+                    (widget.user.phoneNumber != null &&
+                            widget.user.phoneNumber != "")
+                        ? "Llamar"
+                        : "Telefono no registrado.",
                     style: TextStyle(
                       fontSize: 17.5,
                       color: (widget.user.phoneNumber != null)
