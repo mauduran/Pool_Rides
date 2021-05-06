@@ -26,13 +26,6 @@ class ReviewsBloc extends Bloc<ReviewsEvent, ReviewsState> {
         yield LoadingState();
         User user =
             await UserService().getCurrentUser(UserAuthProvider().getUid());
-        if (user.car == null || user.car.brand == null) {
-          yield ErrorState(
-            error: "Por favor registra tu auto primero.",
-            code: "400",
-          );
-          return;
-        }
 
         bool createdReview = await ReviewsService().createReview(
           reviewer: user,

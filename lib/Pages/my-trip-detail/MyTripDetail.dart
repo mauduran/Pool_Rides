@@ -499,7 +499,7 @@ class _MyTripDetailPageState extends State<MyTripDetailPage> {
                         trip.departureDate.isBefore(DateTime.now()) &&
                         reviewedUsers.firstWhere(
                                 (element) => element == user.uid,
-                                orElse: () => null) !=
+                                orElse: () => null) ==
                             null)
                       Column(
                         mainAxisSize: MainAxisSize.min,

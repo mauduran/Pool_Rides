@@ -81,7 +81,7 @@ class _MyTripsState extends State<MyTrips> {
                                         ..showSnackBar(
                                           SnackBar(
                                             content: Text(
-                                                "Viaje registrado exitosamente"),
+                                                "Reseña realizada exitosamente"),
                                             duration: Duration(seconds: 3),
                                             behavior: SnackBarBehavior.floating,
                                             action: SnackBarAction(
