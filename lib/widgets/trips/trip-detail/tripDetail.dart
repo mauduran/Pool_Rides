@@ -1,14 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pool_rides/Pages/chat-detail/ChatDetailPage.dart';
 import 'package:pool_rides/Pages/location-visualizer/location-visualizer.dart';
 import 'package:pool_rides/Pages/user/user-passenger/passenger.dart';
 import 'package:pool_rides/bloc/trip-detail-bloc/bloc/trip_detail_bloc.dart';
 import 'package:pool_rides/models/car.dart';
+import 'package:pool_rides/models/conversation.dart';
 import 'package:pool_rides/models/place.dart';
 import 'package:pool_rides/models/trip.dart';
 import 'package:pool_rides/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:pool_rides/services/conversations-service.dart';
 
 class TripDetailPage extends StatefulWidget {
   final Trip tripDetail;
@@ -206,12 +209,40 @@ class _TripDetailPageState extends State<TripDetailPage> {
                 'Contactar a ${trip.driver.name}',
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
-                  // color: Color(0xffe0e6eb),
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
               ),
-              onTap: () {},
+              onTap: () async {
+                Conversation conversation = await ConversationsService()
+                    .createConversationIfNotExists(trip, trip.driver);
+
+                if (conversation != null)
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ChatDetailPage(
+                        conversation: conversation,
+                      ),
+                    ),
+                  );
+                else
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      SnackBar(
+                        content: Text("No se puede contactar al usuario"),
+                        duration: Duration(seconds: 3),
+                        behavior: SnackBarBehavior.floating,
+                        action: SnackBarAction(
+                          label: "Aceptar",
+                          textColor: Colors.blue,
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          },
+                        ),
+                      ),
+                    );
+              },
             ),
           ),
           carInformation(
@@ -330,6 +361,8 @@ class _TripDetailPageState extends State<TripDetailPage> {
   Widget passengerBuilder({
     @required User user,
   }) {
+    int numOfReviews = user.totalReviews;
+    double averageRating = user.totalStars / numOfReviews;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: GestureDetector(
