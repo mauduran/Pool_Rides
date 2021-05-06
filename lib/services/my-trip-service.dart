@@ -77,7 +77,7 @@ class MyTripService {
       List<MyTrip> myTrips = await Future.wait(myTripsFuture);
 
       myTrips.sort((a, b) =>
-          a.trip.departureDate.difference(b.trip.departureDate).inHours);
+          b.trip.departureDate.difference(a.trip.departureDate).inHours);
       return myTrips;
     } catch (e) {
       return null;
