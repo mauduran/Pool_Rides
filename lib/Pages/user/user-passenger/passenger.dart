@@ -81,24 +81,29 @@ class _PassengerDetailState extends State<PassengerDetail> {
                   ),
                 ),
               ),
-              GestureDetector(
+              InkWell(
                 child: Padding(
                   padding: const EdgeInsets.only(
                     left: 30,
                     right: 30,
                   ),
                   child: Text(
-                    "${widget.user.phoneNumber ?? "Sin número"}",
+                    "Llamar",
                     style: TextStyle(
                       fontSize: 17.5,
+                      color: (widget.user.phoneNumber != null)
+                          ? Colors.blue[900]
+                          : Colors.black,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
                 onTap: () async {
-                  if (widget.user.phoneNumber != "")
-                    await launch(("tel://${widget.user.phoneNumber}"));
-                  print(await canLaunch("tel://${widget.user.phoneNumber}"));
+                  if (widget.user.phoneNumber != null &&
+                      widget.user.phoneNumber !=
+                          "") if (await canLaunch(
+                      "tel:${widget.user.phoneNumber}"))
+                    await launch(("tel:${widget.user.phoneNumber}"));
                 },
               ),
               SizedBox(
