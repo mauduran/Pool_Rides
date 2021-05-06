@@ -38,10 +38,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       else
         yield UnAuthState();
     } else if (event is SignOutAuthEvent) {
-      _myTripsBox.delete("trips");
-      _userBox.delete("current_user");
+      _myTripsBox.clear();
+      _userBox.clear();
+
       MessagesService().removeMessages();
-      _myConversationsBox.delete("conversations");
+
+      _myConversationsBox.clear();
 
       UserService().removeCurrentUser();
       _authProvider

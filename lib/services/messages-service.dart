@@ -59,10 +59,6 @@ class MessagesService {
   }
 
   void removeMessages() {
-    List<Conversation> convs = _myConversationsBox.get("conversations");
-
-    for (int i = 0; i < convs.length; i++) {
-      _myMessagesBox.delete("${convs[i].conversationId}");
-    }
+    _myMessagesBox.clear();
   }
 }
