@@ -476,6 +476,7 @@ class _UserProfileState extends State<UserProfile> {
             ),
             GestureDetector(
               onTap: () {
+                if (numOfReviews == 0) return;
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => ReviewsPage(
