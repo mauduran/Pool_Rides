@@ -103,7 +103,7 @@ class _ConversationsPageState extends State<ConversationsPage> {
                                 .difference(b.lastMessage.date)
                                 .inHours;
                           } else if (b.lastMessage == null) {
-                            a.lastMessage.date
+                            return a.lastMessage.date
                                 .difference(b.dateOfCreation)
                                 .inHours;
                           }
