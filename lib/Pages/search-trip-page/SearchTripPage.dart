@@ -197,7 +197,7 @@ class _SearchTripPageState extends State<SearchTripPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "${(dateFormat == null || (DateTime.now().difference(tripDate).inDays.abs()) < 1) ? 'Hoy' : dateFormat.format(tripDate)}",
+                    "${(dateFormat == null || (dateFormat.format(DateTime.now()) == dateFormat.format(tripDate))) ? 'Hoy' : dateFormat.format(tripDate)}",
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                   SizedBox(
