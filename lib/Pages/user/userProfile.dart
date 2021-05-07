@@ -218,7 +218,7 @@ class _UserProfileState extends State<UserProfile> {
                 bottom: 10,
               ),
               child: Text(
-                "${user.biography}",
+                "${user.biography ?? "Sin biografia"}",
                 style: TextStyle(
                   fontSize: 17.5,
                   fontWeight: FontWeight.w400,
